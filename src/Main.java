@@ -57,8 +57,41 @@ public class Main {
 
     }
 
-    public static void mainMenu(){}
+    public static void mainMenu(){
+        String order = scanner.nextLine();
+        boolean exit = false;
+        while(!exit){
+            if(order.compareToIgnoreCase("Play") == 0){}
+            else if(order.compareToIgnoreCase("profile") == 0){
+                exit = true;
+                profileMenu();
+            }
+            else if(order.compareToIgnoreCase("shop") == 0){
+                exit = true;
+                shopMenu();
+            }
+            else if(order.compareToIgnoreCase("exit") == 0){
+                exit = true;
+                loginMenu();
+            }
+            else if(order.compareToIgnoreCase("help") == 0){
+                System.out.println("Play\nprofile\nshop\nexit\nhelp");
+            }
+            else
+                System.out.println("invalid command");
+        }
+    }
 
+
+    public static void profileMenu(){
+        String order = scanner.nextLine();
+        boolean exit = false;
+        while(!exit){
+           //TODO
+        }
+    }
+
+    public static void shopMenu(){}
 
     public static User getUserByName(String username){
         for(User user : users){
