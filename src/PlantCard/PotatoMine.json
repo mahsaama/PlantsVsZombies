@@ -1,0 +1,8 @@
+{
+  "name": "PotatoMine",
+  "id": null,
+  "life": 1,
+  "rest": 3,
+  "numberOfSuns": 2,
+  "offTurns": 1
+}

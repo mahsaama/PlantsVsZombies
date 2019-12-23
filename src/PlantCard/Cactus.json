@@ -1,0 +1,12 @@
+{
+  "name": "Cactus",
+  "id": null,
+  "life": 5,
+  "rest": 4,
+  "numberOfSuns": 5,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turn": 2,
+  "shootNum": 1,
+  "hurtToZombie": 1
+}

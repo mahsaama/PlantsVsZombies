@@ -1,0 +1,11 @@
+{
+  "name": "GatlingPea",
+  "id": null,
+  "life": 3,
+  "rest": 4,
+  "numberOfSuns": 5,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turn": 5,
+  "shootNum": 4
+}

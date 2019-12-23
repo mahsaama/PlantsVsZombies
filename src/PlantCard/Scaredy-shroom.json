@@ -1,0 +1,12 @@
+{
+  "name": "Scaredy-shroom",
+  "id": null,
+  "life": 1,
+  "rest": 2,
+  "numberOfSuns": 1,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turn": 2,
+  "shootNum": 1,
+  "minDistanceToShoot": 2
+}

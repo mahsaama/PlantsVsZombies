@@ -1,0 +1,11 @@
+{
+  "name": "Peashooter",
+  "id": null,
+  "life": 2,
+  "rest": 2,
+  "numberOfSuns": 2,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turn": 2,
+  "ShootNum": 1
+}

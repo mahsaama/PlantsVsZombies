@@ -1,0 +1,11 @@
+{
+  "name": "Threepeater",
+  "id": null,
+  "life": 5,
+  "rest": 4,
+  "numberOfSuns": 4,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turn": 4,
+  "shootNum": 1
+}

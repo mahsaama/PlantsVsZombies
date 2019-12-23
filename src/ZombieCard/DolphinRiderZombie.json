@@ -1,0 +1,8 @@
+{
+  "name": "DolphinRiderZombie",
+  "id": null,
+  "life": 2,
+  "speed": 2,
+  "guard": true,
+  "guardLife": 2
+}

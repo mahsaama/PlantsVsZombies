@@ -1,0 +1,8 @@
+{
+  "name": "BucketheadZombie",
+  "id": null,
+  "life": 3,
+  "speed": 2,
+  "hat": true,
+  "lifeDec": 1
+}

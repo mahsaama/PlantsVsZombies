@@ -1,0 +1,11 @@
+{
+  "name": "Cabbage-pult",
+  "id": null,
+  "life": 2,
+  "rest": 3,
+  "numberOfSuns": 2,
+  "bulletType": "shot",
+  "hurtOfBullet": 2,
+  "turn": 2,
+  "ShootNum": 1
+}

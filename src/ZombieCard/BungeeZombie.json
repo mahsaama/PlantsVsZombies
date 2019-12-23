@@ -1,0 +1,7 @@
+{
+  "name": "BungeeZombie",
+  "id": null,
+  "life": 3,
+  "speed": 0,
+  "remainTurns": 3
+}

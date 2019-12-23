@@ -1,0 +1,12 @@
+{
+  "name": "Winter Melon",
+  "id": null,
+  "life": 3,
+  "rest": 5,
+  "numberOfSuns": 4,
+  "bulletType": "shot",
+  "hurtOfBullet": 3,
+  "turn": 4,
+  "shootNum": 1,
+  "effectOnZombieSpeed": 2
+}

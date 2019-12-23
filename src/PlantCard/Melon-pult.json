@@ -1,0 +1,11 @@
+{
+  "name": "Melon-pult",
+  "id": null,
+  "life": 3,
+  "rest": 3,
+  "numberOfSuns": 3,
+  "bulletType": "shot",
+  "hurtOfBullet": 3,
+  "turn": 4,
+  "shootNum": 1
+}

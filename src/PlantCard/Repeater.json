@@ -1,0 +1,11 @@
+{
+  "name": "Repeater",
+  "id": null,
+  "life": 4,
+  "rest": 4,
+  "numberOfSuns": 3,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turn": 3,
+  "shootNum": 2
+}

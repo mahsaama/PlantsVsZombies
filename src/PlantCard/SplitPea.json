@@ -1,0 +1,13 @@
+{
+  "name": "SplitPea",
+  "id": null,
+  "life": 3,
+  "rest": 4,
+  "numberOfSuns": 4,
+  "bulletType": "pea",
+  "hurtOfBullet": 1,
+  "turnOfFront": 2,
+  "shootNumOfFront": 1,
+  "turnOfBack": 3,
+  "shootNumOfBack": 2
+}
