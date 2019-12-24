@@ -8,5 +8,15 @@
   "hurtOfBullet": 1,
   "turn": 2,
   "shootNum": 1,
-  "minDistanceToShoot": 2
+  "minDistanceToShoot": 2,
+  "hurtToZombie": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "effectOnZombieSpeed": null,
+  "turnsUnderEffect": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }

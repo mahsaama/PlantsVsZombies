@@ -4,5 +4,19 @@
   "life": 3,
   "rest": 5,
   "numberOfSuns": 4,
-  "hurtToZombie": 1
+  "hurtToZombie": 1,
+  "bulletType": null,
+  "hurtOfBullet": null,
+  "turn": null,
+  "shootNum": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "minDistanceToShoot": null,
+  "effectOnZombieSpeed": null,
+  "turnsUnderEffect": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }

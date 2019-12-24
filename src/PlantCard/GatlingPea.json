@@ -7,5 +7,16 @@
   "bulletType": "pea",
   "hurtOfBullet": 1,
   "turn": 5,
-  "shootNum": 4
+  "shootNum": 4,
+  "hurtToZombie": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "minDistanceToShoot": null,
+  "effectOnZombieSpeed": null,
+  "turnsUnderEffect": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }

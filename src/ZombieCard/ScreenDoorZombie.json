@@ -4,5 +4,9 @@
   "life": 2,
   "speed": 2,
   "guard": true,
-  "guardLife": 4
+  "guardLife": 4,
+  "car": null,
+  "hat": null,
+  "lifeDec": null,
+  "remainTurns": null
 }

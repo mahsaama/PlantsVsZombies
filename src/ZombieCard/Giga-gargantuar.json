@@ -2,5 +2,11 @@
   "name": "Giga-gargantuar",
   "id": null,
   "life": 6,
-  "speed": 1
+  "speed": 1,
+  "car": null,
+  "hat": null,
+  "lifeDec": null,
+  "remainTurns": null,
+  "guard": null,
+  "guardLife": null
 }

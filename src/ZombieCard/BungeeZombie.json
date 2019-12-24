@@ -3,5 +3,10 @@
   "id": null,
   "life": 3,
   "speed": 0,
-  "remainTurns": 3
+  "remainTurns": 3,
+  "car": null,
+  "hat": null,
+  "lifeDec": null,
+  "guard": null,
+  "guardLife": null
 }

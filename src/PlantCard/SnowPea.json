@@ -9,5 +9,14 @@
   "turn": 3,
   "shootNum": 1,
   "effectOnZombieSpeed": 2,
-  "turnsUnderEffect": 1
+  "turnsUnderEffect": 1,
+  "hurtToZombie": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "minDistanceToShoot": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }

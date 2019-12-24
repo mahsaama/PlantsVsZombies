@@ -2,5 +2,11 @@
   "name": "FootballZombie",
   "id": null,
   "life": 4,
-  "speed": 3
+  "speed": 3,
+  "car": null,
+  "hat": null,
+  "lifeDec": null,
+  "remainTurns": null,
+  "guard": null,
+  "guardLife": null
 }
