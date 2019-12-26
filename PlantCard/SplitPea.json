@@ -18,5 +18,6 @@
   "minDistanceToShoot": null,
   "effectOnZombieSpeed": null,
   "turnsUnderEffect": null,
-  "sunProduct": null
+  "sunProduct": null,
+  "price": 49
 }
