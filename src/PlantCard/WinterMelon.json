@@ -1,5 +1,5 @@
 {
-  "name": "Winter Melon",
+  "name": "WinterMelon",
   "id": null,
   "life": 3,
   "rest": 5,
@@ -8,5 +8,15 @@
   "hurtOfBullet": 3,
   "turn": 4,
   "shootNum": 1,
-  "effectOnZombieSpeed": 2
+  "effectOnZombieSpeed": 2,
+  "hurtToZombie": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "minDistanceToShoot": null,
+  "turnsUnderEffect": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }

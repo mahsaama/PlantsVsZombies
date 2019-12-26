@@ -3,5 +3,20 @@
   "id": null,
   "life": 0,
   "rest": 3,
-  "numberOfSuns": 3
+  "numberOfSuns": 3,
+  "bulletType": null,
+  "hurtOfBullet": null,
+  "turn": null,
+  "shootNum": null,
+  "hurtToZombie": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "minDistanceToShoot": null,
+  "effectOnZombieSpeed": null,
+  "turnsUnderEffect": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }

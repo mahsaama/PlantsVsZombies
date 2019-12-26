@@ -2,5 +2,11 @@
   "name": "SnorkelZombie",
   "id": null,
   "life": 2,
-  "speed": 2
+  "speed": 2,
+  "car": null,
+  "hat": null,
+  "lifeDec": null,
+  "remainTurns": null,
+  "guard": null,
+  "guardLife": null
 }

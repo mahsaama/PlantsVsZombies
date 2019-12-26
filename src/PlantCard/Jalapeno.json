@@ -1,6 +1,22 @@
 {
   "name": "Jalapeno",
+  "life": null,
   "id": null,
   "rest": 5,
-  "numberOfSuns": 4
+  "numberOfSuns": 4,
+  "bulletType": null,
+  "hurtOfBullet": null,
+  "turn": null,
+  "shootNum": null,
+  "hurtToZombie": null,
+  "zombieStopTurns": null,
+  "offTurns": null,
+  "minDistanceToShoot": null,
+  "effectOnZombieSpeed": null,
+  "turnsUnderEffect": null,
+  "turnOfFront": null,
+  "shootNumOfFront": null,
+  "turnOfBack": null,
+  "shootNumOfBack": null,
+  "sunProduct": null
 }
