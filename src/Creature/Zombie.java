@@ -14,6 +14,23 @@ public class Zombie {
     private boolean guard;
     private boolean car;
     private int price;
+    private int stoppedTurns =0;
+
+    public void setStoppedTurns(int stoppedTurns) {
+        this.stoppedTurns += stoppedTurns;
+    }
+
+    public void setHat(boolean hat) {
+        this.hat = hat;
+    }
+
+    public void setGuard(boolean guard) {
+        this.guard = guard;
+    }
+
+    public int getStoppedTurns() {
+        return stoppedTurns;
+    }
 
     public int getPrice() {
         return price;
