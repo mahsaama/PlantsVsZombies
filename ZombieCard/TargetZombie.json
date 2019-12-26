@@ -8,5 +8,6 @@
   "hat": null,
   "car": null,
   "lifeDec": null,
-  "remainTurns": null
+  "remainTurns": null,
+  "price": 90
 }
