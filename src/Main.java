@@ -5,6 +5,7 @@ import User.User;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
@@ -185,29 +186,110 @@ public class Main {
     }
 
     public static void playMenu(){
-        //TODO
         String gameType = scanner.nextLine ();
         switch (gameType){
             case "Day":
-                collectionMenu ();
+                collectionMenu ("plant");
                 break;
             case "Water":
-                collectionMenu ();
+                collectionMenu ("plant");
                 break;
             case "Rail":
+                //TODO
                 break;
             case "Zombie":
-                collectionMenu ();
+                collectionMenu ("zombie");
                 break;
             case "PvP":
                 String opponentUsername = scanner.nextLine ();
                 int numberOfWaves = scanner.nextInt ();
-                collectionMenu ();
+                collectionMenu ("plant");
+                collectionMenu ("zombie");
         }
     }
 
-    public static void collectionMenu(){
-        //TODO zombie & plant seperated
+    public static void collectionMenu(String type){
+        String order = scanner.nextLine ();
+        String[] orderParts = order.split (" ");
+        boolean exit = false;
+        Pattern pattern1 = Pattern.compile ("select \\S+");
+        Pattern pattern2 = Pattern.compile ("remove \\S+");
+        if(type.compareTo ("plant") == 0){
+            while(!exit){
+                if(order.compareToIgnoreCase ("show hand") == 0){
+                    if(type.compareTo ("plant") == 0){
+                        for(Plant plant : loginUser.getPlantHand ()){
+                            System.out.println (plant.getName () );
+                        }
+                    }
+                    else
+                        for (Zombie zombie : loginUser.getZombieHand ( )) {
+                            System.out.println (zombie.getName ( ));
+                        }
+
+                }
+                else if(order.compareToIgnoreCase ("show collection") == 0){
+                    if(type.compareTo ("plant") == 0){
+                        for(Plant plant : loginUser.getCollection ().getPlants ()){
+                            System.out.println (plant.getName () );
+                        }
+                    }
+                    else
+                        for (Zombie zombie : loginUser.getCollection ( ).getZombies ( )) {
+                            System.out.println (zombie.getName ( ));
+                        }
+                }
+
+                else if(pattern1.matcher (order).matches ()){
+                    if(type.compareTo ("plant") == 0){
+                        if(checkPlant (orderParts[1])){
+                            Plant plant = getPlantByName (orderParts[1]);
+                            loginUser.getPlantHand ().add (plant);
+                            loginUser.getCollection ().getPlants ().remove (plant);
+                        }
+                        System.out.println ("invalid plant" );
+                    }
+                    else
+                    if (checkZombie (orderParts[1])) {
+                        Zombie zombie = getZombieByName (orderParts[1]);
+                        loginUser.getZombieHand ( ).add (zombie);
+                        loginUser.getCollection ( ).getZombies ( ).remove (zombie);
+                    }
+                    System.out.println ("invalid zombie");
+                }
+                else if(pattern2.matcher (order).matches ()){
+                    if(type.compareTo ("plant") == 0){
+                        if(loginUser.checkHandPlant (orderParts[1])){
+                            Plant plant = getPlantByName (orderParts[1]);
+                            loginUser.getPlantHand ().remove (plant);
+                            loginUser.getCollection ().getPlants ().add (plant);
+                        }
+                        else
+                            System.out.println ("invalid plant" );
+                    }
+                    else
+                    if (loginUser.checkHandZombie (orderParts[1])) {
+                        Zombie zombie = getZombieByName (orderParts[1]);
+                        loginUser.getZombieHand ( ).remove (zombie);
+                        loginUser.getCollection ( ).getZombies ( ).add (zombie);
+                    } else
+                        System.out.println ("invalid zombie");
+                }
+                else if(order.compareToIgnoreCase ("help") == 0){
+                    System.out.println ("show hand\nshow collection\nselect\nplay\nremove\nhelp\nexit" );
+                }
+                else if(order.compareToIgnoreCase ("exit") == 0){
+                    exit = true;
+                    playMenu ();
+                }
+                else if(order.compareToIgnoreCase ("play") == 0){
+                    //TODO
+                }
+                else
+                    System.out.println ("invalid command" );
+            }
+
+        }
     }
 
 
@@ -236,6 +318,46 @@ public class Main {
         }
         return false;
      }
+
+     public static boolean checkPlant(String name){
+         for(Plant plant : loginUser.getCollection ().getPlants ()){
+             if(plant.getName ().compareTo (name) == 0){
+                 return true;
+             }
+         }
+         return false;
+     }
+
+     public static boolean checkZombie(String name){
+         for(Zombie zombie : loginUser.getCollection ().getZombies ()){
+             if(zombie.getName ().compareTo (name) == 0){
+                 return true;
+             }
+         }
+         return false;
+     }
+
+
+     public static Plant getPlantByName(String name){
+        for(Plant plant : loginUser.getCollection ().getPlants ()){
+            if(plant.getName ().compareTo (name) == 0){
+                return plant;
+            }
+        }
+        return null;
+     }
+
+
+     public static Zombie getZombieByName(String name){
+         for(Zombie zombie : loginUser.getCollection ().getZombies ()){
+             if(zombie.getName ().compareTo (name) == 0){
+                 return zombie;
+             }
+         }
+         return null;
+     }
+
+
 
 
 }
