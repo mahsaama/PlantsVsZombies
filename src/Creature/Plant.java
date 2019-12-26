@@ -31,6 +31,15 @@ public class Plant {
     private int turnOfBack;
     private int shootNumOfBack;
     private int sunProduct;
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public void setLife() {
         this.life--;
@@ -173,7 +182,7 @@ public class Plant {
                     zombie.setLife(hurtOfBullet,2);
                 }
             }else if (name.equals("Threepeater")){
-                
+
             }
         }
     }
