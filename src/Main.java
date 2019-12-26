@@ -1,13 +1,10 @@
 import Creature.Plant;
 import Creature.Zombie;
-import Game.Player;
 import Shop.Shop;
 import User.User;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);

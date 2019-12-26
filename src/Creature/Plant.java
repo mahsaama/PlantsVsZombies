@@ -1,10 +1,6 @@
 package Creature;
 
 import Map.PlayGround;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 
