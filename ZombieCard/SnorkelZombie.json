@@ -8,5 +8,6 @@
   "lifeDec": null,
   "remainTurns": null,
   "guard": null,
-  "guardLife": null
+  "guardLife": null,
+  "price": 60
 }
