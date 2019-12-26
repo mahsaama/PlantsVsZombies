@@ -19,8 +19,12 @@ public class Zombie {
     private boolean guard;
     private boolean car;
 
-    public void setLife() {
-        this.life--;
+    public void setLife(int amount,int shootnum) {
+        this.life -= amount  * shootnum;//check
+    }
+
+    public void setSpeed(int amount) {
+        this.speed /= amount;
     }
 
     public String getName() {

@@ -1,5 +1,6 @@
 package Creature;
 
+import Map.PlayGround;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 public class Plant {
     String name;
     String bulletType;
+    private int x;
+    private int y;
     private int id;
     private int life;
     private int rest;
@@ -115,16 +118,62 @@ public class Plant {
 
 
 
-    public void attack(Zombie zombie,boolean sameCell){
+    public void attack(PlayGround playGround, boolean sameCell, int turn){
+        Zombie zombie = new Zombie();
+        zombie = null;
+        for (int i=y ; i < 19 ; i++){
+            for(Zombie item: playGround.getCells()[x][i].getZombieContent()){
+                if(item != null){
+                    zombie = item;
+                    break;
+                }
+            }
+            if(zombie != null)
+                break;
+        }
         if (sameCell){
-            if(zombie.getName().equals("FootballZombie") && name == "Cactus"){
-                if(turn % 2 == 0){
-                    zombie.setLife();
-                    if (zombie.getLife() == 0){
+            if(zombie.getName().equals("FootballZombie") && name == "Cactus") {
+                if (turn % 2 == 0) {
+                    zombie.setLife(hurtOfBullet,1);
+                    if (zombie.getLife() == 0) {
                         zombie = null;
                         //TODO
                     }
                 }
+            }
+            else if(name.equals("TangleKelp")){
+                zombie = null;
+                return;
+            }
+            else if (name.equals("PotatoMine")){
+                if (offTurns == 1){
+                    offTurns--;
+                    return;
+                }else{
+                    zombie = null;
+                }
+            }
+        }
+        else{
+            if (name.equals("Peashooter")){
+                if (turn % 2 == 0){
+                    zombie.setLife(hurtOfBullet,1);//life should be set when the pea arrives to zombie
+                }
+            }else if (name.equals("SnowPea")){
+                if (turn % 3 == 0){
+                    zombie.setLife(hurtOfBullet,1);
+                    zombie.setSpeed(effectOnZombieSpeed);
+                }
+            }else if (name.equals("Cabbage-pult")){
+                if(turn % 2 == 0 ){
+                    zombie.setLife(hurtOfBullet,1);
+                }
+            }else if (name.equals("Repeater")){
+                if (turn % 3 == 0){
+                    zombie.setLife(hurtOfBullet,2);
+                }
+            }else if (name.equals("Threepeater")){
+                
             }
         }
     }
