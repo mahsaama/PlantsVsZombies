@@ -31,9 +31,13 @@ public class Main {
                 String username = scanner.nextLine();
                 String password = scanner.nextLine();
                 if(checkUsername(username)){
-                    loginUser = getUserByName(username);
-                    exit = true;
-                    mainMenu();
+                    if(checkPassword (username,password)){
+                        loginUser = getUserByName(username);
+                        exit = true;
+                        mainMenu();
+                    }
+                    else
+                        System.out.println ("invalid password" );
                 }
                 else
                     System.out.println("invalid username");
@@ -61,7 +65,9 @@ public class Main {
         String order = scanner.nextLine();
         boolean exit = false;
         while(!exit){
-            if(order.compareToIgnoreCase("Play") == 0){}
+            if(order.compareToIgnoreCase("Play") == 0){
+                //TODO
+            }
             else if(order.compareToIgnoreCase("profile") == 0){
                 exit = true;
                 profileMenu();
@@ -75,7 +81,7 @@ public class Main {
                 loginMenu();
             }
             else if(order.compareToIgnoreCase("help") == 0){
-                System.out.println("Play\nprofile\nshop\nexit\nhelp");
+                System.out.println("Play\nprofile\nshop\nexit\nhelp\nexit");
             }
             else
                 System.out.println("invalid command");
@@ -87,6 +93,40 @@ public class Main {
         String order = scanner.nextLine();
         boolean exit = false;
         while(!exit){
+            if(order.compareToIgnoreCase ("Change") == 0){}
+            else if(order.compareToIgnoreCase ("Delete") == 0){
+                String username = scanner.nextLine ();
+                String password = scanner.nextLine ();
+                if(checkUsername (username)){
+                    if(getUserByName (username).getPassword ().compareTo (password) == 0){
+                        users.remove (getUserByName (username));
+                    }
+                    else
+                        System.out.println ("wrong password" );
+                }
+                else
+                    System.out.println ("wrong username ");
+            }
+            else if(order.compareToIgnoreCase ("Rename") == 0){
+                String newUsername = scanner.nextLine ();
+                loginUser.setUsername (newUsername);
+            }
+            else if(order.compareToIgnoreCase ("Create") == 0){
+                //TODO
+            }
+            else if(order.compareToIgnoreCase ("Show") == 0){
+                System.out.println (loginUser.getUsername () );
+            }
+            else if(order.compareToIgnoreCase ("help") == 0 ){
+                System.out.println ("Change\nDelete\nRename\nCreate\nShow\nhelp\nexit" );
+            }
+            else if(order.compareToIgnoreCase ("exit") == 0){
+                mainMenu ();
+                exit = true;
+            }
+            else
+                System.out.println ("invalid command");
+
            //TODO
         }
     }
@@ -102,6 +142,12 @@ public class Main {
         return null;
     }
 
+    public static boolean checkPassword(String username,String password){
+        if(getUserByName (username).getPassword ().compareTo (password) == 0){
+            return true;
+        }
+        return false;
+    }
 
     public static boolean checkUsername(String username){
         for(User user : users){
