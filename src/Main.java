@@ -69,7 +69,7 @@ public class Main {
         boolean exit = false;
         while(!exit){
             if(order.compareToIgnoreCase("Play") == 0){
-                //TODO
+                playMenu ();
             }
             else if(order.compareToIgnoreCase("profile") == 0){
                 exit = true;
@@ -170,7 +170,7 @@ public class Main {
             }
             else if(order.compareToIgnoreCase ("buy") == 0){
                 String cardName = scanner.nextLine ();
-                //TODO
+                shop.buy (cardName,loginUser);
             }
             else if(order.compareToIgnoreCase ("money") == 0){
                 System.out.println (loginUser.getCoins () );
@@ -188,6 +188,7 @@ public class Main {
     }
 
     public static void playMenu(){
+        //TODO
         String gameType = scanner.nextLine ();
         switch (gameType){
             case "Day":
@@ -197,7 +198,6 @@ public class Main {
                 collectionMenu ();
                 break;
             case "Rail":
-                //TODO
                 break;
             case "Zombie":
                 collectionMenu ();
@@ -239,7 +239,6 @@ public class Main {
         }
         return false;
      }
-
 
 
 }

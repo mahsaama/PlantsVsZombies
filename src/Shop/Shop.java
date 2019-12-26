@@ -2,7 +2,9 @@ package Shop;
 
 import Creature.Plant;
 import Creature.Zombie;
+import User.User;
 import com.google.gson.Gson;
+import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -100,6 +102,42 @@ public class Shop {
         return null;
     }
 
+    public static void buy(String name, User user){
+        boolean found = false;
+        for(Plant plant : plantList){
+            if(plant.getName ().compareTo(name) == 0){
+                found = true;
+                if(user.getCoins () >= plant.getPrice ()){
+                    Plant newPlant = makeNewPlantByName (name);
+                    user.getCollection ().getPlants ().add (newPlant);
+                    user.setCoins (user.getCoins () - newPlant.getPrice ());
+                    System.out.println ("you bought this plant successfully" );
+                }
+                else
+                    System.out.println ("not enough money" );
+                break;
+            }
+        }
+        if(!found){
+            for(Zombie zombie : zombieList){
+                if(zombie.getName ().compareTo (name) == 0){
+                    found = true;
+                    if(user.getCoins () >= zombie.getPrice ()){
+                        Zombie newZombie = makeNewZombieByName (name);
+                        user.getCollection ().getZombies ().add (newZombie);
+                        user.setCoins (user.getCoins () - newZombie.getPrice ());
+                        System.out.println ("you bought this zombie successfully" );
+                    }
+                    else
+                        System.out.println ("not enough money" );
+                    break;
+                }
+            }
+        }
+       if(!found){
+           System.out.println ("invalid name" );
+       }
+    }
 
 
     public ArrayList<Zombie> getZombieList() {
