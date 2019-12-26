@@ -1,18 +1,21 @@
 import Creature.Plant;
 import Creature.Zombie;
+import Game.Game;
 import Shop.Shop;
 import User.User;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import User.Player;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static User loginUser;
+    static User opponent;
     static ArrayList<User> users = new ArrayList<User>();
     static Shop shop = new Shop();
-
+    static int numberOfWaves;
 
     public static void main(String[] args) {
         loginMenu ();
@@ -27,6 +30,7 @@ public class Main {
                 String password = scanner.nextLine();
                 loginUser = new User(username,password);
                 users.add(loginUser);
+                //TODO first zombies and plants
             }
             else if(order.compareToIgnoreCase("login") == 0){
                 String username = scanner.nextLine();
@@ -189,26 +193,27 @@ public class Main {
         String gameType = scanner.nextLine ();
         switch (gameType){
             case "Day":
-                collectionMenu ("plant");
+                collectionMenu ("plant","Day");
                 break;
             case "Water":
-                collectionMenu ("plant");
+                collectionMenu ("plant","Water");
                 break;
             case "Rail":
-                //TODO
+                //preparegame
                 break;
             case "Zombie":
-                collectionMenu ("zombie");
+                collectionMenu ("zombie","Zombie");
                 break;
             case "PvP":
                 String opponentUsername = scanner.nextLine ();
-                int numberOfWaves = scanner.nextInt ();
-                collectionMenu ("plant");
-                collectionMenu ("zombie");
+                int waves = scanner.nextInt ();
+                numberOfWaves = waves;
+                opponent = getUserByName (opponentUsername);
+                collectionMenu ("plant","PvP");
         }
     }
 
-    public static void collectionMenu(String type){
+    public static void collectionMenu(String type , String typeOfGame){
         String order = scanner.nextLine ();
         String[] orderParts = order.split (" ");
         boolean exit = false;
@@ -283,7 +288,15 @@ public class Main {
                     playMenu ();
                 }
                 else if(order.compareToIgnoreCase ("play") == 0){
-                    //TODO
+                    if(typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("plant") == 0){
+                        collectionMenu ("zombie","PvP");
+                    }
+                    else if(typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("zombie") == 0){
+                        prepareTwoPersonGame ();
+                    }
+                    else if(typeOfGame.compareToIgnoreCase ("PvP") != 0)
+                        prepareGame (typeOfGame);
+
                 }
                 else
                     System.out.println ("invalid command" );
@@ -291,6 +304,26 @@ public class Main {
 
         }
     }
+    public static void prepareGame(String typeOfGame){
+        Game game = new Game();
+        game.setTypeOfGame (typeOfGame);
+        Player player = new Player (loginUser);
+        if(typeOfGame.compareToIgnoreCase ("zombie") == 0){
+            game.setSecondPlayer (player);
+        }
+        else
+            game.setFirstPlayer (player);
+    }
+
+    public static void prepareTwoPersonGame(){
+        Game game = new Game ();
+        game.setTypeOfGame ("PvP");
+        Player player = new Player (loginUser);
+        Player opponentPlayer = new Player (opponent);
+        game.setFirstPlayer (player);
+        game.setSecondPlayer (opponentPlayer);
+    }
+
 
 
 
