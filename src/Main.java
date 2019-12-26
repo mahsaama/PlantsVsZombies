@@ -1,4 +1,7 @@
+import Creature.Plant;
+import Creature.Zombie;
 import Game.Player;
+import Shop.Shop;
 import User.User;
 
 import java.util.ArrayList;
@@ -10,12 +13,12 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static User loginUser;
     static ArrayList<User> users = new ArrayList<User>();
+    static Shop shop = new Shop();
+
 
     public static void main(String[] args) {
-
-
+        loginMenu ();
     }
-
 
     public static void loginMenu(){
         String order = scanner.nextLine();
@@ -93,26 +96,42 @@ public class Main {
         String order = scanner.nextLine();
         boolean exit = false;
         while(!exit){
-            if(order.compareToIgnoreCase ("Change") == 0){}
+            if(order.compareToIgnoreCase ("Change") == 0){
+                String username = scanner.nextLine ();
+                String password = scanner.nextLine ();
+                if(!checkUsername (username)){
+                    loginUser.setUsername (username);
+                    loginUser.setPassword (password);
+                }
+                else
+                    System.out.println ("username already taken" );
+            }
             else if(order.compareToIgnoreCase ("Delete") == 0){
                 String username = scanner.nextLine ();
                 String password = scanner.nextLine ();
-                if(checkUsername (username)){
-                    if(getUserByName (username).getPassword ().compareTo (password) == 0){
+                if(loginUser.getUsername ().compareTo (username) == 0){
+                    if(checkPassword (username,password)){
                         users.remove (getUserByName (username));
                     }
-                    else
-                        System.out.println ("wrong password" );
+                    System.out.println ("invalid password" );
                 }
-                else
-                    System.out.println ("wrong username ");
+                System.out.println ("invalid username" );
             }
+
             else if(order.compareToIgnoreCase ("Rename") == 0){
                 String newUsername = scanner.nextLine ();
                 loginUser.setUsername (newUsername);
             }
             else if(order.compareToIgnoreCase ("Create") == 0){
-                //TODO
+                String username = scanner.nextLine ();
+                String password = scanner.nextLine ();
+                if(!checkUsername (username)){
+                    User user = new User (username,password);
+                    users.add (user);
+                    loginUser = user;
+                }
+                else
+                    System.out.println ("invalid username" );
             }
             else if(order.compareToIgnoreCase ("Show") == 0){
                 System.out.println (loginUser.getUsername () );
@@ -126,12 +145,51 @@ public class Main {
             }
             else
                 System.out.println ("invalid command");
-
-           //TODO
         }
     }
 
-    public static void shopMenu(){}
+    public static void shopMenu(){
+        String order = scanner.nextLine ();
+        boolean exit = false;
+        while(!exit){
+            if(order.compareToIgnoreCase ("show shop") == 0){
+                for(Plant plant : shop.getPlantList ()){
+                    System.out.println (plant.getName () + " : " + plant.getPrice () );
+                }
+                for(Zombie zombie : shop.getZombieList ()){
+                    System.out.println (zombie.getName () + " : " + zombie.getPrice ());
+                }
+            }
+        }
+    }
+
+    public static void playMenu(){
+        String gameType = scanner.nextLine ();
+        switch (gameType){
+            case "Day":
+                collectionMenu ();
+                break;
+            case "Water":
+                collectionMenu ();
+                break;
+            case "Rail":
+                //TODO
+                break;
+            case "Zombie":
+                collectionMenu ();
+                break;
+            case "PvP":
+                String opponentUsername = scanner.nextLine ();
+                int numberOfWaves = scanner.nextInt ();
+                collectionMenu ();
+        }
+    }
+
+    public static void collectionMenu(){
+        //TODO zombie & plant seperated
+    }
+
+
 
     public static User getUserByName(String username){
         for(User user : users){

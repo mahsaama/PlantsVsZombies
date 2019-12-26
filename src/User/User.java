@@ -36,4 +36,6 @@ public class User {
     }
     public int getCoins(){ return coins;}
     public void setCoins(int amount){this.coins += amount;}
+
+
 }

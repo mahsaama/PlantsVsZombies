@@ -1,9 +1,5 @@
 package Creature;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 
@@ -28,6 +24,15 @@ public class Plant {
     private int turnOfBack;
     private int shootNumOfBack;
     private int sunProduct;
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public void setLife() {
         this.life--;

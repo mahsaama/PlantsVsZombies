@@ -1,10 +1,5 @@
 package Creature;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.util.ArrayList;
 
 public class Zombie {
@@ -18,6 +13,15 @@ public class Zombie {
     private int guardLife;
     private boolean guard;
     private boolean car;
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public void setLife() {
         this.life--;
