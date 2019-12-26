@@ -160,6 +160,30 @@ public class Main {
                     System.out.println (zombie.getName () + " : " + zombie.getPrice ());
                 }
             }
+            else if(order.compareToIgnoreCase ("collection" ) == 0 ){
+                for(Plant plant : loginUser.getCollection ().getPlants ()){
+                    System.out.println (plant.getName () + " : " + plant.getPrice () );
+                }
+                for(Zombie zombie : loginUser.getCollection ().getZombies ()){
+                    System.out.println (zombie.getName () + " : " + zombie.getPrice () );
+                }
+            }
+            else if(order.compareToIgnoreCase ("buy") == 0){
+                String cardName = scanner.nextLine ();
+                //TODO
+            }
+            else if(order.compareToIgnoreCase ("money") == 0){
+                System.out.println (loginUser.getCoins () );
+            }
+            else if(order.compareToIgnoreCase ("help") == 0){
+                System.out.println ("show shop\ncollection\nbuy\nmoney\nexit" );
+            }
+            else if(order.compareToIgnoreCase ("exit") == 0){
+                exit = true;
+                mainMenu ();
+            }
+            else
+                System.out.println ("invalid command" );
         }
     }
 
