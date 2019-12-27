@@ -10,6 +10,11 @@ public class Cell {
     ArrayList<Plant> plantContent = new ArrayList<>();
     CellKind cellKind;
 
+    public ArrayList<Plant> getPlantContent() {
+        return plantContent;
+    }
+
+
     public ArrayList<Zombie> getZombieContent() {
         return zombieContent;
     }

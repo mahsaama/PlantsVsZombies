@@ -6,7 +6,7 @@
   "numberOfSuns": 4,
   "bulletType": "pea",
   "hurtOfBullet": 1,
-  "turn": 4,
+  "plantTurn": 0,
   "shootNum": 1,
   "hurtToZombie": null,
   "zombieStopTurns": null,

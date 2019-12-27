@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Plant {
     String name;
     String bulletType;
+    private int plantTurn;
     private int x;
     private int y;
     private int id;
@@ -122,7 +123,7 @@ public class Plant {
     }
 
 
-    public void attack(PlayGround playGround, boolean sameCell, int turn) {
+    public void attack(PlayGround playGround, boolean sameCell) {
         Zombie zombie;
         zombie = findZombie(playGround, x);
 
@@ -131,7 +132,7 @@ public class Plant {
         }
         if (sameCell) {
             if (zombie.getName().equals("FootballZombie") && name == "Cactus") {
-                if (turn % 2 == 0) {
+                if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -151,20 +152,21 @@ public class Plant {
             }
         } else {
             if (name.equals("Peashooter")) {
-                if (turn % 2 == 0) {
+                if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);//life should be set when the pea arrives to zombie
                 }
             } else if (name.equals("SnowPea")) {
-                if (turn % 3 == 0) {
+                if (plantTurn % 3 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
-                    zombie.setSpeed(effectOnZombieSpeed);
+                    zombie.setCurrentSpeed(effectOnZombieSpeed);
+
                     if (zombie.getLife() == 0) {
                         zombie = null;
                         //TODO
                     }
                 }
             } else if (name.equals("Cabbage-pult")) {
-                if (turn % 2 == 0) {
+                if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -173,7 +175,7 @@ public class Plant {
 
                 }
             } else if (name.equals("Repeater")) {
-                if (turn % 3 == 0) {
+                if (plantTurn % 3 == 0) {
                     zombie.setLife(hurtOfBullet, 2);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -182,7 +184,7 @@ public class Plant {
 
                 }
             } else if (name.equals("Threepeater")) {
-                if (turn % 4 == 0) {
+                if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -214,7 +216,7 @@ public class Plant {
                     }
                 }
             } else if (name.equals("Cactus")) {
-                if (turn % 2 == 0) {
+                if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -222,7 +224,7 @@ public class Plant {
                     }
                 }
             } else if (name.equals("GatlingPea")) {
-                if (turn % 5 == 0) {
+                if (plantTurn % 5 == 0) {
                     zombie.setLife(hurtOfBullet, 4);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -230,7 +232,7 @@ public class Plant {
                     }
                 }
             } else if (name.equals("Scaredy-shroom")) {
-                if (turn % 2 == 0) {
+                if (plantTurn % 2 == 0) {
                     int distance;
 
                     for (int i = y; i < 19; i++) {
@@ -251,7 +253,7 @@ public class Plant {
                     }
                 }
             } else if (name.equals("Kernel-pult")) {
-                if (turn % 4 == 0) {
+                if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 4);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -282,7 +284,7 @@ public class Plant {
                     //TODO
                 }
             } else if (name.equals("Melon-pult")) {
-                if (turn % 4 == 0) {
+                if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
                         zombie = null;
@@ -291,9 +293,9 @@ public class Plant {
 
                 }
             } else if (name.equals("WinterMelon")) {
-                if (turn % 4 == 0) {
+                if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
-                    zombie.setSpeed(effectOnZombieSpeed);
+                    zombie.setCurrentSpeed(effectOnZombieSpeed);
                     if (zombie.getLife() == 0) {
                         zombie = null;
                         //TODO
@@ -341,7 +343,7 @@ public class Plant {
                         item = null; // kill the zombie in graphic
                 }
             } else if (name.equals("Magnet-shroom")) {
-                if (turn % 3 == 0) {
+                if (plantTurn % 3 == 0) {
                     if (playGround.getCells()[x][y].getZombieContent() != null) {
                         for (Zombie item : playGround.getCells()[x][y].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
@@ -349,6 +351,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
                     }
                     if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent() != null) {
@@ -358,6 +365,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
 
                     }
@@ -368,6 +380,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
 
                     }
@@ -378,6 +395,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
 
                     }
@@ -388,6 +410,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
 
                     }
@@ -398,6 +425,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
 
                     }
@@ -408,6 +440,11 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
 
                     }
@@ -418,8 +455,12 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
-
                     }
                     if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent() != null) {
                         for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent())
@@ -428,11 +469,14 @@ public class Plant {
                                     item.getName().equals("DolphinRiderZombie")) {
                                 item.setGuard(false);
                                 item.setHat(false);
+                                if (item.getName().equals("BucketheadZombie")) {
+                                    if (item.getLife() > 1) {
+                                        item.setLife(1, 0);
+                                    }
+                                }
                             }
                     }
-
                 }
-
 
             } else if (name.equals("Jalapeno")) {
                 for (int i = 0; i < 16; i++) {
