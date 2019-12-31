@@ -147,4 +147,11 @@ public class Shop {
     public ArrayList<Plant> getPlantList() {
         return plantList;
     }
+
+    public static void setFirstCards(User user){
+        buy("Sunflower",user);
+        buy("Peashooter",user);
+        buy("SnowPea",user);
+
+    }
 }

@@ -10,6 +10,7 @@ public class User {
     private String password ;
     private int coins = 0;
     private int numberOfZombiesKilledOverAll = 0;
+    private int numberOfPlantsKilledOverAll = 0;
     private Collection collection = new Collection ();
     private ArrayList<Plant> plantHand = new ArrayList<> ();
     private ArrayList<Zombie> zombieHand = new ArrayList<> ();
@@ -60,6 +61,30 @@ public class User {
     }
     public int getCoins(){ return coins;}
     public void setCoins(int amount){this.coins += amount;}
+
+    public int getNumberOfZombiesKilledOverAll() {
+        return numberOfZombiesKilledOverAll;
+    }
+
+    public void setNumberOfZombiesKilledOverAll(int numberOfZombiesKilledOverAll) {
+        this.numberOfZombiesKilledOverAll = numberOfZombiesKilledOverAll;
+    }
+
+    public int getNumberOfPlantsKilledOverAll() {
+        return numberOfPlantsKilledOverAll;
+    }
+
+    public void setNumberOfPlantsKilledOverAll(int numberOfPlantsKilledOverAll) {
+        this.numberOfPlantsKilledOverAll = numberOfPlantsKilledOverAll;
+    }
+
+    public void setPlantHand(ArrayList<Plant> plantHand) {
+        this.plantHand = plantHand;
+    }
+
+    public void setZombieHand(ArrayList<Zombie> zombieHand) {
+        this.zombieHand = zombieHand;
+    }
 
     public boolean checkHandPlant(String name){
         for(Plant plant : plantHand){

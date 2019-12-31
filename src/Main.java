@@ -18,18 +18,20 @@ public class Main {
     static int numberOfWaves;
 
     public static void main(String[] args) {
+
+        Shop shop = new Shop ();
         loginMenu ();
     }
 
     public static void loginMenu(){
         String order = scanner.nextLine();
-        boolean exit = false;
-        while(!exit){
+        while(true){
             if(order.compareToIgnoreCase("create account") == 0){
                 String username = scanner.nextLine();
                 String password = scanner.nextLine();
                 loginUser = new User(username,password);
                 users.add(loginUser);
+                System.out.println ("account _" + loginUser.getUsername () + "_ was created");
                 //TODO first zombies and plants
             }
             else if(order.compareToIgnoreCase("login") == 0){
@@ -38,8 +40,8 @@ public class Main {
                 if(checkUsername(username)){
                     if(checkPassword (username,password)){
                         loginUser = getUserByName(username);
-                        exit = true;
                         mainMenu();
+                        break;
                     }
                     else
                         System.out.println ("invalid password" );
@@ -62,6 +64,7 @@ public class Main {
             }
             else
                 System.out.println("invalid command");
+            order = scanner.nextLine ();
         }
 
     }
@@ -307,21 +310,27 @@ public class Main {
     public static void prepareGame(String typeOfGame){
         Game game = new Game();
         game.setTypeOfGame (typeOfGame);
-        Player player = new Player (loginUser);
+        Player player = (Player) loginUser;
         if(typeOfGame.compareToIgnoreCase ("zombie") == 0){
             game.setSecondPlayer (player);
+            player.setTypeOfPlayer ("zombie");
         }
         else
+            player.setTypeOfPlayer ("plant");
             game.setFirstPlayer (player);
     }
 
     public static void prepareTwoPersonGame(){
         Game game = new Game ();
         game.setTypeOfGame ("PvP");
-        Player player = new Player (loginUser);
-        Player opponentPlayer = new Player (opponent);
+        game.setNumberOfWaves (numberOfWaves);
+        Player player =  (Player) loginUser;
+        player.setTypeOfPlayer ("plant");
+        Player opponentPlayer =  (Player) opponent;
+        opponentPlayer.setTypeOfPlayer ("zombie");
         game.setFirstPlayer (player);
         game.setSecondPlayer (opponentPlayer);
+        game.setGameEnvironment ();
     }
 
 
