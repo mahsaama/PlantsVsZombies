@@ -10,7 +10,7 @@
   "shootNumOfFront": 1,
   "turnOfBack": 3,
   "shootNumOfBack": 2,
-  "turn": null,
+  "plantTurn": 0,
   "shootNum": null,
   "hurtToZombie": null,
   "zombieStopTurns": null,

@@ -7,7 +7,7 @@
   "hurtToZombie": 1,
   "bulletType": null,
   "hurtOfBullet": null,
-  "turn": null,
+  "plantTurn": 0,
   "shootNum": null,
   "zombieStopTurns": null,
   "offTurns": null,

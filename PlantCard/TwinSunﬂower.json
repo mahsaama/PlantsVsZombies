@@ -4,7 +4,7 @@
   "life": 2,
   "rest": 5,
   "numberOfSuns": 3,
-  "turn": 2,
+  "plantTurn": 0,
   "sunProduct": 2,
   "bulletType": null,
   "hurtOfBullet": null,
