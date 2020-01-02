@@ -42,6 +42,14 @@ public class Zombie {
         this.guard = guard;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public int getStoppedTurns() {
         return stoppedTurns;
     }
@@ -97,6 +105,7 @@ public class Zombie {
     public boolean isCar() {
         return car;
     }
+
 
     public void attack(PlayGround playGround) {
         Plant plant = playGround.getCells()[x][y].getPlantContent().get(playGround.getCells()[x][y].getPlantContent().size() - 1);

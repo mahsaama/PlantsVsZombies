@@ -29,9 +29,18 @@ public class Plant {
     private int shootNumOfBack;
     private int sunProduct;
     private int price;
+    private int startedTurn;
 
     public int getPrice() {
         return price;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public void setPrice(int price) {
@@ -122,6 +131,21 @@ public class Plant {
         return sunProduct;
     }
 
+    public void setStartedTurn(int startedTurn) {
+        this.startedTurn = startedTurn;
+    }
+
+    public int getStartedTurn() {
+        return startedTurn;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 
     public void attack(PlayGround playGround, boolean sameCell) {
         Zombie zombie;
