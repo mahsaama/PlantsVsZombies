@@ -139,6 +139,28 @@ public class Shop {
        }
     }
 
+    public static void buyForFree(String name , User user){
+        boolean found = false;
+        for(Plant plant : plantList){
+            if(plant.getName ().compareTo(name) == 0){
+                found = true;
+                Plant newPlant = makeNewPlantByName (name);
+                user.getCollection ().getPlants ().add (newPlant);
+                break;
+            }
+        }
+        if(!found){
+            for(Zombie zombie : zombieList) {
+                if (zombie.getName ( ).compareTo (name) == 0) {
+                    found = true;
+                    Zombie newZombie = makeNewZombieByName (name);
+                    user.getCollection ( ).getZombies ( ).add (newZombie);
+                    break;
+                }
+            }
+        }
+    }
+
 
     public ArrayList<Zombie> getZombieList() {
         return zombieList;
@@ -149,9 +171,19 @@ public class Shop {
     }
 
     public static void setFirstCards(User user){
-        buy("Sunflower",user);
-        buy("Peashooter",user);
-        buy("SnowPea",user);
+        buyForFree ("Sunflower",user);
+        buyForFree("Peashooter",user);
+        buyForFree("SnowPea",user);
+        buyForFree("Scaredy-shroom",user);
+        buyForFree("Kernel-pult",user);
+        buyForFree("Explode-o-nut",user);
+        buyForFree("CherryBomb",user);
+        buyForFree("Zombie",user);
+        buyForFree("FootballZombie",user);
+        buyForFree("Zomboni",user);
+        buyForFree("ScreenDoorZombie",user);
+        buyForFree("ConeheadZombie",user);
+        buyForFree("BalloonZombie",user);
 
     }
 }

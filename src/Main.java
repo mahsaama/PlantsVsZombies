@@ -32,7 +32,7 @@ public class Main {
                 loginUser = new User(username,password);
                 users.add(loginUser);
                 System.out.println ("account _" + loginUser.getUsername () + "_ was created");
-                //TODO first zombies and plants
+                Shop.setFirstCards (loginUser);
             }
             else if(order.compareToIgnoreCase("login") == 0){
                 String username = scanner.nextLine();
@@ -93,6 +93,7 @@ public class Main {
             }
             else
                 System.out.println("invalid command");
+            order = scanner.nextLine ();
         }
     }
 
@@ -150,6 +151,7 @@ public class Main {
             }
             else
                 System.out.println ("invalid command");
+            order = scanner.nextLine ();
         }
     }
 
@@ -189,6 +191,7 @@ public class Main {
             }
             else
                 System.out.println ("invalid command" );
+            order = scanner.nextLine ();
         }
     }
 
@@ -303,6 +306,7 @@ public class Main {
                 }
                 else
                     System.out.println ("invalid command" );
+                order = scanner.nextLine ();
             }
 
         }
