@@ -29,4 +29,5 @@ hs_err_pid*
 .idea/modules.xml
 .idea/workspace.xml
 
+!/Ap-1.iml
 /Ap.iml

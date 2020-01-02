@@ -13,11 +13,20 @@ public class Player extends User {
     private int numberOfKilledPlants;
     private Zombie selectedZombie;
     private Plant selectedPlant;
+    private int score;
 
 
     public Player(String username , String password,String typeOfPlayer){
         super(username,password);
         this.typeOfPlayer = typeOfPlayer;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public int getNumberOfWavesWon() {

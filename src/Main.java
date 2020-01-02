@@ -19,7 +19,6 @@ public class Main {
     static int numberOfWaves;
 
     public static void main(String[] args) {
-
         Shop shop = new Shop ();
         loginMenu ();
     }

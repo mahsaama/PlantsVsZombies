@@ -86,6 +86,7 @@ public class User {
         this.zombieHand = zombieHand;
     }
 
+
     public boolean checkHandPlant(String name){
         for(Plant plant : plantHand){
             if(plant.getName ().compareTo (name) == 0){
