@@ -4,6 +4,7 @@ import Creature.Plant;
 import Creature.Zombie;
 import Map.Cell;
 import Map.PlayGround;
+import Menu.Menu;
 import User.Player;
 import com.sun.tools.javac.Main;
 
@@ -46,7 +47,7 @@ public class Game {
             while (true) {
                 if (checkWinnerForPvP()) {
                     System.out.println("game finished");
-                    Main.mainmenu();
+                    Menu.mainMenu();
                     break;
                 }
                 if (order.compareToIgnoreCase("show hand") == 0) {
@@ -62,10 +63,10 @@ public class Game {
                     }
                 } else if (order.compareToIgnoreCase("select") == 0) {
                     String name = scanner.nextLine();
-                    Plant plant = getPlantByName(name);
+                    Plant plant = Menu.getPlantByName(name);
                     plant.setStartedTurn(turn);
                     if (numberOfSuns >= plant.getNumberOfSuns() && turn - plant.getStartedTurn() >= plant.getRest()) {
-                        currentPlayer.setSelectedPlant(getPlantByName(name));
+                        currentPlayer.setSelectedPlant(Menu.getPlantByName(name));
                     }
                 } else if (order.compareToIgnoreCase("plant") == 0) {
                     currentPlayer.getSelectedPlant().setY(scanner.nextInt());
@@ -99,7 +100,7 @@ public class Game {
                 if (checkWinnerForRail(playGround)) {
                     currentPlayer.setScore(currentPlayer.getNumberOfKilledZombies());
                     System.out.println("game finished");
-                    Main.mainMenu();
+                    Menu.mainMenu();
                     break;
                 } else if (order.compareToIgnoreCase("list") == 0) {
                     for (Plant plant : currentPlayer.getPlantHand()) {
@@ -167,7 +168,7 @@ public class Game {
             while (true){
                 if(checkWinnerForZombie() == true){
                     System.out.println("game finished");
-                    Main.mainMenu();
+                    Menu.mainMenu();
                     break;
                 }else if(order.compareToIgnoreCase("show hand") == 0){
                     for(Zombie zombie : currentPlayer.getZombieHand()){
@@ -190,10 +191,10 @@ public class Game {
                             }
                         }
                     }
-                }else if(order.compareToIgnoreCase("put")){
+                }else if(order.compareToIgnoreCase("put") == 0){
                     String name = scanner.nextLine();
                     int num = scanner.nextInt();
-                    Zombie zombie = getZombieByName(name);
+                    Zombie zombie = Menu.getZombieByName(name);
                     boolean isThere2Zombies = false;
                     int numOfZombieInRow = 0;
                     if(coin >= zombie.getLife()*10){
@@ -219,7 +220,7 @@ public class Game {
                         for (int i = 0; i < 6; i++) {
                             for (int j = 0; j < 19; j++) {
                                 for (Plant plant : playGround.getCells()[i][j].getPlantContent())
-                                    plant.attack(playGround, samecell);//WHERE SHOULD BE SAMECELL??
+                                //    plant.attack(playGround, samecell);//WHERE SHOULD BE SAMECELL??
 
                                 if (playGround.getCells()[i][j].getZombieContent() != null &&
                                         playGround.getCells()[i][j].getPlantContent() != null) {
@@ -238,7 +239,7 @@ public class Game {
                     if(choice == 1){
                         System.out.println("choose a zombie");
                         Zombie chosenZombie; // it should be chosen in the game
-                        chosen
+                        //chosen
                     }
 
                 }else if(order.compareToIgnoreCase("show lawn") == 0){
@@ -278,13 +279,13 @@ public class Game {
         }
         return false;
     }
-    public boolean checkWinnerForZombie()
+    public boolean checkWinnerForZombie(){ return true;}
 
     public void randomCard(ArrayList<Plant> cards) {
         String[] plantLibrary = {"Cabbage-pult", "Cactus", "Cattail", "CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "SplitPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};
         if (cards.size() < 11) {
             int randomNum = (int) Math.random() % 22;
-            currentPlayer.getPlantHand().add(Main.getPlantByName(plantLibrary[randomNum]));
+            currentPlayer.getPlantHand().add(Menu.getPlantByName(plantLibrary[randomNum]));
         }
     }
 
@@ -307,7 +308,7 @@ public class Game {
         String[] zombieLibrary = {"BalloonZombie", "Zombie", "FootballZombie", "BucketheadZombie", "ConeheadZombie", "Zomboni", "CatapultZombie", "BungeeZombie", "BalloonZombie", "NewspaperZombie", "TargetZombie", "ScreenDoorZombie", "Giga-gargantuar", "PogoZombie"};
         int randomNum = (int) Math.random() % 13;
         int randomX = (int) Math.random() % 6;
-        Zombie zombie = Main.getZombieByName(zombieLibrary[randomNum];
+        Zombie zombie = Menu.getZombieByName(zombieLibrary[randomNum]);
         zombie.setX(randomX);
         zombie.setY(18);
         currentPlayer.getZombieHand().add(zombie);
