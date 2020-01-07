@@ -206,7 +206,7 @@ public class Menu {
                 collectionMenu ("plant","Water");
                 break;
             case "Rail":
-                //preparegame
+                prepareGame ("Rail");
                 break;
             case "Zombie":
                 collectionMenu ("zombie","Zombie");
@@ -222,10 +222,7 @@ public class Menu {
 
     public static void collectionMenu(String type , String typeOfGame){
         String order = scanner.nextLine ();
-        String[] orderParts = order.split (" ");
         boolean exit = false;
-        Pattern pattern1 = Pattern.compile ("select \\S+");
-        Pattern pattern2 = Pattern.compile ("remove \\S+");
         if(type.compareTo ("plant") == 0){
             while(!exit){
                 if(order.compareToIgnoreCase ("show hand") == 0){
@@ -252,27 +249,30 @@ public class Menu {
                         }
                 }
 
-                else if(pattern1.matcher (order).matches ()){
+                else if(order.compareToIgnoreCase ("select") == 0){
+                    String name = scanner.nextLine ();
                     if(type.compareTo ("plant") == 0){
-                        if(checkPlant (orderParts[1])){
-                            Plant plant = getPlantByName (orderParts[1]);
+                        if(checkPlant (name)){
+                            Plant plant = getPlantByName (name);
                             loginUser.getPlantHand ().add (plant);
                             loginUser.getCollection ().getPlants ().remove (plant);
                         }
                         System.out.println ("invalid plant" );
                     }
-                    else
-                    if (checkZombie (orderParts[1])) {
-                        Zombie zombie = getZombieByName (orderParts[1]);
-                        loginUser.getZombieHand ( ).add (zombie);
-                        loginUser.getCollection ( ).getZombies ( ).remove (zombie);
+                    else {
+                        if (checkZombie (name)) {
+                            Zombie zombie = getZombieByName (name);
+                            loginUser.getZombieHand ( ).add (zombie);
+                            loginUser.getCollection ( ).getZombies ( ).remove (zombie);
+                        }
+                        System.out.println ("invalid zombie");
                     }
-                    System.out.println ("invalid zombie");
                 }
-                else if(pattern2.matcher (order).matches ()){
+                else if(order.compareToIgnoreCase ("remove") == 0){
+                    String name = scanner.nextLine ();
                     if(type.compareTo ("plant") == 0){
-                        if(loginUser.checkHandPlant (orderParts[1])){
-                            Plant plant = getPlantByName (orderParts[1]);
+                        if(loginUser.checkHandPlant (name)){
+                            Plant plant = getPlantByName (name);
                             loginUser.getPlantHand ().remove (plant);
                             loginUser.getCollection ().getPlants ().add (plant);
                         }
@@ -280,8 +280,8 @@ public class Menu {
                             System.out.println ("invalid plant" );
                     }
                     else
-                    if (loginUser.checkHandZombie (orderParts[1])) {
-                        Zombie zombie = getZombieByName (orderParts[1]);
+                    if (loginUser.checkHandZombie (name)) {
+                        Zombie zombie = getZombieByName (name);
                         loginUser.getZombieHand ( ).remove (zombie);
                         loginUser.getCollection ( ).getZombies ( ).add (zombie);
                     } else

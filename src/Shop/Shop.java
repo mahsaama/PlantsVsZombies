@@ -171,7 +171,7 @@ public class Shop {
     }
 
     public static void setFirstCards(User user){
-        buyForFree ("Sunflower",user);
+        buyForFree("Sunﬂower",user);
         buyForFree("Peashooter",user);
         buyForFree("SnowPea",user);
         buyForFree("Scaredy-shroom",user);
