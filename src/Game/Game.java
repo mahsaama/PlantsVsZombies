@@ -70,7 +70,7 @@ public class Game {
                         b = scanner.nextInt();
                         playGround.getCells()[b][a].getPlantContent().clear();
                     } else if (order.compareToIgnoreCase("ready") == 0) {
-                        
+
                     } else if (order.compareToIgnoreCase("show lawn") == 0) {
                         showLawn(playGround);
                     } else if (order.compareToIgnoreCase("show lanes") == 0) {
