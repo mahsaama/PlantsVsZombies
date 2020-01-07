@@ -216,20 +216,26 @@ public class Menu {
             } else if (order.compareToIgnoreCase ("select") == 0) {
                 String name = scanner.nextLine ( );
                 if (type.compareTo ("plant") == 0) {
+                    if (loginUser.getPlantHand ( ).size ( ) >= 7) {
+                        System.out.println ("you have 7 plants already");
+                        collectionMenu (type, typeOfGame);
+                    }
                     if (checkPlant (name)) {
                         Plant plant = getPlantByName (name);
                         loginUser.getPlantHand ( ).add (plant);
                         loginUser.getCollection ( ).getPlants ( ).remove (plant);
-                    }
-                    else
+                    } else
                         System.out.println ("invalid plant");
                 } else {
+                    if (loginUser.getZombieHand ( ).size ( ) >= 7) {
+                        System.out.println ("you have 7 zombies already");
+                        collectionMenu (type, typeOfGame);
+                    }
                     if (checkZombie (name)) {
                         Zombie zombie = getZombieByName (name);
                         loginUser.getZombieHand ( ).add (zombie);
                         loginUser.getCollection ( ).getZombies ( ).remove (zombie);
-                    }
-                    else System.out.println ("invalid zombie");
+                    } else System.out.println ("invalid zombie");
                 }
             } else if (order.compareToIgnoreCase ("remove") == 0) {
                 String name = scanner.nextLine ( );
@@ -255,10 +261,21 @@ public class Menu {
                 if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("plant") == 0) {
                     collectionMenu ("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("zombie") == 0) {
-                    prepareTwoPersonGame ( );
-                } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0)
-                    prepareGame (typeOfGame);
+                    if (loginUser.getPlantHand ( ).size ( ) < 7 || opponent.getZombieHand ( ).size ( ) < 7) {
+                        System.out.println ("you don't have enough cards");
+                    } else {
+                        prepareTwoPersonGame ( );
+                    }
+                } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0) {
+                    if (loginUser.getPlantHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") != 0) {
+                        System.out.println ("you don't have enough cards");
+                    } else if (loginUser.getZombieHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") == 0) {
+                        System.out.println ("you don't have enough cards");
+                    } else {
+                        prepareGame (typeOfGame);
+                    }
 
+                }
             } else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
