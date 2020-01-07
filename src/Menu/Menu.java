@@ -293,6 +293,7 @@ public class Menu {
         } else
             player.setTypeOfPlayer ("plant");
         game.setFirstPlayer (player);
+        game.setGameEnvironment();
     }
 
     public static void prepareTwoPersonGame() {
