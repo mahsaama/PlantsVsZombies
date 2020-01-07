@@ -27,16 +27,17 @@ public class Menu {
             if(order.compareToIgnoreCase("create account") == 0){
                 String username = scanner.nextLine();
                 String password = scanner.nextLine();
-                loginUser = new User(username,password);
-                users.add(loginUser);
-                System.out.println ("account _" + loginUser.getUsername () + "_ was created");
-                Shop.setFirstCards (loginUser);
+                User user = new User (username,password);
+                users.add(user);
+                System.out.println ("account _" + user.getUsername () + "_ was created");
+                Shop.setFirstCards (user);
             }
             else if(order.compareToIgnoreCase("login") == 0){
                 String username = scanner.nextLine();
                 String password = scanner.nextLine();
                 if(checkUsername(username)){
                     if(checkPassword (username,password)){
+                        System.out.println ("login successfully" );
                         loginUser = getUserByName(username);
                         mainMenu();
                         break;
@@ -117,9 +118,11 @@ public class Menu {
                     if(checkPassword (username,password)){
                         users.remove (getUserByName (username));
                     }
-                    System.out.println ("invalid password" );
+                    else
+                        System.out.println ("invalid password" );
                 }
-                System.out.println ("invalid username" );
+                else
+                    System.out.println ("invalid username" );
             }
 
             else if(order.compareToIgnoreCase ("Rename") == 0){

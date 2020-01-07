@@ -2,12 +2,9 @@ package Game;
 
 import Creature.Plant;
 import Creature.Zombie;
-import Map.Cell;
 import Map.PlayGround;
 import Menu.Menu;
 import User.Player;
-import com.sun.tools.javac.Main;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
