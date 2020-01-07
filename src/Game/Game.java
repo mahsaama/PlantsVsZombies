@@ -41,8 +41,8 @@ public class Game {
     public void setGameEnvironment() {
         if (typeOfGame.compareTo("PvP") == 0) {
             for (int i=0;i<numberOfWaves;i++){
-                String order = scanner.nextLine();
                 while (checkWinnerForSingleWave(playGround)) {
+                    String order = scanner.nextLine();
                     if (order.compareToIgnoreCase("show hand") == 0) {
                         if (currentPlayer.getTypeOfPlayer().compareToIgnoreCase("plant") == 0) {
                             for (Plant plant : currentPlayer.getPlantHand()) {
@@ -70,7 +70,7 @@ public class Game {
                         b = scanner.nextInt();
                         playGround.getCells()[b][a].getPlantContent().clear();
                     } else if (order.compareToIgnoreCase("ready") == 0) {
-                        turn++;
+                        
                     } else if (order.compareToIgnoreCase("show lawn") == 0) {
                         showLawn(playGround);
                     } else if (order.compareToIgnoreCase("show lanes") == 0) {
@@ -85,6 +85,9 @@ public class Game {
                         }
                     } else if (order.compareToIgnoreCase("start") == 0) {
 
+                    }else if(order.compareToIgnoreCase(("end turn")) == 0){
+                        turn++;
+                        numberOfSuns++;
                     } else if (order.compareToIgnoreCase("put") == 0) {
                         String name = scanner.nextLine();
                         int num = scanner.nextInt();
@@ -282,6 +285,15 @@ public class Game {
     }
 
     public boolean checkWinnerForSingleWave(PlayGround playGround) {
+        int num =0;
+        for (int i=0;i<6;i++){
+            for (int j=0;j<19;j++){
+                num += playGround.getCells()[i][j].getZombieContent().size();
+            }
+            if (num == 0){
+                return false;
+            }
+        }
         for (int i=0;i<6;i++){
             if (playGround.getCells()[i][0].getZombieContent().size()>0 && playGround.getCells()[i][0].getPlantContent().size()==0){
                 winner.setInsideGameCoins(winner.getInsideGameCoins() + 200);
