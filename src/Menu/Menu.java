@@ -135,7 +135,7 @@ public class Menu {
                 if(!checkUsername (username)){
                     User user = new User (username,password);
                     users.add (user);
-                    loginUser = user;
+                    loginMenu ();
                 }
                 else
                     System.out.println ("invalid username" );
