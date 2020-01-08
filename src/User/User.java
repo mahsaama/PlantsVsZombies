@@ -2,6 +2,7 @@ package User;
 
 import Creature.Plant;
 import Creature.Zombie;
+import Map.PlayGround;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,17 @@ public class User {
     public User(String username , String password){
         this.password = password;
         this.username = username;
+    }
+
+    public void addToPlantHand(Plant plant){
+        plantHand.add(plant);
+    }
+    public void removeFromPlantHand(Plant plant){
+        for(int i = 0; i < plantHand.size(); i++)
+            if(plantHand.get(i) == plant){
+                plantHand.remove(i);
+                return;
+            }
     }
 
     public ArrayList<Plant> getPlantHand() {
