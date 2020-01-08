@@ -159,6 +159,7 @@ public class Game {
                         currentPlayer = secondPlayer;
                     } else
                         currentPlayer = firstPlayer;
+                   attackCheck ();
                 } else if (order.compareToIgnoreCase ("show lawn") == 0) {
                     showLawn (playGround);
                 } else
@@ -338,21 +339,7 @@ public class Game {
                 playGround.getCells ( )[b][a].getPlantContent ( ).clear ( );
             } else if (order.compareToIgnoreCase ("end turn") == 0) {
                 turn++;
-                for (int i = 0; i < 6; i++) {
-                    for (int j = 0; j < 19; j++) {
-                        if (playGround.getCells ( )[i][j].getZombieContent ( ) != null) {
-                            for (int k = 0; k <= j; k++) {
-                                for (Plant plant : playGround.getCells ( )[i][k].getPlantContent ( )) {
-                                    if (j == k) {
-                                        plant.attack (playGround, true);
-                                    } else {
-                                        plant.attack (playGround, false);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                attackCheck ( );
                 //plants turn finished & zombies turn started
                 if (turn == 1) {
                     randomZombieSet (playGround);
@@ -367,6 +354,24 @@ public class Game {
                 showLawn (playGround);
             }
 
+        }
+    }
+
+    private void attackCheck() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 19; j++) {
+                if (playGround.getCells ( )[i][j].getZombieContent ( ) != null) {
+                    for (int k = 0; k <= j; k++) {
+                        for (Plant plant : playGround.getCells ( )[i][k].getPlantContent ( )) {
+                            if (j == k) {
+                                plant.attack (playGround, true);
+                            } else {
+                                plant.attack (playGround, false);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
