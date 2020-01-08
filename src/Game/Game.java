@@ -4,7 +4,11 @@ import Creature.Plant;
 import Creature.Zombie;
 import Map.PlayGround;
 import Menu.Menu;
+import Shop.Shop;
 import User.Player;
+import com.sun.tools.javac.Main;
+
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -186,7 +190,7 @@ public class Game {
             int numLadder = 3;
             int numDuck = 3;
             while (true){
-                if(checkWinnerForZombie() == true){
+                if(checkWinnerForZombie(playGround) == true){
                     System.out.println("game finished");
                     Menu.mainMenu();
                     break;
@@ -234,18 +238,54 @@ public class Game {
                         }
                     }
                 }else if(order.compareToIgnoreCase("start") == 0){
-                    //random plants??????????????????
+                    SecureRandom rand = new SecureRandom();
+                    for(int i = 0; i < 7; i++){
+                        int randInt1= rand.nextInt(Shop.getPlantList().size());
+                        Plant newRandPlant = Shop.makeNewPlantByName(Shop.getPlantList().get(randInt1).getName());
+                        while(true){
+                            int randInt2 = rand.nextInt(6);
+                            int randInt3 = rand.nextInt(rand.nextInt(3));
+                            if(playGround.getCells()[randInt2][randInt3].getPlantContent() != null){
+                                newRandPlant.setX(randInt2);
+                                newRandPlant.setY(randInt3);
+                                break;
+                            }
 
-                    while(!checkWinnerForZombie()) {
+                        }
+                    }
+                    while(!checkWinnerForZombie(playGround)) {
                         for (int i = 0; i < 6; i++) {
                             for (int j = 0; j < 19; j++) {
-                                for (Plant plant : playGround.getCells()[i][j].getPlantContent())
-                                //    plant.attack(playGround, samecell);//WHERE SHOULD BE SAMECELL??
-
+                                for (Plant plant : playGround.getCells()[i][j].getPlantContent()){
+                                    for(Zombie zombie: playGround.getCells()[i][j].getZombieContent())
+                                        plant.attack(playGround, true);
+                                    plant.attack(playGround, false);
+                                }
                                 if (playGround.getCells()[i][j].getZombieContent() != null &&
                                         playGround.getCells()[i][j].getPlantContent() != null) {
                                     for (Zombie zombie : playGround.getCells()[i][j].getZombieContent()) {
                                         zombie.attack(playGround);
+                                    }
+                                }
+                            }
+                        }
+                        for(int i = 0; i < 6; i++){
+                            for(int j = 0 ; j < 19; j++){
+                                for(Zombie zombie : playGround.getCells()[i][j].getZombieContent()){
+                                    boolean wasPlantInTheWay = false;
+                                    for(int k = 0; k < zombie.getSpeed(); k++){
+                                        if(j - k >= 0){
+                                            if(playGround.getCells()[i][j - k].getPlantContent() != null){
+                                                zombie.setY(j - k);
+                                                wasPlantInTheWay = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if(wasPlantInTheWay == false){
+                                        if(j - zombie.getSpeed() <= 0){
+                                            zombie.setY(0);
+                                        }
                                     }
                                 }
                             }
@@ -258,8 +298,15 @@ public class Game {
                     int choice = scanner.nextInt();
                     if(choice == 1){
                         System.out.println("choose a zombie");
-                        Zombie chosenZombie; // it should be chosen in the game
-                        //chosen
+                        Zombie chosenZombie = null; // it should be chosen in the game
+                        int choice2;
+                        System.out.println("if you want ladder enter 1, if you want duck enter 2");
+                        choice2 = scanner.nextInt();
+                        if(choice2 == 1)
+                            chosenZombie.setDuckOrLadder(choice2);
+                        else
+                            chosenZombie.setDuckOrLadder(choice2);
+
                     }
 
                 }else if(order.compareToIgnoreCase("show lawn") == 0){
@@ -317,8 +364,25 @@ public class Game {
         }
         return false;
     }
-    public boolean checkWinnerForZombie(){ return true;
-    //TODO
+    public boolean checkWinnerForZombie(PlayGround playGround){
+
+        for(int i = 0; i < 6; i++)
+            for(int j = 0 ; j < 19; j++){
+                if(playGround.getCells()[i][j].getZombieContent() != null){
+                    for(int k = 0; k < 6; k++){
+                        for( int l = 0 ; l< 19; l++){
+                            if(playGround.getCells()[k][l].getPlantContent() != null)
+                                return false;
+                        }
+                    }
+                    //it means there's no plants left
+                    return  true;
+                }
+
+            }
+
+        //it means there's no zombie left
+        return true;
     }
 
     public void randomCard(ArrayList<Plant> cards) {
