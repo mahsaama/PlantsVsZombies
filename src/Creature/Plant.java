@@ -30,6 +30,7 @@ public class Plant {
     private int sunProduct;
     private int price;
     private int startedTurn;
+    private String plantType;
 
     public int getPrice() {
         return price;
@@ -77,6 +78,10 @@ public class Plant {
 
     public int getHurtOfBullet() {
         return hurtOfBullet;
+    }
+
+    public String getPlantType() {
+        return plantType;
     }
 
     public int getTurn() {

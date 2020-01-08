@@ -21,7 +21,6 @@ public class Menu {
     static Shop shop = new Shop ( );
     static int numberOfWaves;
 
-    //TODO codeCleanup
     public static void loginMenu() {
         String order = scanner.nextLine ( );
         while (true) {
@@ -69,10 +68,15 @@ public class Menu {
     }
 
     private static void createAccount(String username, String password) {
-        User user = new User (username, password);
-        users.add (user);
-        System.out.println ("account _" + user.getUsername ( ) + "_ was created");
-        Shop.setFirstCards (user);
+        if(!checkUsername (username)){
+            User user = new User (username, password);
+            users.add (user);
+            System.out.println ("account _" + user.getUsername ( ) + "_ was created");
+            Shop.setFirstCards (user);
+        }
+        else
+            System.out.println ("invalid username" );
+
     }
 
     public static void mainMenu() {
@@ -110,13 +114,7 @@ public class Menu {
             } else if (order.compareToIgnoreCase ("Delete") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
-                if (loginUser.getUsername ( ).compareTo (username) == 0) {
-                    if (checkPassword (username, password)) {
-                        users.remove (getUserByName (username));
-                    } else
-                        System.out.println ("invalid password");
-                } else
-                    System.out.println ("invalid username");
+                removeUser (username, password);
             } else if (order.compareToIgnoreCase ("Rename") == 0) {
                 String newUsername = scanner.nextLine ( );
                 loginUser.setUsername (newUsername);
@@ -140,6 +138,16 @@ public class Menu {
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
         }
+    }
+
+    private static void removeUser(String username, String password) {
+        if (loginUser.getUsername ( ).compareTo (username) == 0) {
+            if (checkPassword (username, password)) {
+                users.remove (getUserByName (username));
+            } else
+                System.out.println ("invalid password");
+        } else
+            System.out.println ("invalid username");
     }
 
     public static void shopMenu() {
@@ -201,7 +209,8 @@ public class Menu {
     }
 
     public static void collectionMenu(String type, String typeOfGame) {
-        String order = scanner.nextLine ( );
+        scanner.nextLine ();
+        String order = scanner.nextLine ();
         boolean exit = false;
         while (!exit) {
             if (order.compareToIgnoreCase ("show hand") == 0) {
@@ -269,11 +278,13 @@ public class Menu {
                 playMenu ( );
             } else if (order.compareToIgnoreCase ("play") == 0) {
                 if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("plant") == 0) {
+                    loginUser = opponent;
                     collectionMenu ("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("zombie") == 0) {
                     if (loginUser.getPlantHand ( ).size ( ) < 7 || opponent.getZombieHand ( ).size ( ) < 7) {
                         System.out.println ("you don't have enough cards");
                     } else {
+                        System.out.println ("here" );
                         prepareTwoPersonGame ( );
                     }
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0) {
@@ -286,7 +297,10 @@ public class Menu {
                     }
 
                 }
-            } else
+            }
+            else if(order.compareToIgnoreCase ("\n" )== 0){
+                continue;
+            }else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
         }
@@ -297,7 +311,7 @@ public class Menu {
         System.out.println ("Game started" );
         Game game = new Game ( );
         game.setTypeOfGame (typeOfGame);
-        Player player = new Player (loginUser); //TODO
+        Player player = new Player (loginUser);
         if (typeOfGame.compareToIgnoreCase ("zombie") == 0) {
             game.setSecondPlayer (player);
             player.setTypeOfPlayer ("zombie");

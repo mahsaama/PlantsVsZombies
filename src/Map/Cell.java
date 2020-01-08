@@ -14,8 +14,16 @@ public class Cell {
         return plantContent;
     }
 
-
     public ArrayList<Zombie> getZombieContent() {
         return zombieContent;
     }
+
+    public void setCellKind(CellKind cellKind) {
+        this.cellKind = cellKind;
+    }
+
+    public CellKind getCellKind() {
+        return cellKind;
+    }
 }
+

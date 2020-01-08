@@ -19,5 +19,6 @@
   "turnOfBack": null,
   "shootNumOfBack": null,
   "sunProduct": null,
-  "price": 7
+  "price": 7,
+  "plantType" : "land"
 }

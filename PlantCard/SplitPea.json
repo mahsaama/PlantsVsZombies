@@ -19,5 +19,6 @@
   "effectOnZombieSpeed": null,
   "turnsUnderEffect": null,
   "sunProduct": null,
-  "price": 49
+  "price": 49,
+  "plantType" : "land"
 }

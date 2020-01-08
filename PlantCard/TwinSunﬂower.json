@@ -19,5 +19,6 @@
   "shootNumOfFront": null,
   "turnOfBack": null,
   "shootNumOfBack": null,
-  "price": 31
+  "price": 31,
+  "plantType" : "land"
 }
