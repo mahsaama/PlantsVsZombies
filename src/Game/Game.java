@@ -190,7 +190,7 @@ public class Game {
             int numLadder = 3;
             int numDuck = 3;
             while (true){
-                if(checkWinnerForZombie(playGround) == true){
+                if(checkWinnerForZombie(playGround, coin) == true){
                     System.out.println("game finished");
                     Menu.mainMenu();
                     break;
@@ -253,7 +253,7 @@ public class Game {
 
                         }
                     }
-                    while(!checkWinnerForZombie(playGround)) {
+                    while(!checkWinnerForZombie(playGround, coin)) {
                         for (int i = 0; i < 6; i++) {
                             for (int j = 0; j < 19; j++) {
                                 for (Plant plant : playGround.getCells()[i][j].getPlantContent()){
@@ -302,10 +302,24 @@ public class Game {
                         int choice2;
                         System.out.println("if you want ladder enter 1, if you want duck enter 2");
                         choice2 = scanner.nextInt();
-                        if(choice2 == 1)
-                            chosenZombie.setDuckOrLadder(choice2);
-                        else
-                            chosenZombie.setDuckOrLadder(choice2);
+                        if(choice2 == 1){
+                            if(numLadder == 0){
+                                System.out.println("ladder not found");
+                            }else{
+                                chosenZombie.setDuckOrLadder(choice2);
+                                numLadder--;
+                            }
+
+                        }else{
+                            if(numDuck == 0){
+                                System.out.println("duck not found");
+                            }else{
+                                chosenZombie.setDuckOrLadder(choice2);
+                                numDuck--;
+                            }
+
+
+                        }
 
                     }
 
@@ -364,7 +378,7 @@ public class Game {
         }
         return false;
     }
-    public boolean checkWinnerForZombie(PlayGround playGround){
+    public boolean checkWinnerForZombie(PlayGround playGround, int coins){
 
         for(int i = 0; i < 6; i++)
             for(int j = 0 ; j < 19; j++){
@@ -376,12 +390,14 @@ public class Game {
                         }
                     }
                     //it means there's no plants left
+
                     return  true;
                 }
 
             }
 
         //it means there's no zombie left
+
         return true;
     }
 
