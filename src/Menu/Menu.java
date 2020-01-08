@@ -68,10 +68,15 @@ public class Menu {
     }
 
     private static void createAccount(String username, String password) {
-        User user = new User (username, password);
-        users.add (user);
-        System.out.println ("account _" + user.getUsername ( ) + "_ was created");
-        Shop.setFirstCards (user);
+        if(!checkUsername (username)){
+            User user = new User (username, password);
+            users.add (user);
+            System.out.println ("account _" + user.getUsername ( ) + "_ was created");
+            Shop.setFirstCards (user);
+        }
+        else
+            System.out.println ("invalid username" );
+
     }
 
     public static void mainMenu() {
@@ -204,7 +209,8 @@ public class Menu {
     }
 
     public static void collectionMenu(String type, String typeOfGame) {
-        String order = scanner.nextLine ( );
+        scanner.nextLine ();
+        String order = scanner.nextLine ();
         boolean exit = false;
         while (!exit) {
             if (order.compareToIgnoreCase ("show hand") == 0) {
@@ -272,11 +278,13 @@ public class Menu {
                 playMenu ( );
             } else if (order.compareToIgnoreCase ("play") == 0) {
                 if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("plant") == 0) {
+                    loginUser = opponent;
                     collectionMenu ("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("zombie") == 0) {
                     if (loginUser.getPlantHand ( ).size ( ) < 7 || opponent.getZombieHand ( ).size ( ) < 7) {
                         System.out.println ("you don't have enough cards");
                     } else {
+                        System.out.println ("here" );
                         prepareTwoPersonGame ( );
                     }
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0) {
@@ -289,7 +297,10 @@ public class Menu {
                     }
 
                 }
-            } else
+            }
+            else if(order.compareToIgnoreCase ("\n" )== 0){
+                continue;
+            }else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
         }
