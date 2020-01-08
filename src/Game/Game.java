@@ -23,7 +23,6 @@ public class Game {
     private Scanner scanner = new Scanner (System.in);
     private Player currentPlayer;
     private int turn = 0;
-    private int numberOfSuns = 0;
     PlayGround playGround = new PlayGround ( );
 
     public void setFirstPlayer(Player firstPlayer) {
@@ -105,7 +104,7 @@ public class Game {
                         plant.setStartedTurn (turn);
                         if (plant.getPlantType ( ).compareToIgnoreCase ("land") == 0) {
                             if (currentPlayer.getNumberOfSuns ( ) >= plant.getNumberOfSuns ( )) {
-                                if (numberOfSuns >= plant.getNumberOfSuns ( ) && turn - plant.getStartedTurn ( ) >= plant.getRest ( )) {
+                                if (firstPlayer.getNumberOfSuns () >= plant.getNumberOfSuns ( ) && turn - plant.getStartedTurn ( ) >= plant.getRest ( )) {
                                     currentPlayer.setSelectedPlant (plant);
                                 } else {
                                     System.out.println ("you don't have enough energy");
@@ -394,7 +393,7 @@ public class Game {
                     String name = scanner.nextLine ( );
                     Plant plant = Menu.getPlantByName (name);
                     plant.setStartedTurn (turn);
-                    if (numberOfSuns >= plant.getNumberOfSuns ( ) && turn - plant.getStartedTurn ( ) >= plant.getRest ( )) {
+                    if (firstPlayer.getNumberOfSuns ()>= plant.getNumberOfSuns ( ) && turn - plant.getStartedTurn ( ) >= plant.getRest ( )) {
                         currentPlayer.setSelectedPlant (Menu.getPlantByName (name));
                     }
                 } else if (order.compareToIgnoreCase ("plant") == 0) {
@@ -423,7 +422,7 @@ public class Game {
 
                 } else if (order.compareToIgnoreCase (("end turn")) == 0) {
                     turn++;
-                    numberOfSuns++;
+                    firstPlayer.setNumberOfSuns (firstPlayer.getNumberOfSuns () + 1);
                 } else if (order.compareToIgnoreCase ("put") == 0) {
                     String name = scanner.nextLine ( );
                     int num = scanner.nextInt ( );
