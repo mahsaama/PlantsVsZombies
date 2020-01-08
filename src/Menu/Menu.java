@@ -203,13 +203,13 @@ public class Menu {
                 String opponentUsername = scanner.nextLine ( );
                 int waves = scanner.nextInt ( );
                 numberOfWaves = waves;
+                scanner.nextLine ();
                 opponent = getUserByName (opponentUsername);
                 collectionMenu ("plant", "PvP");
         }
     }
 
     public static void collectionMenu(String type, String typeOfGame) {
-        scanner.nextLine ();
         String order = scanner.nextLine ();
         boolean exit = false;
         while (!exit) {
@@ -284,7 +284,6 @@ public class Menu {
                     if (loginUser.getPlantHand ( ).size ( ) < 7 || opponent.getZombieHand ( ).size ( ) < 7) {
                         System.out.println ("you don't have enough cards");
                     } else {
-                        System.out.println ("here" );
                         prepareTwoPersonGame ( );
                     }
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0) {
