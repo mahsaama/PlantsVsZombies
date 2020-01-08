@@ -183,6 +183,7 @@ public class Shop {
         buyForFree("ScreenDoorZombie",user);
         buyForFree("ConeheadZombie",user);
         buyForFree("BalloonZombie",user);
+        buyForFree("BungeeZombie",user);
 
     }
 }
