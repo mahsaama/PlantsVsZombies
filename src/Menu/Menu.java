@@ -21,7 +21,6 @@ public class Menu {
     static Shop shop = new Shop ( );
     static int numberOfWaves;
 
-    //TODO codeCleanup
     public static void loginMenu() {
         String order = scanner.nextLine ( );
         while (true) {
@@ -110,13 +109,7 @@ public class Menu {
             } else if (order.compareToIgnoreCase ("Delete") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
-                if (loginUser.getUsername ( ).compareTo (username) == 0) {
-                    if (checkPassword (username, password)) {
-                        users.remove (getUserByName (username));
-                    } else
-                        System.out.println ("invalid password");
-                } else
-                    System.out.println ("invalid username");
+                removeUser (username, password);
             } else if (order.compareToIgnoreCase ("Rename") == 0) {
                 String newUsername = scanner.nextLine ( );
                 loginUser.setUsername (newUsername);
@@ -140,6 +133,16 @@ public class Menu {
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
         }
+    }
+
+    private static void removeUser(String username, String password) {
+        if (loginUser.getUsername ( ).compareTo (username) == 0) {
+            if (checkPassword (username, password)) {
+                users.remove (getUserByName (username));
+            } else
+                System.out.println ("invalid password");
+        } else
+            System.out.println ("invalid username");
     }
 
     public static void shopMenu() {

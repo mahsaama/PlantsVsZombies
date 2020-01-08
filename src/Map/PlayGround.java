@@ -11,7 +11,15 @@ public class PlayGround {
         }
     }
 
+    public void setCells(Cell[][] cells) {
+        this.cells = cells;
+    }
+
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public Cell getSingleCell(int i , int j){
+        return cells[i][j];
     }
 }
