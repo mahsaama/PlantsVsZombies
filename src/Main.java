@@ -9,9 +9,4 @@ public class Main {
         Shop shop = new Shop ();
         Menu.loginMenu();
     }
-
-
-
-
-
 }

@@ -21,6 +21,18 @@ public class Player extends User {
         this.typeOfPlayer = typeOfPlayer;
     }
 
+    public Player(User user){
+        super(user.getUsername (),user.getPassword ());
+        this.setUsername (user.getUsername ());
+        this.setPassword (user.getPassword ());
+        this.setCoins (user.getCoins ());
+        this.setNumberOfPlantsKilledOverAll (user.getNumberOfPlantsKilledOverAll ());
+        this.setNumberOfZombiesKilledOverAll (user.getNumberOfZombiesKilledOverAll ());
+        this.setCollection (user.getCollection ());
+        this.setPlantHand (user.getPlantHand ());
+        this.setZombieHand (user.getZombieHand ());
+    }
+
     public int getScore() {
         return score;
     }

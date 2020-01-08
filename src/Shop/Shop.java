@@ -4,7 +4,7 @@ import Creature.Plant;
 import Creature.Zombie;
 import User.User;
 import com.google.gson.Gson;
-import com.sun.tools.javac.Main;
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -170,7 +170,7 @@ public class Shop {
     }
 
     public static void setFirstCards(User user){
-        buyForFree ("Sunflower",user);
+        buyForFree("Sunﬂower",user);
         buyForFree("Peashooter",user);
         buyForFree("SnowPea",user);
         buyForFree("Scaredy-shroom",user);

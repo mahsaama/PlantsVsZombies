@@ -2,7 +2,6 @@ package Game;
 
 import Creature.Plant;
 import Creature.Zombie;
-import Map.Cell;
 import Map.PlayGround;
 import Menu.Menu;
 import Shop.Shop;
@@ -45,53 +44,76 @@ public class Game {
 
     public void setGameEnvironment() {
         if (typeOfGame.compareTo("PvP") == 0) {
-            String order = scanner.nextLine();
-            while (true) {
-                if (checkWinnerForPvP()) {
-                    System.out.println("game finished");
-                    Menu.mainMenu();
-                    break;
-                }
-                if (order.compareToIgnoreCase("show hand") == 0) {
-                    if (currentPlayer.getTypeOfPlayer().compareToIgnoreCase("plant") == 0) {
-                        for (Plant plant : currentPlayer.getPlantHand()) {
-                            System.out.println("selected plant:" + plant.getName() + " numberOfsuns:" +
-                                    plant.getNumberOfSuns() + " timeToRest: " + plant.getRest());
+            for (int i=0;i<numberOfWaves;i++){
+                while (checkWinnerForSingleWave(playGround)) {
+                    String order = scanner.nextLine();
+                    if (order.compareToIgnoreCase("show hand") == 0) {
+                        if (currentPlayer.getTypeOfPlayer().compareToIgnoreCase("plant") == 0) {
+                            for (Plant plant : currentPlayer.getPlantHand()) {
+                                System.out.println("selected plant:" + plant.getName() + " numberOfSuns:" +
+                                        plant.getNumberOfSuns() + " timeToRest: " + plant.getRest());
+                            }
+                        } else {
+                            for (Zombie zombie : currentPlayer.getZombieHand()) {
+                                System.out.println("selected zombie:" + zombie.getName() + "life:" + zombie.getLife());
+                            }
                         }
-                    } else {
-                        for (Zombie zombie : currentPlayer.getZombieHand()) {
-                            System.out.println("selected zombie:" + zombie.getName() + "life:" + zombie.getLife());
+                    } else if (order.compareToIgnoreCase("select") == 0) {
+                        String name = scanner.nextLine();
+                        Plant plant = Menu.getPlantByName(name);
+                        plant.setStartedTurn(turn);
+                        if (numberOfSuns >= plant.getNumberOfSuns() && turn - plant.getStartedTurn() >= plant.getRest()) {
+                            currentPlayer.setSelectedPlant(Menu.getPlantByName(name));
+                        }
+                    } else if (order.compareToIgnoreCase("plant") == 0) {
+                        currentPlayer.getSelectedPlant().setY(scanner.nextInt());
+                        currentPlayer.getSelectedPlant().setX(scanner.nextInt());
+                    } else if (order.compareToIgnoreCase("remove") == 0) {
+                        int a, b;
+                        a = scanner.nextInt();
+                        b = scanner.nextInt();
+                        playGround.getCells()[b][a].getPlantContent().clear();
+                    } else if (order.compareToIgnoreCase("ready") == 0) {
+
+                    } else if (order.compareToIgnoreCase("show lawn") == 0) {
+                        showLawn(playGround);
+                    } else if (order.compareToIgnoreCase("show lanes") == 0) {
+                        secondPlayer.getZombieHand().sort(Comparator.comparing(Zombie::getY));
+                        for(int j = 0; j < 6; j++){
+                            for(Zombie zombie: secondPlayer.getZombieHand()){
+                                if(zombie.getX() == j){
+                                    System.out.println((j + 1) + " " + zombie.getName());
+                                    break;
+                                }
+                            }
+                        }
+                    } else if (order.compareToIgnoreCase("start") == 0) {
+
+                    }else if(order.compareToIgnoreCase(("end turn")) == 0){
+                        turn++;
+                        numberOfSuns++;
+                    } else if (order.compareToIgnoreCase("put") == 0) {
+                        String name = scanner.nextLine();
+                        int num = scanner.nextInt();
+                        int rowNum = scanner.nextInt();
+                        secondPlayer.setInsideGameCoins(50);
+                        Zombie zombie = Menu.getZombieByName(name);
+                        int numOfZombieInRow = playGround.getCells()[rowNum][18].getZombieContent().size();
+                        //check number of zombies in last cell of that row to be no zombie there
+                        if(secondPlayer.getInsideGameCoins() >= zombie.getPrice()*num){
+                            if(numOfZombieInRow == 0){
+                                for (int k=0 ;k<num ; k++){
+                                    playGround.getCells()[rowNum][18].getZombieContent().add(zombie);
+                                    secondPlayer.setInsideGameCoins(secondPlayer.getInsideGameCoins() -zombie.getPrice());
+                                }
+                            }
                         }
                     }
-                } else if (order.compareToIgnoreCase("select") == 0) {
-                    String name = scanner.nextLine();
-                    Plant plant = Menu.getPlantByName(name);
-                    plant.setStartedTurn(turn);
-                    if (numberOfSuns >= plant.getNumberOfSuns() && turn - plant.getStartedTurn() >= plant.getRest()) {
-                        currentPlayer.setSelectedPlant(Menu.getPlantByName(name));
-                    }
-                } else if (order.compareToIgnoreCase("plant") == 0) {
-                    currentPlayer.getSelectedPlant().setY(scanner.nextInt());
-                    currentPlayer.getSelectedPlant().setX(scanner.nextInt());
-                } else if (order.compareToIgnoreCase("remove") == 0) {
-                    int a, b;
-                    a = scanner.nextInt();
-                    b = scanner.nextInt();
-                    playGround.getCells()[b][a].getPlantContent().clear();
-                } else if (order.compareToIgnoreCase("ready") == 0) {
-                    turn++;
-                    //attack
-                } else if (order.compareToIgnoreCase("show lawn") == 0) {
-                    showLawn(playGround);
-                } else if (order.compareToIgnoreCase("show lanes") == 0) {
-
-                } else if (order.compareToIgnoreCase("start") == 0) {
-
-                } else if (order.compareToIgnoreCase("put") == 0) {
-                    String name = scanner.nextLine();
-                    int zombieNumber = scanner.nextInt();
-
                 }
+            }
+            if (checkWinnerForPvP()) {
+                System.out.println("game finished");
+                Menu.mainMenu();
             }
         } else if (typeOfGame.compareTo("Rail") == 0) {
             String order = scanner.nextLine();
@@ -309,10 +331,24 @@ public class Game {
         return false;
     }
 
-    public boolean checkWinnerForSingleWave() {
-        winner.setInsideGameCoins(winner.getInsideGameCoins() + 200);
-        winner.setNumberOfWavesWon(winner.getNumberOfWavesWon() + 1);
-        return false;
+    public boolean checkWinnerForSingleWave(PlayGround playGround) {
+        int num =0;
+        for (int i=0;i<6;i++){
+            for (int j=0;j<19;j++){
+                num += playGround.getCells()[i][j].getZombieContent().size();
+            }
+            if (num == 0){
+                return false;
+            }
+        }
+        for (int i=0;i<6;i++){
+            if (playGround.getCells()[i][0].getZombieContent().size()>0 && playGround.getCells()[i][0].getPlantContent().size()==0){
+                winner.setInsideGameCoins(winner.getInsideGameCoins() + 200);
+                winner.setNumberOfWavesWon(winner.getNumberOfWavesWon() + 1);
+                return false;
+            }
+        }
+        return true;
         //TODO
     }
 
