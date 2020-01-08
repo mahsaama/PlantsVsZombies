@@ -300,6 +300,8 @@ public class Menu {
             game.setFirstPlayer (player);
         }
         game.setGameEnvironment ();
+        game.setFirstPlayer (player);
+        game.setGameEnvironment();
     }
 
     public static void prepareTwoPersonGame() {
