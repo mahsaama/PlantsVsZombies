@@ -300,7 +300,7 @@ public class Menu {
         System.out.println ("Game started" );
         Game game = new Game ( );
         game.setTypeOfGame (typeOfGame);
-        Player player = new Player (loginUser); //TODO
+        Player player = new Player (loginUser);
         if (typeOfGame.compareToIgnoreCase ("zombie") == 0) {
             game.setSecondPlayer (player);
             player.setTypeOfPlayer ("zombie");

@@ -153,7 +153,7 @@ public class Game {
                     SecureRandom secureRandom = new SecureRandom ( );
                     int j = secureRandom.nextInt (2);
                     if (j == 0) {
-                        currentPlayer.setNumberOfSuns (currentPlayer.getNumberOfSuns ( ) + getRandomNumberOfSuns ( )); //TODO
+                        currentPlayer.setNumberOfSuns (currentPlayer.getNumberOfSuns ( ) + getRandomNumberOfSuns ( ));
                     }
                     if (currentPlayer.equals (firstPlayer)) {
                         currentPlayer = secondPlayer;
@@ -477,7 +477,6 @@ public class Game {
             }
         }
         return true;
-        //TODO
     }
 
     public boolean checkWinnerForRail(PlayGround playGround) {
