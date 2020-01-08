@@ -21,5 +21,9 @@ public class Cell {
     public void setCellKind(CellKind cellKind) {
         this.cellKind = cellKind;
     }
+
+    public CellKind getCellKind() {
+        return cellKind;
+    }
 }
 
