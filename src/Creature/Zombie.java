@@ -20,6 +20,7 @@ public class Zombie {
     private boolean car;
     private int price;
     private int stoppedTurns = 0;
+    private int DuckOrLadder = 0;
 
     public void setCurrentSpeed(int amount) {
         if (speed == currentSpeed){
@@ -38,9 +39,13 @@ public class Zombie {
         this.hat = hat;
     }
 
+    public void setDuckOrLadder(int situation){ this.DuckOrLadder = situation; }
+
     public void setGuard(boolean guard) {
         this.guard = guard;
     }
+
+    public int getDuckOrLadder(){ return DuckOrLadder; }
 
     public int getX() {
         return x;

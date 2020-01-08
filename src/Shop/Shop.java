@@ -52,7 +52,6 @@ public class Shop {
         }
     }
 
-
     public static Plant makeNewPlantByName(String name) {
         Plant plant= checkNamePlant (name);
         TypeOfFiles typeOfFile= null;
@@ -162,11 +161,11 @@ public class Shop {
     }
 
 
-    public ArrayList<Zombie> getZombieList() {
+    public static ArrayList<Zombie> getZombieList() {
         return zombieList;
     }
 
-    public ArrayList<Plant> getPlantList() {
+    public static ArrayList<Plant> getPlantList() {
         return plantList;
     }
 
