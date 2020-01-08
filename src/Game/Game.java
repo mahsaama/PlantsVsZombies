@@ -267,6 +267,10 @@ public class Game {
                 }
             }
         }
+        else if(typeOfGame.compareToIgnoreCase ("Day") == 0){
+            firstPlayer.setNumberOfSuns (2);
+
+        }
     }
 
     public boolean checkWinnerForPvP() {
@@ -313,7 +317,9 @@ public class Game {
         }
         return false;
     }
-    public boolean checkWinnerForZombie(){ return true;}
+    public boolean checkWinnerForZombie(){ return true;
+    //TODO
+    }
 
     public void randomCard(ArrayList<Plant> cards) {
         String[] plantLibrary = {"Cabbage-pult", "Cactus", "Cattail", "CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "SplitPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};

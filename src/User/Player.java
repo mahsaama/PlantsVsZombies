@@ -14,12 +14,8 @@ public class Player extends User {
     private Zombie selectedZombie;
     private Plant selectedPlant;
     private int score;
+    private int numberOfSuns = 0;
 
-
-    public Player(String username , String password,String typeOfPlayer){
-        super(username,password);
-        this.typeOfPlayer = typeOfPlayer;
-    }
 
     public Player(User user){
         super(user.getUsername (),user.getPassword ());
@@ -57,6 +53,13 @@ public class Player extends User {
         this.typeOfPlayer = typeOfPlayer;
     }
 
+    public int getNumberOfSuns() {
+        return numberOfSuns;
+    }
+
+    public void setNumberOfSuns(int numberOfSuns) {
+        this.numberOfSuns = numberOfSuns;
+    }
 
     public int getNumberOfKilledZombies() {
         return numberOfKilledZombies;

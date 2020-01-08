@@ -28,29 +28,14 @@ public class Menu {
             if (order.compareToIgnoreCase ("create account") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
-                User user = new User (username, password);
-                users.add (user);
-                System.out.println ("account _" + user.getUsername ( ) + "_ was created");
-                Shop.setFirstCards (user);
+                createAccount (username, password);
             } else if (order.compareToIgnoreCase ("login") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
-                if (checkUsername (username)) {
-                    if (checkPassword (username, password)) {
-                        System.out.println ("login successfully");
-                        loginUser = getUserByName (username);
-                        mainMenu ( );
-                        break;
-                    } else
-                        System.out.println ("invalid password");
-                } else
-                    System.out.println ("invalid username");
+                if (login (username, password)) break;
 
             } else if (order.compareToIgnoreCase ("leaderboard") == 0) {
-                users.sort (Comparator.comparing (User::getNumberOfZombiesKilled));
-                for (User user : users) {
-                    System.out.println (user.getUsername ( ) + ": " + user.getNumberOfZombiesKilled ( ));
-                }
+                leaderboard ( );
             } else if (order.compareToIgnoreCase ("help") == 0) {
                 System.out.println ("create account\nlogin\nleaderboard\nhelp\nexit");
             } else if (order.compareToIgnoreCase ("exit") == 0) {
@@ -60,6 +45,34 @@ public class Menu {
             order = scanner.nextLine ( );
         }
 
+    }
+
+    private static void leaderboard() {
+        users.sort (Comparator.comparing (User::getNumberOfZombiesKilled));
+        for (User user : users) {
+            System.out.println (user.getUsername ( ) + ": " + user.getNumberOfZombiesKilled ( ));
+        }
+    }
+
+    private static boolean login(String username, String password) {
+        if (checkUsername (username)) {
+            if (checkPassword (username, password)) {
+                System.out.println ("login successfully");
+                loginUser = getUserByName (username);
+                mainMenu ( );
+                return true;
+            } else
+                System.out.println ("invalid password");
+        } else
+            System.out.println ("invalid username");
+        return false;
+    }
+
+    private static void createAccount(String username, String password) {
+        User user = new User (username, password);
+        users.add (user);
+        System.out.println ("account _" + user.getUsername ( ) + "_ was created");
+        Shop.setFirstCards (user);
     }
 
     public static void mainMenu() {
@@ -93,14 +106,7 @@ public class Menu {
             if (order.compareToIgnoreCase ("Change") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
-                if (checkUsername (username)) {
-                    if (checkPassword (username, password)) {
-                        System.out.println ("login successfully");
-                        loginUser = getUserByName (username);
-                    } else
-                        System.out.println ("invalid password");
-                } else
-                    System.out.println ("invalid username");
+                if (login (username, password)) break;
             } else if (order.compareToIgnoreCase ("Delete") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
