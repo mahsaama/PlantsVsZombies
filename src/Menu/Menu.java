@@ -250,9 +250,13 @@ public class Menu {
                         System.out.println ("you have 7 zombies already");
                     }
                     if (checkZombie (name)) {
-                        Zombie zombie = getZombieByName (name);
-                        tempUser.getZombieHand ( ).add (zombie);
-                        tempUser.getCollection ( ).getZombies ( ).remove (zombie);
+                        Zombie zombie = Shop.makeNewZombieByName(name);
+                        loginUser.getZombieHand ( ).add (zombie);
+                        for (Zombie zom: loginUser.getZombieHand()){
+
+                        }
+                        System.out.println();
+                        loginUser.getCollection ( ).getZombies ( ).remove (zombie);
                     } else System.out.println ("invalid zombie");
                 }
             } else if (order.compareToIgnoreCase ("remove") == 0) {

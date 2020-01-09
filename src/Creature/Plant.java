@@ -173,11 +173,12 @@ public class Plant {
                 if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
                     }
                 }
             } else if (name.equals("TangleKelp")) {
+                playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                 zombie = null;
                 return;
             } else if (name.equals("PotatoMine")) {
@@ -185,6 +186,7 @@ public class Plant {
                     offTurns--;
                     return;
                 } else {
+                    playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                     zombie = null;
                 }
             }
@@ -199,16 +201,17 @@ public class Plant {
                     zombie.setCurrentSpeed(effectOnZombieSpeed);
 
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
                     }
                 }
             } else if (name.equals("Cabbage-pult")) {
                 if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
+
                     }
 
                 }
@@ -216,8 +219,9 @@ public class Plant {
                 if (plantTurn % 3 == 0) {
                     zombie.setLife(hurtOfBullet, 2);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
+
                     }
 
                 }
@@ -225,8 +229,9 @@ public class Plant {
                 if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
+
                     }
 
                     if (x > 0) {
@@ -235,8 +240,9 @@ public class Plant {
                         if (zombie1 != null) {
                             zombie1.setLife(hurtOfBullet, 1);
                             if (zombie1.getLife() == 0) {
+                                playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                                 zombie1 = null;
-                                //TODO
+
                             }
                         }
                     }
@@ -247,8 +253,8 @@ public class Plant {
 
                             zombie2.setLife(hurtOfBullet, 1);
                             if (zombie2.getLife() == 0) {
+                                playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                                 zombie2 = null;
-                                //TODO
                             }
                         }
                     }
@@ -257,16 +263,18 @@ public class Plant {
                 if (plantTurn % 2 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
+
                     }
                 }
             } else if (name.equals("GatlingPea")) {
                 if (plantTurn % 5 == 0) {
                     zombie.setLife(hurtOfBullet, 4);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
+
                     }
                 }
             } else if (name.equals("Scaredy-shroom")) {
@@ -281,8 +289,9 @@ public class Plant {
                                 if (distance > minDistanceToShoot) {
                                     zombie.setLife(hurtOfBullet, 1);
                                     if (zombie.getLife() == 0) {
+                                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                                         zombie = null;
-                                        //TODO
+
                                     }
                                 }
                                 return;
@@ -294,16 +303,17 @@ public class Plant {
                 if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 4);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
+
                     }
                     zombie.setStoppedTurns(zombieStopTurns);
                 }
             } else if (name.equals("SplitPea")) {
                 zombie.setLife(hurtOfBullet, 1);
                 if (zombie.getLife() == 0) {
+                    playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                     zombie = null;
-                    //TODO
                 }
                 Zombie zombie1 = null;
                 for (int i = y - 1; i >= 0; i--) {
@@ -316,17 +326,19 @@ public class Plant {
                     if (zombie1 != null)
                         break;
                 }
-                zombie1.setLife(hurtOfBullet, 2);
+                if(zombie1 != null)
+                    zombie1.setLife(hurtOfBullet, 2);
                 if (zombie.getLife() == 0) {
+                    playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                     zombie = null;
-                    //TODO
+
                 }
             } else if (name.equals("Melon-pult")) {
                 if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
                     }
 
                 }
@@ -335,54 +347,84 @@ public class Plant {
                     zombie.setLife(hurtOfBullet, 1);
                     zombie.setCurrentSpeed(effectOnZombieSpeed);
                     if (zombie.getLife() == 0) {
+                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                         zombie = null;
-                        //TODO
                     }
 
                 }
             } else if (name.equals("Cattail")) {
                 zombie = nearestZombie(playGround);
+                playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
                 zombie = null;
             } else if (name.equals("CherryBomb")) {
                 if (playGround.getCells()[x][y].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x][y].getZombieContent())
-                        item = null; // kill the zombie in graphic
+                    for (Zombie item : playGround.getCells()[x][y].getZombieContent()){
+                        playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                        item = null;
+                    }
                 }
                 if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x - 1][y].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x - 1][y].getZombieContent()){
+                        playGround.getCells()[item.getX() - 1][item.getY()].getZombieContent().remove(item);
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (y > 1 && playGround.getCells()[x][y - 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x][y - 1].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x][y - 1].getZombieContent()){
+                        playGround.getCells()[item.getX()][item.getY() - 1].getZombieContent().remove(item);
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (x < 6 && playGround.getCells()[x + 1][y].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x + 1][y].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x + 1][y].getZombieContent()){
+                        playGround.getCells()[item.getX() + 1][item.getY()].getZombieContent().remove(item);
+
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (y < 19 && playGround.getCells()[x][y + 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x][y + 1].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x][y + 1].getZombieContent()){
+                        playGround.getCells()[item.getX()][item.getY() + 1].getZombieContent().remove(item);
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (y < 19 && x < 6 && playGround.getCells()[x + 1][y + 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x + 1][y + 1].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x + 1][y + 1].getZombieContent()){
+                        playGround.getCells()[item.getX() + 1][item.getY() + 1].getZombieContent().remove(item);
+
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (x > 0 && y > 0 && playGround.getCells()[x - 1][y - 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x - 1][y - 1].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x - 1][y - 1].getZombieContent()){
+                        playGround.getCells()[item.getX() - 1][item.getY() - 1].getZombieContent().remove(item);
+
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (x < 9 && y > 0 && playGround.getCells()[x + 1][y - 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x + 1][y - 1].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x + 1][y - 1].getZombieContent()){
+                        playGround.getCells()[item.getX() + 1][item.getY() - 1].getZombieContent().remove(item);
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
                 if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent())
+                    for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent()){
+                        playGround.getCells()[item.getX() - 1][item.getY() + 1].getZombieContent().remove(item);
                         item = null; // kill the zombie in graphic
+
+                    }
                 }
             } else if (name.equals("Magnet-shroom")) {
                 if (plantTurn % 3 == 0) {
-                    if (playGround.getCells()[x][y].getZombieContent() != null) {
+                    if (playGround.getCells()[x][y].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x][y].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -396,7 +438,7 @@ public class Plant {
                                 }
                             }
                     }
-                    if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent() != null) {
+                    if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x - 1][y].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -411,7 +453,7 @@ public class Plant {
                             }
 
                     }
-                    if (y > 1 && playGround.getCells()[x][y - 1].getZombieContent() != null) {
+                    if (y > 1 && playGround.getCells()[x][y - 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x][y - 1].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -426,7 +468,7 @@ public class Plant {
                             }
 
                     }
-                    if (x < 6 && playGround.getCells()[x + 1][y].getZombieContent() != null) {
+                    if (x < 6 && playGround.getCells()[x + 1][y].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x + 1][y].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -441,7 +483,7 @@ public class Plant {
                             }
 
                     }
-                    if (y < 19 && playGround.getCells()[x][y + 1].getZombieContent() != null) {
+                    if (y < 19 && playGround.getCells()[x][y + 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x][y + 1].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -456,7 +498,7 @@ public class Plant {
                             }
 
                     }
-                    if (y < 19 && x < 6 && playGround.getCells()[x + 1][y + 1].getZombieContent() != null) {
+                    if (y < 19 && x < 6 && playGround.getCells()[x + 1][y + 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x + 1][y + 1].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -471,7 +513,7 @@ public class Plant {
                             }
 
                     }
-                    if (x > 0 && y > 0 && playGround.getCells()[x - 1][y - 1].getZombieContent() != null) {
+                    if (x > 0 && y > 0 && playGround.getCells()[x - 1][y - 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x - 1][y - 1].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -486,7 +528,7 @@ public class Plant {
                             }
 
                     }
-                    if (x < 9 && y > 0 && playGround.getCells()[x + 1][y - 1].getZombieContent() != null) {
+                    if (x < 9 && y > 0 && playGround.getCells()[x + 1][y - 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x + 1][y - 1].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -500,7 +542,7 @@ public class Plant {
                                 }
                             }
                     }
-                    if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent() != null) {
+                    if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent())
                             if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
                                     || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
@@ -518,7 +560,7 @@ public class Plant {
 
             } else if (name.equals("Jalapeno")) {
                 for (int i = 0; i < 16; i++) {
-                    if (playGround.getCells()[x][i].getZombieContent() != null) {
+                    if (playGround.getCells()[x][i].getZombieContent().size() != 0) {
                         playGround.getCells()[x][i].getZombieContent().clear();
                     }
                 }
