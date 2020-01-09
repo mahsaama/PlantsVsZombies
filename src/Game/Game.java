@@ -93,6 +93,11 @@ public class Game {
                     removePlant(a, b);
                 } else if (order.compareToIgnoreCase("end turn") == 0) {
                     turn++;
+                    if(turn % 2 == 1){
+                        System.out.println("zombie's turn");
+                    }
+                    else
+                        System.out.println("your turn");
                     SecureRandom secureRandom = new SecureRandom();
                     int j = secureRandom.nextInt(2);
                     if (j == 0) {
