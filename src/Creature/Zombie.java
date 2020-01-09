@@ -128,12 +128,12 @@ public class Zombie {
         } else if (name.equals("Zomboni") || name.equals("CatapultZombie")) {
             if (car) {
                 String nameOfPlant = plant.name;
-                plant = null;
+                playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
                 return nameOfPlant;
             }
         } else if (name.equals("Giga-gargantuar")) {
             String nameOfPlant = plant.name;
-            plant = null;
+            playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
             return nameOfPlant;
         } else if (name.equals("PogoZombie")) {
             y--;
@@ -146,7 +146,7 @@ public class Zombie {
             plant.setLife();
             if (plant.getLife() == 0) {
                 String nameOfPlant = plant.name;
-                plant = null;
+                playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
                 return nameOfPlant;
             }
         }
