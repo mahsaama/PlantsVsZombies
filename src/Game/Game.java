@@ -84,7 +84,7 @@ public class Game {
                     startTurn[i] = turn;
                     startWave ( );
                 }
-                if (!checkWinnerForRail) {///this method was deleted...........................................//TODO
+                if (true) {///this method was deleted...........................................//TODO
                     winner = firstPlayer;
                     currentPlayer.setScore (currentPlayer.getNumberOfKilledZombies ( ));
                     winner.setCoins (winner.getCoins ( ) + 10 * winner.getNumberOfKilledZombies ( ));
@@ -170,7 +170,6 @@ public class Game {
     }
 
     private void zombieGame() {
-        String order = scanner.nextLine ( );
         int coin = 50;
         int numLadder = 3;
         int numDuck = 3;
@@ -345,18 +344,29 @@ public class Game {
                 }
             } else if (order.compareToIgnoreCase ("select") == 0) {
                 int n = scanner.nextInt ( );
+                if (n > currentPlayer.getPlantHand().size()){
+                    System.out.println("Out of bound!");
+                    continue;
+                }
                 currentPlayer.setSelectedPlant (cards.get (n-1));
                 currentPlayer.getPlantHand().remove(cards.get (n-1));
             } else if (order.compareToIgnoreCase ("record") == 0) {
                 System.out.println ("number of killed zombies:" + currentPlayer.getNumberOfKilledZombies ( ));
             } else if (order.compareToIgnoreCase ("plant") == 0) {
-                currentPlayer.getSelectedPlant ( ).setY (scanner.nextInt ( ));
-                currentPlayer.getSelectedPlant ( ).setX (scanner.nextInt ( ));
+                int y = scanner.nextInt();
+                int x = scanner.nextInt();
+                scanner.nextLine();
+                currentPlayer.getSelectedPlant ( ).setY (y);
+                currentPlayer.getSelectedPlant ( ).setX (x);
+                playGround.getCells()[x][y].setPlantContent(currentPlayer.getSelectedPlant());
+                currentPlayer.setSelectedPlant(null);
+                System.out.println("Plant successfully planted!");
             } else if (order.compareToIgnoreCase ("remove") == 0) {
                 int a, b;
                 a = scanner.nextInt ( );
                 b = scanner.nextInt ( );
                 playGround.getCells ( )[b][a].clearPlantContent();
+                System.out.println("Plant removed successfully!");
             } else if (order.compareToIgnoreCase ("end turn") == 0) {
                 if (turn == zombieNextTurn) {
                     randomZombieSet(playGround);
@@ -371,6 +381,7 @@ public class Game {
                     Menu.mainMenu ( );
                     break;
                 }
+                System.out.println("Turn ended. New turn Started!");
             } else if (order.compareToIgnoreCase ("show lawn") == 0) {
                 showLawn (playGround);
             }
@@ -577,10 +588,11 @@ public class Game {
         String[] zombieLibrary = {"BalloonZombie", "Zombie", "FootballZombie", "BucketheadZombie", "ConeheadZombie", "Zomboni", "CatapultZombie", "BungeeZombie", "BalloonZombie", "NewspaperZombie", "TargetZombie", "ScreenDoorZombie", "Giga-gargantuar", "PogoZombie"};
         int randomNum = rand.nextInt(13);
         int randomX = rand.nextInt(6);
-        Zombie zombie = Menu.getZombieByName (zombieLibrary[randomNum]);
+        Zombie zombie = Shop.makeNewZombieByName (zombieLibrary[randomNum]);
         zombie.setX (randomX);
         zombie.setY (18);
         currentPlayer.getZombieHand ( ).add (zombie);
+        playGround.getCells()[randomX][18].setZombieContent(zombie);
     }
 
     public void randomZombieSetForDay(PlayGround playGround) {

@@ -27,5 +27,7 @@ public class Cell {
     }
 
     public void clearPlantContent(){ this.plantContent.clear();}
+    public void setZombieContent(Zombie z){ this.zombieContent.add(z);}
+    public void setPlantContent(Plant p){ this.plantContent.add(p);}
 }
 
