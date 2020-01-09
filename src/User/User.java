@@ -21,17 +21,6 @@ public class User {
         this.username = username;
     }
 
-    public void addToPlantHand(Plant plant){
-        plantHand.add(plant);
-    }
-    public void removeFromPlantHand(Plant plant){
-        for(int i = 0; i < plantHand.size(); i++)
-            if(plantHand.get(i) == plant){
-                plantHand.remove(i);
-                return;
-            }
-    }
-
     public ArrayList<Plant> getPlantHand() {
         return plantHand;
     }
