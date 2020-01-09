@@ -9,7 +9,11 @@ public class PlayGround {
         for(int i = 0; i < 6; i++){
             mowers[i] = true;
         }
+        for(int i = 0 ; i < 6; i++)
+            for(int j = 0 ; j < 19; j++)
+                cells[i][j] = new Cell();
     }
+
 
     public void setCells(Cell[][] cells) {
         this.cells = cells;

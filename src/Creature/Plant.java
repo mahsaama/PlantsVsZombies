@@ -29,7 +29,7 @@ public class Plant {
     private int shootNumOfBack;
     private int sunProduct;
     private int price;
-    private int startedTurn;
+    private int startedTurn = 0;
     private String plantType;
 
     public int getPrice() {

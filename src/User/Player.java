@@ -94,7 +94,7 @@ public class Player extends User {
     }
 
     public Plant getSelectedPlant() {
-        return selectedPlant;
+        return this.selectedPlant;
     }
 
     public void setSelectedPlant(Plant selectedPlant) {

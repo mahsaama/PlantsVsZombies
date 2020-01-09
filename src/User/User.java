@@ -2,6 +2,7 @@ package User;
 
 import Creature.Plant;
 import Creature.Zombie;
+import Map.PlayGround;
 
 import java.util.ArrayList;
 
