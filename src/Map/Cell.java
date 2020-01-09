@@ -25,5 +25,7 @@ public class Cell {
     public CellKind getCellKind() {
         return cellKind;
     }
+
+    public void clearPlantContent(){ this.plantContent.clear();}
 }
 

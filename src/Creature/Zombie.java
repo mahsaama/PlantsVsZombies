@@ -120,32 +120,37 @@ public class Zombie {
     }
 
 
-    public void attack(PlayGround playGround) {
+    public String attack(PlayGround playGround) {
         Plant plant = playGround.getCells()[x][y].getPlantContent().get(playGround.getCells()[x][y].getPlantContent().size() - 1);
         if (plant.getName().equals("CherryBomb") || plant.getName().equals("Jalapeno")
                 || name == "PogoZombie") {
-            return;
+            return "not";
         } else if (name.equals("Zomboni") || name.equals("CatapultZombie")) {
             if (car) {
+                String nameOfPlant = plant.name;
                 plant = null;
-                return;
+                return nameOfPlant;
             }
         } else if (name.equals("Giga-gargantuar")) {
+            String nameOfPlant = plant.name;
             plant = null;
-            return;
+            return nameOfPlant;
         } else if (name.equals("PogoZombie")) {
             y--;
-            return;
-        } else if (name.equals("BungeeZombie")) {
 
+            return "not";
+        } else if (name.equals("BungeeZombie")) {
+            return "not";
         }
         if (plant.getLife() > 0) {
             plant.setLife();
             if (plant.getLife() == 0) {
+                String nameOfPlant = plant.name;
                 plant = null;
-                //TODO
+                return nameOfPlant;
             }
         }
+        return "not";
     }
 
 
