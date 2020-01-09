@@ -8,7 +8,6 @@ import Map.PlayGround;
 import Menu.Menu;
 import Shop.Shop;
 import User.Player;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -91,7 +90,7 @@ public class Game {
                     winner.setNumberOfZombiesKilledOverAll (winner.getNumberOfZombiesKilledOverAll ( ) + winner.getNumberOfKilledZombies ( ));
                     System.out.println ("game finished");
                     Menu.mainMenu ( );
-                    return;
+                    break;
                 }
                 if (order.compareToIgnoreCase ("show hand") == 0) {
                     for (Plant plant : currentPlayer.getPlantHand ( )) {
@@ -632,14 +631,16 @@ public class Game {
     private void setPlayGround(String type) {
         if (type.compareToIgnoreCase ("land") == 0) {
             for (int i = 0; i < 6; i++) {
-                for (int j = 0; i < 19; j++) {
+                for (int j = 0; j < 19; j++) {
+                  playGround.setSingleCell (i,j);
                     playGround.getSingleCell (i, j).setCellKind (CellKind.LAND);
                 }
 
             }
         } else
             for (int i = 2; i < 4; i++) {
-                for (int j = 0; i < 19; j++) {
+                for (int j = 0; j < 19; j++) {
+                    playGround.setSingleCell (i,j);
                     playGround.getSingleCell (i, j).setCellKind (CellKind.WATER);
                 }
 
