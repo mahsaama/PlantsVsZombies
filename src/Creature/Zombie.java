@@ -145,8 +145,9 @@ public class Zombie {
         if (plant.getLife() > 0) {
             plant.setLife();
             if (plant.getLife() == 0) {
+                String nameOfPlant = plant.name;
                 plant = null;
-                //TODO
+                return nameOfPlant;
             }
         }
         return "not";
