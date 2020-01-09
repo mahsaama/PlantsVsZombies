@@ -475,7 +475,10 @@ public class Game {
                         }
                     }
                 } else if (order.compareToIgnoreCase ("start") == 0) {}
-
+                else if(order.compareToIgnoreCase("end turn") == 0){
+                    turn++;
+                    System.out.println("your turn");
+                }
                 else if (order.compareToIgnoreCase ("put") == 0) {
                     String name = scanner.nextLine ( );
                     int num = scanner.nextInt ( );
