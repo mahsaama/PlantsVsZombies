@@ -76,7 +76,7 @@ public class Zombie {
     }
 
     public void setLife(int amount, int shootnum) {
-        this.life -= amount * shootnum;//check & zamboni check kon
+        this.life -= amount * shootnum;
     }
 
     public String getName() {
