@@ -251,8 +251,12 @@ public class Menu {
                         collectionMenu (type, typeOfGame);
                     }
                     if (checkZombie (name)) {
-                        Zombie zombie = getZombieByName (name);
+                        Zombie zombie = Shop.makeNewZombieByName(name);
                         loginUser.getZombieHand ( ).add (zombie);
+                        for (Zombie zom: loginUser.getZombieHand()){
+
+                        }
+                        System.out.println();
                         loginUser.getCollection ( ).getZombies ( ).remove (zombie);
                     } else System.out.println ("invalid zombie");
                 }
