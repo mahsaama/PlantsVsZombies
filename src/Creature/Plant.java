@@ -31,6 +31,7 @@ public class Plant {
     private int price;
     private int startedTurn = 0;
     private String plantType;
+    private int numberOfUsesInGame = 0;
 
     public int getPrice() {
         return price;
@@ -86,6 +87,14 @@ public class Plant {
 
     public int getTurn() {
         return turn;
+    }
+
+    public int getNumberOfUsesInGame() {
+        return numberOfUsesInGame;
+    }
+
+    public void setNumberOfUsesInGame(int numberOfUsesInGame) {
+        this.numberOfUsesInGame = numberOfUsesInGame;
     }
 
     public int getShootNum() {
