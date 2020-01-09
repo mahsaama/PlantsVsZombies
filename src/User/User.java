@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class User {
     private String username ;
     private String password ;
-    private int coins = 0;
+    private int coins = 400;
     private int numberOfZombiesKilledOverAll = 0;
     private int numberOfPlantsKilledOverAll = 0;
     private Collection collection = new Collection ();

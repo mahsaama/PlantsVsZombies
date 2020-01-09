@@ -68,6 +68,7 @@ public class Game {
         int[] finishTurn = new int[3];
         for (int i = 0; i < numberOfWaves; i++) {
             while (checkWinnerForSingleWave (playGround)) {
+
                 String order = scanner.nextLine ( );
                 if (turn >= 3 && startTurn[0] == 0) {
                     startTurn[0] = turn;
@@ -376,7 +377,7 @@ public class Game {
 
     private void PvPGame() {
         for (int i = 0; i < numberOfWaves; i++) {
-            while (checkWinnerForSingleWave (playGround)) {
+            while (true) {
                 String order = scanner.nextLine ( );
                 if (order.compareToIgnoreCase ("show hand") == 0) {
                     if (currentPlayer.getTypeOfPlayer ( ).compareToIgnoreCase ("plant") == 0) {
@@ -573,14 +574,16 @@ public class Game {
     private void setPlayGround(String type) {
         if (type.compareToIgnoreCase ("land") == 0) {
             for (int i = 0; i < 6; i++) {
-                for (int j = 0; i < 19; j++) {
+                for (int j = 0; j < 19; j++) {
+                  playGround.setSingleCell (i,j);
                     playGround.getSingleCell (i, j).setCellKind (CellKind.LAND);
                 }
 
             }
         } else
             for (int i = 2; i < 4; i++) {
-                for (int j = 0; i < 19; j++) {
+                for (int j = 0; j < 19; j++) {
+                    playGround.setSingleCell (i,j);
                     playGround.getSingleCell (i, j).setCellKind (CellKind.WATER);
                 }
 

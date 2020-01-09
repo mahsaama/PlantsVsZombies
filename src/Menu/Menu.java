@@ -17,6 +17,7 @@ public class Menu {
     static Scanner scanner = new Scanner (System.in);
     static User loginUser;
     static User opponent;
+    static User temp;
     static ArrayList<User> users = new ArrayList<User> ( );
     static Shop shop = new Shop ( );
     static int numberOfWaves;
@@ -95,7 +96,7 @@ public class Menu {
                 exit = true;
                 loginMenu ( );
             } else if (order.compareToIgnoreCase ("help") == 0) {
-                System.out.println ("Play\nprofile\nshop\nexit\nhelp\nexit");
+                System.out.println ("Play\nprofile\nshop\nexit\nhelp");
             } else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
@@ -281,11 +282,7 @@ public class Menu {
                     loginUser = opponent;
                     collectionMenu ("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("zombie") == 0) {
-                    if (loginUser.getPlantHand ( ).size ( ) < 7 || opponent.getZombieHand ( ).size ( ) < 7) {
-                        System.out.println ("you don't have enough cards");
-                    } else {
-                        prepareTwoPersonGame ( );
-                    }
+                    prepareTwoPersonGame ( );
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0) {
                     if (loginUser.getPlantHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") != 0) {
                         System.out.println ("you don't have enough cards");
@@ -320,7 +317,6 @@ public class Menu {
         }
         game.setGameEnvironment ();
         game.setFirstPlayer (player);
-        game.setGameEnvironment();
     }
 
     public static void prepareTwoPersonGame() {
