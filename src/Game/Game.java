@@ -70,61 +70,65 @@ public class Game {
         startTurn[0] = 3;
         for (int i = 0; i < numberOfWaves; i++) {
             while (true) {
-                String order = scanner.nextLine ( );
-                if (order.compareToIgnoreCase ("show hand") == 0) {
-                    for (Plant plant : currentPlayer.getPlantHand ( )) {
-                        System.out.println ("Name: " + plant.getName ( ) + " numberOfSuns: " + plant.getNumberOfSuns ( )
-                                + " timeToRest: " + plant.getRest ( ));
+                String order = scanner.nextLine();
+                if (order.compareToIgnoreCase("show hand") == 0) {
+                    for (Plant plant : currentPlayer.getPlantHand()) {
+                        System.out.println("Name: " + plant.getName() + " numberOfSuns: " + plant.getNumberOfSuns()
+                                + " timeToRest: " + plant.getRest());
                     }
-                } else if (order.compareToIgnoreCase ("select") == 0) {
-                    String name = scanner.nextLine ( );
-                    selectPlant (name);
-                } else if (order.compareToIgnoreCase ("plant") == 0) {
-                    int y = scanner.nextInt ( );
-                    int x = scanner.nextInt ( );
-                    scanner.nextLine ();
-                    plantPlant (gameKind, y, x);
+                } else if (order.compareToIgnoreCase("select") == 0) {
+                    String name = scanner.nextLine();
+                    selectPlant(name);
+                } else if (order.compareToIgnoreCase("plant") == 0) {
+                    int y = scanner.nextInt();
+                    int x = scanner.nextInt();
+                    scanner.nextLine();
+                    plantPlant(gameKind, y, x);
 
-                } else if (order.compareToIgnoreCase ("remove") == 0) {
+                } else if (order.compareToIgnoreCase("remove") == 0) {
                     int a, b;
-                    a = scanner.nextInt ( );
-                    b = scanner.nextInt ( );
-                    scanner.nextLine ();
-                    removePlant (a, b);
-                } else if (order.compareToIgnoreCase ("end turn") == 0) {
+                    a = scanner.nextInt();
+                    b = scanner.nextInt();
+                    scanner.nextLine();
+                    removePlant(a, b);
+                } else if (order.compareToIgnoreCase("end turn") == 0) {
                     turn++;
-                    SecureRandom secureRandom = new SecureRandom ( );
-                    int j = secureRandom.nextInt (2);
+                    SecureRandom secureRandom = new SecureRandom();
+                    int j = secureRandom.nextInt(2);
                     if (j == 0) {
-                        firstPlayer.setNumberOfSuns (firstPlayer.getNumberOfSuns ( ) + getRandomNumberOfSuns ( ));
+                        firstPlayer.setNumberOfSuns(firstPlayer.getNumberOfSuns() + getRandomNumberOfSuns());
                     }
-                    if (checkWinnerForSingleWave (playGround)) {
-                        System.out.println ("you won the wave" );
+                    if (checkWinnerForSingleWave(playGround)) {
+                        System.out.println("you won the wave");
                         finishTurn[waveNum] = turn;
+                        if (waveNum == 3) {
+                            winner = firstPlayer;
+                            firstPlayer.setScore(firstPlayer.getNumberOfKilledZombies());
+                            winner.setCoins(winner.getCoins() + 10 * winner.getNumberOfKilledZombies());
+                            winner.setNumberOfZombiesKilledOverAll(winner.getNumberOfZombiesKilledOverAll() + winner.getNumberOfKilledZombies());
+                            System.out.println("game finished");
+                            Menu.mainMenu();
+                            break;
+                        }
                         break;
                     }
-                    if(turn == startTurn[waveNum]){
-                        System.out.println ("wave began" );
+                    else if(!checkWinnerForSingleWave(playGround)){
+                        System.out.println("you lost the game");
+                        Menu.mainMenu();
+                        break;
+                    }
+                    if (turn == startTurn[waveNum]) {
+                        System.out.println("wave began");
                         int l = waveNum;
                         startTurn[l] = turn;
-                        waveNum ++;
+                        waveNum++;
                         startTurn[waveNum] = finishTurn[l];
-                        startWave ();
+                        startWave();
                     }
-                } else if (order.compareToIgnoreCase ("show lawn") == 0) {
-                    showLawn (playGround);
+                } else if (order.compareToIgnoreCase("show lawn") == 0) {
+                    showLawn(playGround);
                 } else
-                    System.out.println ("invalid command");
-
-//                if (true) {///this method was deleted...........................................//TODO
-//                    winner = firstPlayer;
-//                    currentPlayer.setScore (currentPlayer.getNumberOfKilledZombies ( ));
-//                    winner.setCoins (winner.getCoins ( ) + 10 * winner.getNumberOfKilledZombies ( ));
-//                    winner.setNumberOfZombiesKilledOverAll (winner.getNumberOfZombiesKilledOverAll ( ) + winner.getNumberOfKilledZombies ( ));
-//                    System.out.println ("game finished");
-//                    Menu.mainMenu ( );
-//                    break;
-//                }
+                    System.out.println("invalid command");
             }
         }
 
@@ -445,6 +449,8 @@ public class Game {
                     scanner.nextLine ();
                     removePlant (a, b);
                 } else if (order.compareToIgnoreCase ("ready") == 0) {
+                    attackZombie(secondPlayer);
+                    System.out.println("zombie mode began");
                     turn++;
                     firstPlayer.setNumberOfSuns (firstPlayer.getNumberOfSuns ( ) + 1);
                     if (checkWinnerForSingleWave (playGround)) {
@@ -684,5 +690,47 @@ public class Game {
             }
         }
         return null;
+    }
+    private void attackZombie(Player player){
+        while (checkWinnerForZombie (playGround, player.getInsideGameCoins()) == -1) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 19; j++) {
+                    for (Plant plant : playGround.getCells ( )[i][j].getPlantContent ( )) {
+                        for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( ))
+                            plant.attack (playGround, true);
+                        plant.attack (playGround, false);
+                    }
+                    ArrayList<String> killedPlantsInTheTurn = new ArrayList<> ( );
+                    for (int m = 0; m < 6; m++) {
+                        for (int l = 0; l < 19; l++) {
+                            if (playGround.getCells ( )[m][l].getZombieContent ( ) != null) {
+                                for (Zombie zombie : playGround.getCells ( )[m][l].getZombieContent ( )) {
+                                    for (int k = 0; k < zombie.getSpeed ( ); k++) {
+                                        if (playGround.getCells ( )[m][l].getPlantContent ( ).size ( ) != 0) {
+                                            String name = zombie.attack (playGround);
+                                            if (!name.equals ("not")) {
+                                                killedPlantsInTheTurn.add (name);
+                                            }
+                                        }
+                                        if (zombie != null && (zombie.getY ( ) - 1) > 0) {
+                                            zombie.setY (zombie.getY ( ) - 1);
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (int m = 0; m < killedPlantsInTheTurn.size ( ); m++) {
+                        Plant plant = Shop.makeNewPlantByName (killedPlantsInTheTurn.get (m));
+                        player.setInsideGameCoins(player.getInsideGameCoins() + plant.getLife ( ) * 10);
+                    }
+                    killedPlantsInTheTurn.clear ( );
+
+
+                }
+            }
+
+        }
     }
 }
