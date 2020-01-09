@@ -391,8 +391,6 @@ public class Game {
                 System.out.println ("Turn ended. New turn Started!");
             } else if (order.compareToIgnoreCase ("show lawn") == 0) {
                 showLawn (playGround);
-            }else{
-                System.out.println("invalid command");
             }
         }
     }

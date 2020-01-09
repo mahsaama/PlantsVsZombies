@@ -328,9 +328,9 @@ public class Plant {
                 }
                 if(zombie1 != null)
                     zombie1.setLife(hurtOfBullet, 2);
-                if (zombie.getLife() == 0) {
-                    playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                    zombie = null;
+                if (zombie1 != null && zombie1.getLife() == 0 ) {
+                    playGround.getCells()[zombie1.getX()][zombie1.getX()].getZombieContent().remove(zombie1);
+                    zombie1 = null;
 
                 }
             } else if (name.equals("Melon-pult")) {
