@@ -8,7 +8,6 @@ import Map.PlayGround;
 import Menu.Menu;
 import Shop.Shop;
 import User.Player;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -69,7 +68,6 @@ public class Game {
         int[] finishTurn = new int[3];
         for (int i = 0; i < numberOfWaves; i++) {
             while (checkWinnerForSingleWave (playGround)) {
-
                 String order = scanner.nextLine ( );
                 if (turn >= 3 && startTurn[0] == 0) {
                     startTurn[0] = turn;
@@ -92,7 +90,7 @@ public class Game {
                     winner.setNumberOfZombiesKilledOverAll (winner.getNumberOfZombiesKilledOverAll ( ) + winner.getNumberOfKilledZombies ( ));
                     System.out.println ("game finished");
                     Menu.mainMenu ( );
-                    return;
+                    break;
                 }
                 if (order.compareToIgnoreCase ("show hand") == 0) {
                     for (Plant plant : currentPlayer.getPlantHand ( )) {

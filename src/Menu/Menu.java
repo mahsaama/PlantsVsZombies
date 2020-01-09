@@ -14,16 +14,16 @@ import java.util.regex.Pattern;
 
 public class Menu {
 
-    static Scanner scanner = new Scanner (System.in);
-    static User loginUser;
-    static User opponent;
-    static User temp;
-    static ArrayList<User> users = new ArrayList<User> ( );
-    static Shop shop = new Shop ( );
-    static int numberOfWaves;
+    private static Scanner scanner = new Scanner (System.in);
+    private static User loginUser;
+    private static User opponent;
+    private static User tempUser;
+    private static ArrayList<User> users = new ArrayList<User> ( );
+    private static Shop shop = new Shop ( );
+    private static int numberOfWaves;
 
     public static void loginMenu() {
-        String order = scanner.nextLine ( );
+        String order = "help";
         while (true) {
             if (order.compareToIgnoreCase ("create account") == 0) {
                 String username = scanner.nextLine ( );
@@ -42,7 +42,7 @@ public class Menu {
                 return;
             } else
                 System.out.println ("invalid command");
-            order = scanner.nextLine ( );
+            order = scanner.nextLine ();
         }
 
     }
@@ -72,7 +72,7 @@ public class Menu {
         if(!checkUsername (username)){
             User user = new User (username, password);
             users.add (user);
-            System.out.println ("account _" + user.getUsername ( ) + "_ was created");
+            System.out.println ("account <" + user.getUsername ( ) + "> was created");
             Shop.setFirstCards (user);
         }
         else
@@ -81,20 +81,20 @@ public class Menu {
     }
 
     public static void mainMenu() {
-        String order = scanner.nextLine ( );
-        boolean exit = false;
-        while (!exit) {
+        String order = "help";
+        while (true) {
             if (order.compareToIgnoreCase ("Play") == 0) {
                 playMenu ( );
+                break;
             } else if (order.compareToIgnoreCase ("profile") == 0) {
-                exit = true;
                 profileMenu ( );
+                break;
             } else if (order.compareToIgnoreCase ("shop") == 0) {
-                exit = true;
                 shopMenu ( );
+                break;
             } else if (order.compareToIgnoreCase ("exit") == 0) {
-                exit = true;
                 loginMenu ( );
+                break;
             } else if (order.compareToIgnoreCase ("help") == 0) {
                 System.out.println ("Play\nprofile\nshop\nexit\nhelp");
             } else
@@ -105,9 +105,8 @@ public class Menu {
 
 
     public static void profileMenu() {
-        String order = scanner.nextLine ( );
-        boolean exit = false;
-        while (!exit) {
+        String order = "help";
+        while (true) {
             if (order.compareToIgnoreCase ("Change") == 0) {
                 String username = scanner.nextLine ( );
                 String password = scanner.nextLine ( );
@@ -125,7 +124,8 @@ public class Menu {
                 if (!checkUsername (username)) {
                     User user = new User (username, password);
                     users.add (user);
-                    loginMenu ( );
+                    mainMenu ( );
+                    break;
                 } else
                     System.out.println ("invalid username");
             } else if (order.compareToIgnoreCase ("Show") == 0) {
@@ -134,7 +134,7 @@ public class Menu {
                 System.out.println ("Change\nDelete\nRename\nCreate\nShow\nhelp\nexit");
             } else if (order.compareToIgnoreCase ("exit") == 0) {
                 mainMenu ( );
-                exit = true;
+                break;
             } else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
@@ -152,9 +152,8 @@ public class Menu {
     }
 
     public static void shopMenu() {
-        String order = scanner.nextLine ( );
-        boolean exit = false;
-        while (!exit) {
+        String order = "help";
+        while (true) {
             if (order.compareToIgnoreCase ("show shop") == 0) {
                 for (Plant plant : shop.getPlantList ( )) {
                     System.out.println (plant.getName ( ) + " : " + plant.getPrice ( ));
@@ -177,8 +176,8 @@ public class Menu {
             } else if (order.compareToIgnoreCase ("help") == 0) {
                 System.out.println ("show shop\ncollection\nbuy\nmoney\nexit");
             } else if (order.compareToIgnoreCase ("exit") == 0) {
-                exit = true;
                 mainMenu ( );
+                break;
             } else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
@@ -187,6 +186,7 @@ public class Menu {
 
     public static void playMenu() {
         String gameType = scanner.nextLine ( );
+        tempUser = loginUser;
         switch (gameType) {
             case "Day":
                 collectionMenu ("plant", "Day");
@@ -204,99 +204,97 @@ public class Menu {
                 String opponentUsername = scanner.nextLine ( );
                 int waves = scanner.nextInt ( );
                 numberOfWaves = waves;
-                scanner.nextLine ();
                 opponent = getUserByName (opponentUsername);
+                scanner.nextLine ();
                 collectionMenu ("plant", "PvP");
+                break;
         }
     }
 
     public static void collectionMenu(String type, String typeOfGame) {
-        String order = scanner.nextLine ();
-        boolean exit = false;
-        while (!exit) {
+        String order = "help";
+        while (true) {
             if (order.compareToIgnoreCase ("show hand") == 0) {
                 if (type.compareTo ("plant") == 0) {
-                    for (Plant plant : loginUser.getPlantHand ( )) {
+                    for (Plant plant : tempUser.getPlantHand ( )) {
                         System.out.println (plant.getName ( ));
                     }
                 } else
-                    for (Zombie zombie : loginUser.getZombieHand ( )) {
+                    for (Zombie zombie : tempUser.getZombieHand ( )) {
                         System.out.println (zombie.getName ( ));
                     }
 
             } else if (order.compareToIgnoreCase ("show collection") == 0) {
                 if (type.compareTo ("plant") == 0) {
-                    for (Plant plant : loginUser.getCollection ( ).getPlants ( )) {
+                    for (Plant plant : tempUser.getCollection ( ).getPlants ( )) {
                         System.out.println (plant.getName ( ));
                     }
                 } else
-                    for (Zombie zombie : loginUser.getCollection ( ).getZombies ( )) {
+                    for (Zombie zombie : tempUser.getCollection ( ).getZombies ( )) {
                         System.out.println (zombie.getName ( ));
                     }
             } else if (order.compareToIgnoreCase ("select") == 0) {
                 String name = scanner.nextLine ( );
                 if (type.compareTo ("plant") == 0) {
-                    if (loginUser.getPlantHand ( ).size ( ) >= 7) {
+                    if (tempUser.getPlantHand ( ).size ( ) >= 7) {
                         System.out.println ("you have 7 plants already");
-                        collectionMenu (type, typeOfGame);
                     }
                     if (checkPlant (name)) {
                         Plant plant = getPlantByName (name);
-                        loginUser.getPlantHand ( ).add (plant);
-                        loginUser.getCollection ( ).getPlants ( ).remove (plant);
+                        tempUser.getPlantHand ( ).add (plant);
+                        tempUser.getCollection ( ).getPlants ( ).remove (plant);
                     } else
                         System.out.println ("invalid plant");
                 } else {
-                    if (loginUser.getZombieHand ( ).size ( ) >= 7) {
+                    if (tempUser.getZombieHand ( ).size ( ) >= 7) {
                         System.out.println ("you have 7 zombies already");
-                        collectionMenu (type, typeOfGame);
                     }
                     if (checkZombie (name)) {
                         Zombie zombie = getZombieByName (name);
-                        loginUser.getZombieHand ( ).add (zombie);
-                        loginUser.getCollection ( ).getZombies ( ).remove (zombie);
+                        tempUser.getZombieHand ( ).add (zombie);
+                        tempUser.getCollection ( ).getZombies ( ).remove (zombie);
                     } else System.out.println ("invalid zombie");
                 }
             } else if (order.compareToIgnoreCase ("remove") == 0) {
                 String name = scanner.nextLine ( );
                 if (type.compareTo ("plant") == 0) {
-                    if (loginUser.checkHandPlant (name)) {
+                    if (tempUser.checkHandPlant (name)) {
                         Plant plant = getPlantByName (name);
-                        loginUser.getPlantHand ( ).remove (plant);
-                        loginUser.getCollection ( ).getPlants ( ).add (plant);
+                        tempUser.getPlantHand ( ).remove (plant);
+                        tempUser.getCollection ( ).getPlants ( ).add (plant);
                     } else
                         System.out.println ("invalid plant");
-                } else if (loginUser.checkHandZombie (name)) {
+                } else if (tempUser.checkHandZombie (name)) {
                     Zombie zombie = getZombieByName (name);
-                    loginUser.getZombieHand ( ).remove (zombie);
-                    loginUser.getCollection ( ).getZombies ( ).add (zombie);
+                    tempUser.getZombieHand ( ).remove (zombie);
+                    tempUser.getCollection ( ).getZombies ( ).add (zombie);
                 } else
                     System.out.println ("invalid zombie");
             } else if (order.compareToIgnoreCase ("help") == 0) {
                 System.out.println ("show hand\nshow collection\nselect\nplay\nremove\nhelp\nexit");
             } else if (order.compareToIgnoreCase ("exit") == 0) {
-                exit = true;
                 playMenu ( );
+                break;
             } else if (order.compareToIgnoreCase ("play") == 0) {
                 if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("plant") == 0) {
-                    loginUser = opponent;
+                    tempUser = opponent;
                     collectionMenu ("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") == 0 && type.compareToIgnoreCase ("zombie") == 0) {
                     prepareTwoPersonGame ( );
+                    break;
                 } else if (typeOfGame.compareToIgnoreCase ("PvP") != 0) {
-                    if (loginUser.getPlantHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") != 0) {
+                    if (tempUser.getPlantHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") != 0) {
                         System.out.println ("you don't have enough cards");
-                    } else if (loginUser.getZombieHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") == 0) {
+                    } else if (tempUser.getZombieHand ( ).size ( ) < 7 && typeOfGame.compareToIgnoreCase ("zombie") == 0) {
                         System.out.println ("you don't have enough cards");
                     } else {
                         prepareGame (typeOfGame);
+                        break;
                     }
 
                 }
             }
-            else if(order.compareToIgnoreCase ("\n" )== 0){
-                continue;
-            }else
+            else
                 System.out.println ("invalid command");
             order = scanner.nextLine ( );
         }
@@ -316,7 +314,7 @@ public class Menu {
             game.setFirstPlayer (player);
         }
         game.setGameEnvironment ();
-        game.setFirstPlayer (player);
+
     }
 
     public static void prepareTwoPersonGame() {
@@ -326,7 +324,7 @@ public class Menu {
         game.setNumberOfWaves (numberOfWaves);
         Player player = new Player (loginUser);
         player.setTypeOfPlayer ("plant");
-        Player opponentPlayer = (Player) opponent;
+        Player opponentPlayer = new Player (opponent);
         opponentPlayer.setTypeOfPlayer ("zombie");
         game.setFirstPlayer (player);
         game.setSecondPlayer (opponentPlayer);
