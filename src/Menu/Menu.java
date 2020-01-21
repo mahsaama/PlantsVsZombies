@@ -22,7 +22,7 @@ public class Menu {
     private static Shop shop = new Shop ( );
     private static int numberOfWaves;
 
-    public static void loginMenu() {
+    public static void  loginMenu() {
         String order = "help";
         while (true) {
             if (order.compareToIgnoreCase ("create account") == 0) {
