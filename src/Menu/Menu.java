@@ -6,14 +6,20 @@ import Game.Game;
 import Shop.Shop;
 import User.User;
 import User.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class Menu {
+public class Menu extends Application {
+    public static Stage stage;
+    @Override
+    public void start(Stage PrimaryStage) throws Exception{
 
+    }
     private static Scanner scanner = new Scanner (System.in);
     private static User loginUser;
     private static User opponent;

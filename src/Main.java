@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,7 +43,17 @@ public class Main extends Application {
                 Menu.loginMenu();
             }
         });
-        thread.start();
+        Image menuImage = new Image("pics/menu.jpg");
+        ImageView menuView = new ImageView(menuImage);
+        menuView.setFitWidth(30);
+        menuView.setFitHeight(30);
+        Button button = new Button("", menuView);
+        button.setMaxSize(30, 30);
+
+        button.relocate(600,610);
+        group.getChildren().add(button);
+        button.setOnMouseClicked(event -> thread.start());
+
     }
 
     public static void main(String[] args) {
@@ -50,12 +61,7 @@ public class Main extends Application {
     }
 
     public static void changeScene(Scene scene) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                stage.setScene(scene);
-            }
-        });
+        Platform.runLater(() -> stage.setScene(scene));
         /*
         stage.setScene(scene);*/
     }
