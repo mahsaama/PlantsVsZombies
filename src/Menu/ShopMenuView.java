@@ -27,19 +27,17 @@ public class ShopMenuView {
     private Image buttonImage1 = new Image("pics/afterclick.webp");
     private Image mainMenuBackgroundImage = new Image("pics/bg3.jpg");
 
-    private Button changeButton = new Button("Change");
-    private Button deleteButton = new Button("Delete");
-    private Button renameButton = new Button("Rename");
-    private Button createButton = new Button("Create");
-    private Button showButton = new Button("Show");
+    private Button showShopButton = new Button("Show shop");
+    private Button collectionButton = new Button("Collection");
+    private Button buyButton = new Button("Rename");
+    private Button moneyButton = new Button("Money");
     private Button exitButton = new Button("Exit");
     private Button helpButton = new Button("Help");
 
-    private Label changeLabel = new Label("Change");
-    private Label deleteLabel = new Label("Delete");
-    private Label renameLabel = new Label("Rename");
-    private Label createLabel = new Label("Create");
-    private Label showLabel = new Label("Show");
+    private Label showShopLabel = new Label("Show shop");
+    private Label collectionLabel = new Label("Collection");
+    private Label buyLabel = new Label("Rename");
+    private Label moneyLabel = new Label("Money");
     private Label exitLabel = new Label("Exit");
     private Label helpLabel = new Label("Help");
 
@@ -48,16 +46,14 @@ public class ShopMenuView {
     private final int height = 700;
     private final int width = 1200;
 
-    private ImageView changeButtonImageView = new ImageView(buttonImage);
-    private ImageView changeButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView deleteButtonImageView = new ImageView(buttonImage);
-    private ImageView deleteButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView createButtonImageView = new ImageView(buttonImage);
-    private ImageView createButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView renameButtonImageView = new ImageView(buttonImage);
-    private ImageView renameButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView showButtonImageView = new ImageView(buttonImage);
-    private ImageView showButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView showShopButtonImageView = new ImageView(buttonImage);
+    private ImageView showShopButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView collectionButtonImageView = new ImageView(buttonImage);
+    private ImageView collectionButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView buyButtonImageView = new ImageView(buttonImage);
+    private ImageView buyButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView moneyButtonImageView = new ImageView(buttonImage);
+    private ImageView moneyButtonImageView1 = new ImageView(buttonImage1);
     private ImageView exitButtonImageView = new ImageView(buttonImage);
     private ImageView exitButtonImageView1 = new ImageView(buttonImage1);
     private ImageView helpButtonImageView = new ImageView(buttonImage);
@@ -79,78 +75,67 @@ public class ShopMenuView {
         shopMenuRoot.getChildren().add(backgroundImageView);
 
 
-        //change
-        setImageView(changeButtonImageView, 0);
-        setImageView(changeButtonImageView1, 0);
-        changeButtonImageView1.setOpacity(0);
-        setButton(changeButton, 0);
-        setLabel(changeLabel, 0);
-        shopMenuRoot.getChildren().add(changeButtonImageView);
-        shopMenuRoot.getChildren().add(changeButtonImageView1);
-        shopMenuRoot.getChildren().add(changeButton);
-        shopMenuRoot.getChildren().add(changeLabel);
+        //Show shop
+        setImageView(showShopButtonImageView, 0);
+        setImageView(showShopButtonImageView1, 0);
+        showShopButtonImageView1.setOpacity(0);
+        setButton(showShopButton, 0);
+        setLabel(showShopLabel, 0);
+        shopMenuRoot.getChildren().add(showShopButtonImageView);
+        shopMenuRoot.getChildren().add(showShopButtonImageView1);
+        shopMenuRoot.getChildren().add(showShopButton);
+        shopMenuRoot.getChildren().add(showShopLabel);
 
-        //delete
-        setImageView(deleteButtonImageView, 1);
-        setImageView(deleteButtonImageView1, 1);
-        deleteButtonImageView1.setOpacity(0);
-        setButton(deleteButton, 1);
-        setLabel(deleteLabel, 1);
-        shopMenuRoot.getChildren().add(deleteButtonImageView);
-        shopMenuRoot.getChildren().add(deleteButtonImageView1);
-        shopMenuRoot.getChildren().add(deleteLabel);
-        shopMenuRoot.getChildren().add(deleteButton);
+        //collection
+        setImageView(collectionButtonImageView, 1);
+        setImageView(collectionButtonImageView1, 1);
+        collectionButtonImageView1.setOpacity(0);
+        setButton(collectionButton, 1);
+        setLabel(collectionLabel, 1);
+        shopMenuRoot.getChildren().add(collectionButtonImageView);
+        shopMenuRoot.getChildren().add(collectionButtonImageView1);
+        shopMenuRoot.getChildren().add(collectionLabel);
+        shopMenuRoot.getChildren().add(collectionButton);
 
-        //create
-        setImageView(createButtonImageView, 2);
-        setImageView(createButtonImageView1, 2);
-        createButtonImageView1.setOpacity(0);
-        setButton(createButton , 2);
-        setLabel(renameLabel, 2);
-        shopMenuRoot.getChildren().add((createButtonImageView));
-        shopMenuRoot.getChildren().add((createButtonImageView1));
-        shopMenuRoot.getChildren().add(renameLabel);
-        shopMenuRoot.getChildren().add(createButton);
+        //buy
+        setImageView(buyButtonImageView, 2);
+        setImageView(buyButtonImageView1, 2);
+        buyButtonImageView1.setOpacity(0);
+        setButton(buyButton , 2);
+        setLabel(buyLabel, 2);
+        shopMenuRoot.getChildren().add((buyButtonImageView));
+        shopMenuRoot.getChildren().add((buyButtonImageView1));
+        shopMenuRoot.getChildren().add(buyLabel);
+        shopMenuRoot.getChildren().add(buyButton);
 
-        //rename
-        setImageView(renameButtonImageView, 3);
-        setImageView(renameButtonImageView1, 3);
-        renameButtonImageView1.setOpacity(0);
-        setButton(renameButton , 3);
-        setLabel(renameLabel, 3);
-        shopMenuRoot.getChildren().add((renameButtonImageView));
-        shopMenuRoot.getChildren().add((renameButtonImageView1));
-        shopMenuRoot.getChildren().add(renameLabel);
-        shopMenuRoot.getChildren().add(renameButton);
-
-        //show
-        setImageView(showButtonImageView, 4);
-        setImageView(showButtonImageView1, 4);
-        showButtonImageView1.setOpacity(0);
-        setButton(showButton , 4);
-        setLabel(renameLabel, 4);
-        shopMenuRoot.getChildren().add((showButtonImageView));
-        shopMenuRoot.getChildren().add((showButtonImageView1));
-        shopMenuRoot.getChildren().add(renameLabel);
-        shopMenuRoot.getChildren().add(showButton);
+        //money
+        setImageView(moneyButtonImageView, 3);
+        setImageView(moneyButtonImageView1, 3);
+        moneyButtonImageView1.setOpacity(0);
+        setButton(moneyButton , 3);
+        setLabel(moneyLabel, 3);
+        shopMenuRoot.getChildren().add((moneyButtonImageView));
+        shopMenuRoot.getChildren().add((moneyButtonImageView1));
+        shopMenuRoot.getChildren().add(moneyLabel);
+        shopMenuRoot.getChildren().add(moneyButton);
 
         //exit
-        setImageView(exitButtonImageView, 5);
-        setImageView(exitButtonImageView1, 5);
+        setImageView(exitButtonImageView, 4);
+        setImageView(exitButtonImageView1, 4);
         exitButtonImageView1.setOpacity(0);
-        setButton(exitButton, 5);
-        setLabel(exitLabel, 5);
+        setButton(exitButton, 4);
+        setLabel(exitLabel, 4);
         shopMenuRoot.getChildren().add(exitButtonImageView);
         shopMenuRoot.getChildren().add(exitButtonImageView1);
         shopMenuRoot.getChildren().add(exitLabel);
         shopMenuRoot.getChildren().add(exitButton);
 
         //help
-        setImageView(helpButtonImageView, 6);
-        setImageView(helpButtonImageView1, 6);
+        setImageView(helpButtonImageView, 5);
+        setImageView(helpButtonImageView1, 5);
         helpButtonImageView1.setOpacity(0);
-        setButton(helpButton, 6);
-        setLabel(helpLabel, 6);
+        setButton(helpButton, 5);
+        setLabel(helpLabel, 5);
         shopMenuRoot.getChildren().add(helpButtonImageView);
         shopMenuRoot.getChildren().add(helpButtonImageView1);
         shopMenuRoot.getChildren().add(helpLabel);
@@ -166,125 +151,101 @@ public class ShopMenuView {
 
     public void checkMovements() {
 
-        changeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        showShopButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (changeButtonImageView.getOpacity() == 100)
-                    changeButtonImageView.setOpacity(0);
-                if (changeButtonImageView1.getOpacity() == 0)
-                    changeButtonImageView1.setOpacity(100);
+                if (showShopButtonImageView.getOpacity() == 100)
+                    showShopButtonImageView.setOpacity(0);
+                if (showShopButtonImageView1.getOpacity() == 0)
+                    showShopButtonImageView1.setOpacity(100);
             }
         });
 
 
-        changeButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        showShopButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                if ( changeButtonImageView1.getOpacity() == 100)
-                    changeButtonImageView1.setOpacity(0);
-                if ( changeButtonImageView.getOpacity() == 0)
-                    changeButtonImageView.setOpacity(100);
+                if ( showShopButtonImageView1.getOpacity() == 100)
+                    showShopButtonImageView1.setOpacity(0);
+                if ( showShopButtonImageView.getOpacity() == 0)
+                    showShopButtonImageView.setOpacity(100);
             }
         });
 
 
-        deleteButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (deleteButtonImageView.getOpacity() == 100)
-                    deleteButtonImageView.setOpacity(0);
-                if (deleteButtonImageView1.getOpacity() == 0)
-                    deleteButtonImageView1.setOpacity(100);
-            }
-        });
-
-
-        deleteButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                if (deleteButtonImageView1.getOpacity() == 100)
-                    deleteButtonImageView1.setOpacity(0);
-                if (deleteButtonImageView.getOpacity() == 0)
-                    deleteButtonImageView.setOpacity(100);
-            }
-        });
-
-        createButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        collectionButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (createButtonImageView.getOpacity() == 100)
-                    createButtonImageView.setOpacity(0);
-                if (createButtonImageView1.getOpacity() == 0)
-                    createButtonImageView1.setOpacity(100);
+                if (collectionButtonImageView.getOpacity() == 100)
+                    collectionButtonImageView.setOpacity(0);
+                if (collectionButtonImageView1.getOpacity() == 0)
+                    collectionButtonImageView1.setOpacity(100);
             }
         });
 
 
-        createButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (createButtonImageView1.getOpacity() == 100)
-                    createButtonImageView1.setOpacity(0);
-                if (createButtonImageView.getOpacity() == 0)
-                    createButtonImageView.setOpacity(100);
-            }
-        });
-
-        changeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        collectionButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (changeButtonImageView.getOpacity() == 100)
-                    changeButtonImageView.setOpacity(0);
-                if (changeButtonImageView1.getOpacity() == 0)
-                    changeButtonImageView1.setOpacity(100);
+                if (collectionButtonImageView1.getOpacity() == 100)
+                    collectionButtonImageView1.setOpacity(0);
+                if (collectionButtonImageView.getOpacity() == 0)
+                    collectionButtonImageView.setOpacity(100);
             }
         });
 
-
-        changeButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (changeButtonImageView1.getOpacity() == 100)
-                    changeButtonImageView1.setOpacity(0);
-                if (changeButtonImageView.getOpacity() == 0)
-                    changeButtonImageView.setOpacity(100);
-            }
-        });
-
-        showButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        buyButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (showButtonImageView.getOpacity() == 100)
-                    showButtonImageView.setOpacity(0);
-                if (showButtonImageView1.getOpacity() == 0)
-                    showButtonImageView1.setOpacity(100);
+                if (buyButtonImageView.getOpacity() == 100)
+                    buyButtonImageView.setOpacity(0);
+                if (buyButtonImageView1.getOpacity() == 0)
+                    buyButtonImageView1.setOpacity(100);
             }
         });
 
 
-        showButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        buyButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (showButtonImageView1.getOpacity() == 100)
-                    showButtonImageView1.setOpacity(0);
-                if (showButtonImageView.getOpacity() == 0)
-                    showButtonImageView.setOpacity(100);
+                if (buyButtonImageView1.getOpacity() == 100)
+                    buyButtonImageView1.setOpacity(0);
+                if (buyButtonImageView.getOpacity() == 0)
+                    buyButtonImageView.setOpacity(100);
+            }
+        });
+
+        moneyButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (moneyButtonImageView.getOpacity() == 100)
+                    moneyButtonImageView.setOpacity(0);
+                if (moneyButtonImageView1.getOpacity() == 0)
+                    moneyButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        moneyButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (moneyButtonImageView1.getOpacity() == 100)
+                    moneyButtonImageView1.setOpacity(0);
+                if (moneyButtonImageView.getOpacity() == 0)
+                    moneyButtonImageView.setOpacity(100);
             }
         });
 
@@ -339,48 +300,39 @@ public class ShopMenuView {
         });
 
 
-        changeButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        showShopButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                changeButtonClicked();
+                showShopButtonClicked();
             }
         });
 
-        createButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        moneyButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                createButtonClicked();
+                moneyButtonClicked();
             }
         });
 
-        showButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        buyButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                showButtonClicked();
+                buyButtonClicked();
             }
         });
 
-        renameButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        collectionButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                renameButtonClicked();
-            }
-        });
-
-        deleteButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
-            @Override
-            public void handle(MouseEvent event) {
-                clickedPlayer.play ();
-                clickedPlayer.seek(Duration.ZERO);
-                deleteButtonClicked();
+                collectionButtonClicked();
             }
         });
 
@@ -389,7 +341,7 @@ public class ShopMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                Menu.profileMenu("exit");
+                Menu.shopMenu("exit");
             }
         });
 
@@ -417,13 +369,9 @@ public class ShopMenuView {
             buttonImageView.setX(400 + (n-2)*200);
             buttonImageView.setY(200);
         }
-        else if (n>3 && n<6){
+        else{
             buttonImageView.setX(500 + (n-4)*200);
             buttonImageView.setY(350);
-        }
-        else {
-            buttonImageView.setX(600);
-            buttonImageView.setY(500);
         }
 
     }
@@ -436,11 +384,8 @@ public class ShopMenuView {
         else if (n>1 && n<4){
             button.relocate(400 + 200 * (n-2), 200);
         }
-        else if (n>3 && n<6){
+        else{
             button.relocate(500 + 200 * (n-4), 350);
-        }
-        else {
-            button.relocate(600 , 500);
         }
         button.setPrefSize(buttonSizeWidth, buttonSizeHeight);
     }
@@ -449,16 +394,13 @@ public class ShopMenuView {
         label.setTextFill(Color.WHITE);
         label.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         if (n < 2) {
-            label.relocate(320 + 200 * n, 100);
+            label.relocate(330 + 200 * n, 120);
         }
         else if (n>1 && n<4){
-            label.relocate(420 + 200 * (n-2), 250);
+            label.relocate(430 + 200 * (n-2), 270);
         }
-        else if (n>3 && n<6){
-            label.relocate(520 + 200 * (n-4), 400);
-        }
-        else {
-            label.relocate(620 , 550);
+        else{
+            label.relocate(530 + 200 * (n-4), 420);
         }
     }
     public void showHelpClicked(String s){
@@ -481,19 +423,18 @@ public class ShopMenuView {
         };
         back.setOnAction(event);
         Text taken = new Text("Help:\n" +
-                "1)Press change button to change username & password\n" +
-                "2)Press delete button to delete your account\n" +
-                "3)Press rename button to change your name\n" +
-                "4)Press create button to create an account\n" +
-                "5)Press show button to see your username and password\n");
+                "1)Press show shop button to see the unboughten cards and their prices\n" +
+                "2)Press collection button to see the boughten cards\n" +
+                "3)Press buy button to buy card\n" +
+                "4)Press money button to show your money\n");
         taken.setFont(Font.font(30));
         taken.setFill(Color.WHITE);
         taken.relocate(200, 100);
         shopMenuRoot.getChildren().add(taken);
-        Menu.profileMenu(s);
+        Menu.playMenu(s);
     }
 
-    public void changeButtonClicked(){
+    public void showShopButtonClicked(){//TODO
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
@@ -529,7 +470,7 @@ public class ShopMenuView {
                 ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        String str = "change";
+                        String str = "showshop";
                         Text taken = new Text();
                         taken.setFont(Font.font(30));
                         taken.relocate(450, 400);
@@ -563,7 +504,7 @@ public class ShopMenuView {
 
     }
 
-    public void createButtonClicked(){
+    public void buyButtonClicked(){//TODO
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
@@ -631,7 +572,7 @@ public class ShopMenuView {
         back.setOnAction(event2);
     }
 
-    public void showButtonClicked(){
+    public void moneyButtonClicked(){//TODO
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
@@ -674,65 +615,7 @@ public class ShopMenuView {
         back.setOnAction(event);
     }
 
-    public void renameButtonClicked(){
-        shopMenuRoot.getChildren().clear();
-        shopMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        shopMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        shopMenuRoot.getChildren().add(back);
-        shopMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "create";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        shopMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())){
-                            taken.setText("Name changed!");
-                            str += " "+username.getText();
-                        } else {
-                            taken.setText("invalid username");
-                        }
-                        Menu.profileMenu(str);
-                    }
-                });
-            }
-        };
-        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
-                    }
-                });
-            }
-        };
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
-        back.setOnAction(event2);
-    }
-
-    public void deleteButtonClicked(){
+    public void collectionButtonClicked(){//TODO
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
@@ -768,7 +651,7 @@ public class ShopMenuView {
                 ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        String str = "delete";
+                        String str = "collection";
                         Text taken = new Text();
                         taken.setFont(Font.font(30));
                         taken.relocate(450, 400);

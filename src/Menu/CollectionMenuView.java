@@ -18,7 +18,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class CollectionMenuView {
+public class CollectionMenuView {//TODO
     private Group collectionMenuRoot;
     private Scene collectionMenuScene;
     private GaussianBlur blur = new GaussianBlur();

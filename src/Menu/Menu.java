@@ -191,7 +191,7 @@ public class Menu extends Application {
         String order = s;
         String[] array = s.split(" ");
        // while (true) {
-            if (array[0].compareToIgnoreCase("show shop") == 0) {
+            if (array[0].compareToIgnoreCase("showshop") == 0) {
                 for (Plant plant : shop.getPlantList()) {
                     System.out.println(plant.getName() + " : " + plant.getPrice());
                 }
