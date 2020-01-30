@@ -1,7 +1,4 @@
 package Menu;
-
-import Game.Game;
-import Shop.Shop;
 import User.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,9 +18,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class LoginMenuView {
@@ -31,8 +25,8 @@ public class LoginMenuView {
     private Scene mainMenuScene;
     private GaussianBlur blur= new GaussianBlur ();
 
-    private Image buttonImage = new Image("pics/b.jpg");
-    private Image buttonImage1 = new Image("pics/c.jpg");
+    private Image buttonImage = new Image("pics/beforeclick.webp");
+    private Image buttonImage1 = new Image("pics/afterclick.webp");
     private Image menuBackgroundImage = new Image("pics/bg.jpg");
 
     private Button createAccountButton = new Button("Create New Account");
@@ -49,7 +43,6 @@ public class LoginMenuView {
     private final int buttonSizeHeight = 200;
     private final int width = 1200;
     private final int height = 700;
-
 
     private ImageView createAccountButtonImageView = new ImageView(buttonImage);
     private ImageView createAccountButtonImageView1 = new ImageView(buttonImage1);
@@ -272,6 +265,7 @@ public class LoginMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
+                showHelpClicked("help");
             }
         });
 
@@ -308,10 +302,10 @@ public class LoginMenuView {
         label.setTextFill(Color.WHITE);
         label.setFont(Font.font("Helvetica", FontWeight.BOLD, 17));
         if (n % 2 == 0) {
-            label.relocate(150, 150 + n*100);
+            label.relocate(150, 210 + n*100);
         }
         else {
-            label.relocate(350, 150 + (n-1)*100 );
+            label.relocate(350, 210 + (n-1)*100 );
         }
     }
 
@@ -337,7 +331,7 @@ public class LoginMenuView {
         pass.setPrefSize(200, 50);
         passwordLabel.setFont(Font.font(20));
         passwordLabel.setLabelFor(pass);
-        Button back = new Button("back");
+        Button back = new Button("Back");
         back.setPrefSize(80, 50);
         back.relocate(100, 250);
         Button ok = new Button("OK");
@@ -422,14 +416,57 @@ public class LoginMenuView {
         mainMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect (blur);
         Menu.getUsers().sort(Comparator.comparing(User::getNumberOfZombiesKilled));
-        int changeY = 50;
+        int changeY = 150;
         for (int i = 0; i < Menu.getUsers().size(); i++) {
             Text text = new Text(i + 1 + "- UserName : " + Menu.getUsers().get(i).getUsername() + "- kills : " + Menu.getUsers().get(i).getNumberOfZombiesKilled());
             text.relocate(100, changeY);
             changeY += 50;
             mainMenuRoot.getChildren().add(text);
         }
+        Button back = new Button("Back");
+        back.setPrefSize(80, 50);
+        back.relocate(100, 80);
+        mainMenuRoot.getChildren().add(back);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Menu.loginMenuView();
+                    }
+                });
+            }
+        };
+        back.setOnAction(event);
         Menu.loginMenu("leaderboard");
+    }
+    public void showHelpClicked(String s){
+        mainMenuRoot.getChildren ().clear();
+        mainMenuRoot.getChildren().add(backgroundImageView);
+        backgroundImageView.setEffect (blur);
+        Button back = new Button("Back");
+        back.setPrefSize(80, 50);
+        back.relocate(100, 400);
+        mainMenuRoot.getChildren().add(back);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Menu.loginMenuView();
+                    }
+                });
+            }
+        };
+        back.setOnAction(event);
+        Text taken = new Text("Help:\n" +
+                "1)craete new account,if you have go to 2\n" +
+                "2)login\n" +
+                "3)leaderboard:shows users with number of killed zombies");
+        taken.setFont(Font.font(35));
+        taken.relocate(100, 100);
+        mainMenuRoot.getChildren().add(taken);
+        Menu.loginMenu(s);
     }
 }
 

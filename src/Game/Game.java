@@ -41,6 +41,9 @@ public class Game {
         this.numberOfWaves = numberOfWaves;
     }
 
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 
     public void setGameEnvironment() {
         currentPlayer = firstPlayer;
