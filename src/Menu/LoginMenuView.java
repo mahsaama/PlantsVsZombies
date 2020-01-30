@@ -21,15 +21,15 @@ import javafx.util.Duration;
 import java.util.Comparator;
 
 public class LoginMenuView {
-    private Group mainMenuRoot;
-    private Scene mainMenuScene;
+    private Group loginMenuRoot;
+    private Scene loginMenuScene;
     private GaussianBlur blur= new GaussianBlur ();
 
     private Image buttonImage = new Image("pics/beforeclick.webp");
     private Image buttonImage1 = new Image("pics/afterclick.webp");
     private Image menuBackgroundImage = new Image("pics/bg.jpg");
 
-    private Button createAccountButton = new Button("Create New Account");
+    private Button createAccountButton = new Button("create New Account");
     private Button loginButton = new Button("login");
     private Button showLeaderBoardButton = new Button("show leaderboard");
     private Button helpButton = new Button("help");
@@ -72,11 +72,11 @@ public class LoginMenuView {
 
     public LoginMenuView(String input) {
         enteredPlayer.setVolume(0.1);
-        mainMenuRoot = new Group();
+        loginMenuRoot = new Group();
         backgroundImageView.setFitHeight(height);
         backgroundImageView.setFitWidth(width);
-        mainMenuScene = new Scene(mainMenuRoot, width, height);
-        mainMenuRoot.getChildren().add(backgroundImageView);
+        loginMenuScene = new Scene(loginMenuRoot, width, height);
+        loginMenuRoot.getChildren().add(backgroundImageView);
 
         //create new account
         setImageView(createAccountButtonImageView, 0);
@@ -84,10 +84,10 @@ public class LoginMenuView {
         createAccountButtonImageView1.setOpacity(0);
         setButton(createAccountButton, 0);
         setLabel(createAccountLabel, 0);
-        mainMenuRoot.getChildren().add(createAccountButtonImageView);
-        mainMenuRoot.getChildren().add(createAccountButtonImageView1);
-        mainMenuRoot.getChildren().add(createAccountLabel);
-        mainMenuRoot.getChildren().add(createAccountButton);
+        loginMenuRoot.getChildren().add(createAccountButtonImageView);
+        loginMenuRoot.getChildren().add(createAccountButtonImageView1);
+        loginMenuRoot.getChildren().add(createAccountLabel);
+        loginMenuRoot.getChildren().add(createAccountButton);
 
         //login button
         setImageView(loginButtonImageView, 1);
@@ -95,10 +95,10 @@ public class LoginMenuView {
         loginButtonImageView1.setOpacity(0);
         setButton(loginButton, 1);
         setLabel(loginLabel, 1);
-        mainMenuRoot.getChildren().add(loginButtonImageView);
-        mainMenuRoot.getChildren().add(loginButtonImageView1);
-        mainMenuRoot.getChildren().add(loginLabel);
-        mainMenuRoot.getChildren().add(loginButton);
+        loginMenuRoot.getChildren().add(loginButtonImageView);
+        loginMenuRoot.getChildren().add(loginButtonImageView1);
+        loginMenuRoot.getChildren().add(loginLabel);
+        loginMenuRoot.getChildren().add(loginButton);
 
         //show LeaderBoard Button
         setImageView(showLeaderBoardButtonImageView, 2);
@@ -106,10 +106,10 @@ public class LoginMenuView {
         showLeaderBoardButtonImageView1.setOpacity(0);
         setButton(showLeaderBoardButton, 2);
         setLabel(showLeaderBoardLabel, 2);
-        mainMenuRoot.getChildren().add(showLeaderBoardButtonImageView);
-        mainMenuRoot.getChildren().add(showLeaderBoardButtonImageView1);
-        mainMenuRoot.getChildren().add(showLeaderBoardLabel);
-        mainMenuRoot.getChildren().add(showLeaderBoardButton);
+        loginMenuRoot.getChildren().add(showLeaderBoardButtonImageView);
+        loginMenuRoot.getChildren().add(showLeaderBoardButtonImageView1);
+        loginMenuRoot.getChildren().add(showLeaderBoardLabel);
+        loginMenuRoot.getChildren().add(showLeaderBoardButton);
 
         //help button
         setImageView(helpButtonImageView, 3);
@@ -117,17 +117,17 @@ public class LoginMenuView {
         helpButtonImageView1.setOpacity(0);
         setButton(helpButton, 3);
         setLabel(helpLabel, 3);
-        mainMenuRoot.getChildren().add(helpButtonImageView);
-        mainMenuRoot.getChildren().add(helpButtonImageView1);
-        mainMenuRoot.getChildren().add(helpLabel);
-        mainMenuRoot.getChildren().add(helpButton);
+        loginMenuRoot.getChildren().add(helpButtonImageView);
+        loginMenuRoot.getChildren().add(helpButtonImageView1);
+        loginMenuRoot.getChildren().add(helpLabel);
+        loginMenuRoot.getChildren().add(helpButton);
 
         checkMovements(input);
 
     }
 
-    public Scene getMainMenuScene() {
-        return mainMenuScene;
+    public Scene getLoginMenuScene() {
+        return loginMenuScene;
     }
     public void checkMovements(String input) {
 
@@ -310,8 +310,8 @@ public class LoginMenuView {
     }
 
     public void createAccountOrLoginClicked(String s) {
-        mainMenuRoot.getChildren().clear();
-        mainMenuRoot.getChildren().add(backgroundImageView);
+        loginMenuRoot.getChildren().clear();
+        loginMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
         Label usernameLabel = new Label("Username:");
         usernameLabel.relocate(100, 50);
@@ -320,14 +320,14 @@ public class LoginMenuView {
         usernameLabel.setFont(Font.font(20));
         usernameLabel.setLabelFor(username);
         usernameLabel.setTextFill(Color.BLACK);
-        mainMenuRoot.getChildren().addAll(username, usernameLabel);
+        loginMenuRoot.getChildren().addAll(username, usernameLabel);
         username.setPrefSize(200, 50);
         TextField pass = new TextField();
         Label passwordLabel = new Label("Password:");
         passwordLabel.relocate(100, 150);
         passwordLabel.setTextFill(Color.BLACK);
         pass.relocate(100, 175);
-        mainMenuRoot.getChildren().addAll(pass, passwordLabel);
+        loginMenuRoot.getChildren().addAll(pass, passwordLabel);
         pass.setPrefSize(200, 50);
         passwordLabel.setFont(Font.font(20));
         passwordLabel.setLabelFor(pass);
@@ -337,8 +337,8 @@ public class LoginMenuView {
         Button ok = new Button("OK");
         ok.setPrefSize(80, 50);
         ok.relocate(200, 250);
-        mainMenuRoot.getChildren().add(back);
-        mainMenuRoot.getChildren().add(ok);
+        loginMenuRoot.getChildren().add(back);
+        loginMenuRoot.getChildren().add(ok);
 
         EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
@@ -346,42 +346,31 @@ public class LoginMenuView {
                     @Override
                     public void handle(MouseEvent event) {
                         String str = "";
+                        Text taken = new Text();
+                        taken.setFont(Font.font(30));
+                        taken.relocate(100, 350);
+                        loginMenuRoot.getChildren().add(taken);
                         if (s.equals("login")) {
                             if (Menu.checkUsername(username.getText())) {
                                 if (Menu.checkPassword(username.getText(), pass.getText())) {
-                                    Text taken = new Text("login successfully!");
-                                    taken.setFont(Font.font(30));
-                                    taken.relocate(100, 350);
-                                    mainMenuRoot.getChildren().add(taken);
+                                    taken.setText("login successfully!");
                                     str += "login ";
                                     str += username.getText();
                                     str += " ";
                                     str += pass.getText();
                                     Menu.loginMenu(str);
                                 } else {
-                                    Text taken = new Text("invalid password!");
-                                    taken.setFont(Font.font(30));
-                                    taken.relocate(100, 350);
-                                    mainMenuRoot.getChildren().add(taken);
+                                    taken.setText("invalid password!");
                                 }
                             } else {
-                                Text taken = new Text("invalid username!");
-                                taken.setFont(Font.font(30));
-                                taken.relocate(100, 350);
-                                mainMenuRoot.getChildren().add(taken);
+                                taken.setText("invalid username!");
                             }
 
                         } else {
                             if (Menu.checkUsername(username.getText())) {
-                                Text taken = new Text("invalid username!");
-                                taken.setFont(Font.font(30));
-                                taken.relocate(100, 350);
-                                mainMenuRoot.getChildren().add(taken);
+                                taken.setText("invalid username!");
                             } else {
-                                Text taken = new Text("account <" + username.getText() + "> was created");
-                                taken.setFont(Font.font(30));
-                                taken.relocate(100, 350);
-                                mainMenuRoot.getChildren().add(taken);
+                                taken.setText("account <" + username.getText() + "> was created");
                                 str += "create account ";
                                 str += username.getText();
                                 str += " ";
@@ -389,7 +378,6 @@ public class LoginMenuView {
                                 Menu.loginMenu(str);
                             }
                         }
-
                     }
                 });
             }
@@ -412,8 +400,8 @@ public class LoginMenuView {
     }
 
     public void showLeaderBoardClicked(String s) {
-        mainMenuRoot.getChildren ().clear();
-        mainMenuRoot.getChildren().add(backgroundImageView);
+        loginMenuRoot.getChildren ().clear();
+        loginMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect (blur);
         Menu.getUsers().sort(Comparator.comparing(User::getNumberOfZombiesKilled));
         int changeY = 150;
@@ -421,12 +409,12 @@ public class LoginMenuView {
             Text text = new Text(i + 1 + "- UserName : " + Menu.getUsers().get(i).getUsername() + "- kills : " + Menu.getUsers().get(i).getNumberOfZombiesKilled());
             text.relocate(100, changeY);
             changeY += 50;
-            mainMenuRoot.getChildren().add(text);
+            loginMenuRoot.getChildren().add(text);
         }
         Button back = new Button("Back");
         back.setPrefSize(80, 50);
         back.relocate(100, 80);
-        mainMenuRoot.getChildren().add(back);
+        loginMenuRoot.getChildren().add(back);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -441,13 +429,13 @@ public class LoginMenuView {
         Menu.loginMenu("leaderboard");
     }
     public void showHelpClicked(String s){
-        mainMenuRoot.getChildren ().clear();
-        mainMenuRoot.getChildren().add(backgroundImageView);
+        loginMenuRoot.getChildren ().clear();
+        loginMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect (blur);
         Button back = new Button("Back");
         back.setPrefSize(80, 50);
         back.relocate(100, 400);
-        mainMenuRoot.getChildren().add(back);
+        loginMenuRoot.getChildren().add(back);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -465,7 +453,7 @@ public class LoginMenuView {
                 "3)leaderboard:shows users with number of killed zombies");
         taken.setFont(Font.font(35));
         taken.relocate(100, 100);
-        mainMenuRoot.getChildren().add(taken);
+        loginMenuRoot.getChildren().add(taken);
         Menu.loginMenu(s);
     }
 }

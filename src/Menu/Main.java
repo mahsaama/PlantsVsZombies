@@ -17,18 +17,18 @@ import java.util.ArrayList;
 
 public class Main extends Application {
 
-    public static ArrayList<Stage> stages = new ArrayList<>();
+    public static Stage stage;
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        stages.add(primaryStage);
+        stage = primaryStage;
 
         Image iconImage = new Image("pics/a.jpg");
         ImageView imageView = new ImageView(iconImage);
         imageView.setX(0);
         imageView.setY(0);
-        imageView.fitWidthProperty().bind(stages.get(0).widthProperty());
-        imageView.fitHeightProperty().bind(stages.get(0).heightProperty());
+        imageView.fitWidthProperty().bind(stage.widthProperty());
+        imageView.fitHeightProperty().bind(stage.heightProperty());
         Group group = new Group();
         group.getChildren().add(imageView);
 
@@ -64,7 +64,7 @@ public class Main extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                stages.get(0).setScene(scene);
+                stage.setScene(scene);
             }
         });
         /*

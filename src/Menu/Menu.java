@@ -38,7 +38,7 @@ public class Menu extends Application {
 
     public static void loginMenuView() {
         LoginMenuView menuView = new LoginMenuView(input);
-        Main.changeScene(menuView.getMainMenuScene());
+        Main.changeScene(menuView.getLoginMenuScene());
         input = "";
     }
 
@@ -81,7 +81,7 @@ public class Menu extends Application {
             if (checkPassword(username, password)) {
                 System.out.println("login successfully");
                 loginUser = getUserByName(username);
-                mainMenu();//TODO
+                mainMenuView();
                 return true;
             } else
                 System.out.println("invalid password");
@@ -101,28 +101,31 @@ public class Menu extends Application {
 
     }
 
-
-    public static void mainMenu() {
-        String order = "help";
-        while (true) {
+    public static void mainMenuView(){
+        MainMenuView menuView = new MainMenuView();
+        Main.changeScene(menuView.getMainMenuScene());
+    }
+    public static void mainMenu(String s) {
+        String order = s;
+        //while (true) {
             if (order.compareToIgnoreCase("Play") == 0) {
                 playMenu();
-                break;
+                //break;
             } else if (order.compareToIgnoreCase("profile") == 0) {
                 profileMenu();
-                break;
+               // break;
             } else if (order.compareToIgnoreCase("shop") == 0) {
                 shopMenu();
-                break;
+                //break;
             } else if (order.compareToIgnoreCase("exit") == 0) {
                 loginMenuView();
-                break;
+                //break;
             } else if (order.compareToIgnoreCase("help") == 0) {
                 System.out.println("Play\nprofile\nshop\nexit\nhelp");
-            } else
-                System.out.println("invalid command");
-            order = scanner.nextLine();
-        }
+            } //else
+               // System.out.println("invalid command");
+            //order = scanner.nextLine();
+        //}
     }
 
 
@@ -146,7 +149,7 @@ public class Menu extends Application {
                 if (!checkUsername(username)) {
                     User user = new User(username, password);
                     users.add(user);
-                    mainMenu();
+                    mainMenuView();
                     break;
                 } else
                     System.out.println("invalid username");
@@ -155,7 +158,7 @@ public class Menu extends Application {
             } else if (order.compareToIgnoreCase("help") == 0) {
                 System.out.println("Change\nDelete\nRename\nCreate\nShow\nhelp\nexit");
             } else if (order.compareToIgnoreCase("exit") == 0) {
-                mainMenu();
+                mainMenuView();
                 break;
             } else
                 System.out.println("invalid command");
@@ -198,7 +201,7 @@ public class Menu extends Application {
             } else if (order.compareToIgnoreCase("help") == 0) {
                 System.out.println("show shop\ncollection\nbuy\nmoney\nexit");
             } else if (order.compareToIgnoreCase("exit") == 0) {
-                mainMenu();
+                mainMenuView();
                 break;
             } else
                 System.out.println("invalid command");
