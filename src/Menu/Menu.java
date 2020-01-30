@@ -230,16 +230,16 @@ public class Menu extends Application {
         tempUser = loginUser;
         switch (array[0]) {
             case "Day":
-                collectionMenu("plant", "Day");
+                collectionMenuView("plant", "Day");
                 break;
             case "Water":
-                collectionMenu("plant", "Water");
+                collectionMenuView("plant", "Water");
                 break;
             case "Rail":
                 prepareGame("Rail");
                 break;
             case "Zombie":
-                collectionMenu("zombie", "Zombie");
+                collectionMenuView("zombie", "Zombie");
                 break;
             case "PvP":
                 //String opponentUsername = scanner.nextLine();
@@ -247,11 +247,14 @@ public class Menu extends Application {
                 numberOfWaves = Integer.parseInt(array[2]);
                 opponent = getUserByName(array[1]);
                 //scanner.nextLine();
-                collectionMenu("plant", "PvP");
+                collectionMenuView("plant", "PvP");
                 break;
         }
     }
-
+    public static void collectionMenuView(String s1,String s2){
+        CollectionMenuView menuView = new CollectionMenuView(s1,s2);
+        Main.changeScene(menuView.getCollectionMenuScene());
+    }
     public static void collectionMenu(String type, String typeOfGame) {
         String order = "help";
         while (true) {

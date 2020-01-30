@@ -27,41 +27,38 @@ public class PlayMenuView {
     private Image buttonImage1 = new Image("pics/afterclick.webp");
     private Image mainMenuBackgroundImage = new Image("pics/bg3.jpg");
 
-    private Button changeButton = new Button("Change");
-    private Button deleteButton = new Button("Delete");
-    private Button renameButton = new Button("Rename");
-    private Button createButton = new Button("Create");
-    private Button showButton = new Button("Show");
+    private Button dayButton = new Button("Day");
+    private Button waterButton = new Button("Water");
+    private Button railButton = new Button("Rail");
+    private Button zombieButton = new Button("Zombie");
+    private Button pvpButton = new Button("PvP");
     private Button exitButton = new Button("Exit");
-    private Button helpButton = new Button("Help");
 
-    private Label changeLabel = new Label("Change");
-    private Label deleteLabel = new Label("Delete");
-    private Label renameLabel = new Label("Rename");
-    private Label createLabel = new Label("Create");
-    private Label showLabel = new Label("Show");
+    private Label dayLabel = new Label("Day");
+    private Label waterLabel = new Label("Water");
+    private Label railLabel = new Label("Rail");
+    private Label zombieLabel = new Label("Zombie");
+    private Label pvpLabel = new Label("PvP");
     private Label exitLabel = new Label("Exit");
-    private Label helpLabel = new Label("Help");
+
 
     private final int buttonSizeWidth = 120;
     private final int buttonSizeHeight = 120;
     private final int height = 700;
     private final int width = 1200;
 
-    private ImageView changeButtonImageView = new ImageView(buttonImage);
-    private ImageView changeButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView deleteButtonImageView = new ImageView(buttonImage);
-    private ImageView deleteButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView createButtonImageView = new ImageView(buttonImage);
-    private ImageView createButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView renameButtonImageView = new ImageView(buttonImage);
-    private ImageView renameButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView showButtonImageView = new ImageView(buttonImage);
-    private ImageView showButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView dayButtonImageView = new ImageView(buttonImage);
+    private ImageView dayButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView waterButtonImageView = new ImageView(buttonImage);
+    private ImageView waterButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView railButtonImageView = new ImageView(buttonImage);
+    private ImageView railButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView zombieButtonImageView = new ImageView(buttonImage);
+    private ImageView zombieButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView pvpButtonImageView = new ImageView(buttonImage);
+    private ImageView pvpButtonImageView1 = new ImageView(buttonImage1);
     private ImageView exitButtonImageView = new ImageView(buttonImage);
     private ImageView exitButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView helpButtonImageView = new ImageView(buttonImage);
-    private ImageView helpButtonImageView1 = new ImageView(buttonImage1);
     private ImageView backgroundImageView = new ImageView(mainMenuBackgroundImage);
 
     private Media mouseClicked = new Media(getClass ( ).getClassLoader ().getResource ("audio/Button-SoundBible.com-1420500901.mp3" ).toExternalForm ());
@@ -79,60 +76,60 @@ public class PlayMenuView {
         playMenuRoot.getChildren().add(backgroundImageView);
 
 
-        //change
-        setImageView(changeButtonImageView, 0);
-        setImageView(changeButtonImageView1, 0);
-        changeButtonImageView1.setOpacity(0);
-        setButton(changeButton, 0);
-        setLabel(changeLabel, 0);
-        playMenuRoot.getChildren().add(changeButtonImageView);
-        playMenuRoot.getChildren().add(changeButtonImageView1);
-        playMenuRoot.getChildren().add(changeButton);
-        playMenuRoot.getChildren().add(changeLabel);
+        //day
+        setImageView(dayButtonImageView, 0);
+        setImageView(dayButtonImageView1, 0);
+        dayButtonImageView1.setOpacity(0);
+        setButton(dayButton, 0);
+        setLabel(dayLabel, 0);
+        playMenuRoot.getChildren().add(dayButtonImageView);
+        playMenuRoot.getChildren().add(dayButtonImageView1);
+        playMenuRoot.getChildren().add(dayButton);
+        playMenuRoot.getChildren().add(dayLabel);
 
-        //delete
-        setImageView(deleteButtonImageView, 1);
-        setImageView(deleteButtonImageView1, 1);
-        deleteButtonImageView1.setOpacity(0);
-        setButton(deleteButton, 1);
-        setLabel(deleteLabel, 1);
-        playMenuRoot.getChildren().add(deleteButtonImageView);
-        playMenuRoot.getChildren().add(deleteButtonImageView1);
-        playMenuRoot.getChildren().add(deleteLabel);
-        playMenuRoot.getChildren().add(deleteButton);
+        //water
+        setImageView(waterButtonImageView, 1);
+        setImageView(waterButtonImageView1, 1);
+        waterButtonImageView1.setOpacity(0);
+        setButton(waterButton, 1);
+        setLabel(waterLabel, 1);
+        playMenuRoot.getChildren().add(waterButtonImageView);
+        playMenuRoot.getChildren().add(waterButtonImageView1);
+        playMenuRoot.getChildren().add(waterLabel);
+        playMenuRoot.getChildren().add(waterButton);
 
-        //create
-        setImageView(createButtonImageView, 2);
-        setImageView(createButtonImageView1, 2);
-        createButtonImageView1.setOpacity(0);
-        setButton(createButton , 2);
-        setLabel(renameLabel, 2);
-        playMenuRoot.getChildren().add((createButtonImageView));
-        playMenuRoot.getChildren().add((createButtonImageView1));
-        playMenuRoot.getChildren().add(renameLabel);
-        playMenuRoot.getChildren().add(createButton);
+        //rail
+        setImageView(railButtonImageView, 2);
+        setImageView(railButtonImageView1, 2);
+        railButtonImageView1.setOpacity(0);
+        setButton(railButton , 2);
+        setLabel(railLabel, 2);
+        playMenuRoot.getChildren().add((railButtonImageView));
+        playMenuRoot.getChildren().add((railButtonImageView1));
+        playMenuRoot.getChildren().add(railLabel);
+        playMenuRoot.getChildren().add(railButton);
 
-        //rename
-        setImageView(renameButtonImageView, 3);
-        setImageView(renameButtonImageView1, 3);
-        renameButtonImageView1.setOpacity(0);
-        setButton(renameButton , 3);
-        setLabel(renameLabel, 3);
-        playMenuRoot.getChildren().add((renameButtonImageView));
-        playMenuRoot.getChildren().add((renameButtonImageView1));
-        playMenuRoot.getChildren().add(renameLabel);
-        playMenuRoot.getChildren().add(renameButton);
+        //zombie
+        setImageView(zombieButtonImageView, 3);
+        setImageView(zombieButtonImageView1, 3);
+        zombieButtonImageView1.setOpacity(0);
+        setButton(zombieButton , 3);
+        setLabel(zombieLabel, 3);
+        playMenuRoot.getChildren().add((zombieButtonImageView));
+        playMenuRoot.getChildren().add((zombieButtonImageView1));
+        playMenuRoot.getChildren().add(zombieLabel);
+        playMenuRoot.getChildren().add(zombieButton);
 
-        //show
-        setImageView(showButtonImageView, 4);
-        setImageView(showButtonImageView1, 4);
-        showButtonImageView1.setOpacity(0);
-        setButton(showButton , 4);
-        setLabel(renameLabel, 4);
-        playMenuRoot.getChildren().add((showButtonImageView));
-        playMenuRoot.getChildren().add((showButtonImageView1));
-        playMenuRoot.getChildren().add(renameLabel);
-        playMenuRoot.getChildren().add(showButton);
+        //pvp
+        setImageView(pvpButtonImageView, 4);
+        setImageView(pvpButtonImageView1, 4);
+        pvpButtonImageView1.setOpacity(0);
+        setButton(pvpButton , 4);
+        setLabel(pvpLabel, 4);
+        playMenuRoot.getChildren().add((pvpButtonImageView));
+        playMenuRoot.getChildren().add((pvpButtonImageView1));
+        playMenuRoot.getChildren().add(pvpLabel);
+        playMenuRoot.getChildren().add(pvpButton);
 
         //exit
         setImageView(exitButtonImageView, 5);
@@ -145,17 +142,6 @@ public class PlayMenuView {
         playMenuRoot.getChildren().add(exitLabel);
         playMenuRoot.getChildren().add(exitButton);
 
-        //help
-        setImageView(helpButtonImageView, 6);
-        setImageView(helpButtonImageView1, 6);
-        helpButtonImageView1.setOpacity(0);
-        setButton(helpButton, 6);
-        setLabel(helpLabel, 6);
-        playMenuRoot.getChildren().add(helpButtonImageView);
-        playMenuRoot.getChildren().add(helpButtonImageView1);
-        playMenuRoot.getChildren().add(helpLabel);
-        playMenuRoot.getChildren().add(helpButton);
-
         checkMovements();
 
     }
@@ -166,125 +152,125 @@ public class PlayMenuView {
 
     public void checkMovements() {
 
-        changeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        dayButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (changeButtonImageView.getOpacity() == 100)
-                    changeButtonImageView.setOpacity(0);
-                if (changeButtonImageView1.getOpacity() == 0)
-                    changeButtonImageView1.setOpacity(100);
+                if (dayButtonImageView.getOpacity() == 100)
+                    dayButtonImageView.setOpacity(0);
+                if (dayButtonImageView1.getOpacity() == 0)
+                    dayButtonImageView1.setOpacity(100);
             }
         });
 
 
-        changeButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        dayButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                if ( changeButtonImageView1.getOpacity() == 100)
-                    changeButtonImageView1.setOpacity(0);
-                if ( changeButtonImageView.getOpacity() == 0)
-                    changeButtonImageView.setOpacity(100);
+                if ( dayButtonImageView1.getOpacity() == 100)
+                    dayButtonImageView1.setOpacity(0);
+                if ( dayButtonImageView.getOpacity() == 0)
+                    dayButtonImageView.setOpacity(100);
             }
         });
 
 
-        deleteButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (deleteButtonImageView.getOpacity() == 100)
-                    deleteButtonImageView.setOpacity(0);
-                if (deleteButtonImageView1.getOpacity() == 0)
-                    deleteButtonImageView1.setOpacity(100);
-            }
-        });
-
-
-        deleteButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                if (deleteButtonImageView1.getOpacity() == 100)
-                    deleteButtonImageView1.setOpacity(0);
-                if (deleteButtonImageView.getOpacity() == 0)
-                    deleteButtonImageView.setOpacity(100);
-            }
-        });
-
-        createButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        waterButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (createButtonImageView.getOpacity() == 100)
-                    createButtonImageView.setOpacity(0);
-                if (createButtonImageView1.getOpacity() == 0)
-                    createButtonImageView1.setOpacity(100);
+                if (waterButtonImageView.getOpacity() == 100)
+                    waterButtonImageView.setOpacity(0);
+                if (waterButtonImageView1.getOpacity() == 0)
+                    waterButtonImageView1.setOpacity(100);
             }
         });
 
 
-        createButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (createButtonImageView1.getOpacity() == 100)
-                    createButtonImageView1.setOpacity(0);
-                if (createButtonImageView.getOpacity() == 0)
-                    createButtonImageView.setOpacity(100);
-            }
-        });
-
-        changeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        waterButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (changeButtonImageView.getOpacity() == 100)
-                    changeButtonImageView.setOpacity(0);
-                if (changeButtonImageView1.getOpacity() == 0)
-                    changeButtonImageView1.setOpacity(100);
+                if (waterButtonImageView1.getOpacity() == 100)
+                    waterButtonImageView1.setOpacity(0);
+                if (waterButtonImageView.getOpacity() == 0)
+                    waterButtonImageView.setOpacity(100);
             }
         });
 
-
-        changeButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (changeButtonImageView1.getOpacity() == 100)
-                    changeButtonImageView1.setOpacity(0);
-                if (changeButtonImageView.getOpacity() == 0)
-                    changeButtonImageView.setOpacity(100);
-            }
-        });
-
-        showButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        railButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (showButtonImageView.getOpacity() == 100)
-                    showButtonImageView.setOpacity(0);
-                if (showButtonImageView1.getOpacity() == 0)
-                    showButtonImageView1.setOpacity(100);
+                if (railButtonImageView.getOpacity() == 100)
+                    railButtonImageView.setOpacity(0);
+                if (railButtonImageView1.getOpacity() == 0)
+                    railButtonImageView1.setOpacity(100);
             }
         });
 
 
-        showButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        railButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (showButtonImageView1.getOpacity() == 100)
-                    showButtonImageView1.setOpacity(0);
-                if (showButtonImageView.getOpacity() == 0)
-                    showButtonImageView.setOpacity(100);
+                if (railButtonImageView1.getOpacity() == 100)
+                    railButtonImageView1.setOpacity(0);
+                if (railButtonImageView.getOpacity() == 0)
+                    railButtonImageView.setOpacity(100);
+            }
+        });
+
+        zombieButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (zombieButtonImageView.getOpacity() == 100)
+                    zombieButtonImageView.setOpacity(0);
+                if (zombieButtonImageView1.getOpacity() == 0)
+                    zombieButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        zombieButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (zombieButtonImageView1.getOpacity() == 100)
+                    zombieButtonImageView1.setOpacity(0);
+                if (zombieButtonImageView.getOpacity() == 0)
+                    zombieButtonImageView.setOpacity(100);
+            }
+        });
+
+        pvpButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (pvpButtonImageView.getOpacity() == 100)
+                    pvpButtonImageView.setOpacity(0);
+                if (pvpButtonImageView1.getOpacity() == 0)
+                    pvpButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        pvpButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (pvpButtonImageView1.getOpacity() == 100)
+                    pvpButtonImageView1.setOpacity(0);
+                if (pvpButtonImageView.getOpacity() == 0)
+                    pvpButtonImageView.setOpacity(100);
             }
         });
 
@@ -313,74 +299,48 @@ public class PlayMenuView {
             }
         });
 
-        helpButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (helpButtonImageView.getOpacity() == 100)
-                    helpButtonImageView.setOpacity(0);
-                if (helpButtonImageView1.getOpacity() == 0)
-                    helpButtonImageView1.setOpacity(100);
-            }
-        });
-
-
-        helpButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                if (helpButtonImageView1.getOpacity() == 100)
-                    helpButtonImageView1.setOpacity(0);
-                if (helpButtonImageView.getOpacity() == 0)
-                    helpButtonImageView.setOpacity(100);
-            }
-        });
-
-
-        changeButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        dayButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                changeButtonClicked();
+                Menu.playMenu("Day");
             }
         });
 
-        createButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        zombieButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                createButtonClicked();
+                Menu.playMenu("Zombie");
             }
         });
 
-        showButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        waterButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                showButtonClicked();
+                Menu.playMenu("Water");
             }
         });
 
-        renameButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        railButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                renameButtonClicked();
+                Menu.playMenu("Rail");
             }
         });
 
-        deleteButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        pvpButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                deleteButtonClicked();
+                pvpButtonClicked();
             }
         });
 
@@ -389,17 +349,7 @@ public class PlayMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                Menu.profileMenu("exit");
-            }
-        });
-
-
-        helpButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
-            @Override
-            public void handle(MouseEvent event) {
-                clickedPlayer.play ();
-                clickedPlayer.seek(Duration.ZERO);
-                showHelpClicked("help");
+                Menu.mainMenuView();
             }
         });
 
@@ -417,15 +367,10 @@ public class PlayMenuView {
             buttonImageView.setX(400 + (n-2)*200);
             buttonImageView.setY(200);
         }
-        else if (n>3 && n<6){
+        else{
             buttonImageView.setX(500 + (n-4)*200);
             buttonImageView.setY(350);
         }
-        else {
-            buttonImageView.setX(600);
-            buttonImageView.setY(500);
-        }
-
     }
 
     public void setButton(Button button, int n) {
@@ -436,11 +381,8 @@ public class PlayMenuView {
         else if (n>1 && n<4){
             button.relocate(400 + 200 * (n-2), 200);
         }
-        else if (n>3 && n<6){
+        else{
             button.relocate(500 + 200 * (n-4), 350);
-        }
-        else {
-            button.relocate(600 , 500);
         }
         button.setPrefSize(buttonSizeWidth, buttonSizeHeight);
     }
@@ -449,55 +391,20 @@ public class PlayMenuView {
         label.setTextFill(Color.WHITE);
         label.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         if (n < 2) {
-            label.relocate(320 + 200 * n, 100);
+            label.relocate(340 + 200 * n, 120);
         }
         else if (n>1 && n<4){
-            label.relocate(420 + 200 * (n-2), 250);
+            label.relocate(440 + 200 * (n-2), 270);
         }
-        else if (n>3 && n<6){
-            label.relocate(520 + 200 * (n-4), 400);
-        }
-        else {
-            label.relocate(620 , 550);
+        else{
+            label.relocate(540 + 200 * (n-4), 420);
         }
     }
-    public void showHelpClicked(String s){
-        playMenuRoot.getChildren ().clear();
-        playMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(100, 600);
-        playMenuRoot.getChildren().add(back);
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Menu.mainMenuView();
-                    }
-                });
-            }
-        };
-        back.setOnAction(event);
-        Text taken = new Text("Help:\n" +
-                "1)Press change button to change username & password\n" +
-                "2)Press delete button to delete your account\n" +
-                "3)Press rename button to change your name\n" +
-                "4)Press create button to create an account\n" +
-                "5)Press show button to see your username and password\n");
-        taken.setFont(Font.font(30));
-        taken.setFill(Color.WHITE);
-        taken.relocate(200, 100);
-        playMenuRoot.getChildren().add(taken);
-        Menu.profileMenu(s);
-    }
-
-    public void changeButtonClicked(){
+    public void pvpButtonClicked(){
         playMenuRoot.getChildren().clear();
         playMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
+        Label usernameLabel = new Label("Opponent Username:");
         usernameLabel.relocate(350, 50);
         TextField username = new TextField();
         username.relocate(350, 75);
@@ -506,22 +413,22 @@ public class PlayMenuView {
         usernameLabel.setTextFill(Color.BLACK);
         playMenuRoot.getChildren().addAll(username, usernameLabel);
         username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        playMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
+        TextField wave = new TextField();
+        Label waveLabel = new Label("Number of waves:");
+        waveLabel.relocate(350, 150);
+        waveLabel.setTextFill(Color.BLACK);
+        wave.relocate(350, 175);
+        playMenuRoot.getChildren().addAll(wave, waveLabel);
+        wave.setPrefSize(200, 50);
+        waveLabel.setFont(Font.font(20));
+        waveLabel.setLabelFor(wave);
         Button back = new Button("Back");
         back.setPrefSize(80, 50);
-        back.relocate(500, 550);
+        back.relocate(350, 250);
+        playMenuRoot.getChildren().add(back);
         Button ok = new Button("OK");
         ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        playMenuRoot.getChildren().add(back);
+        ok.relocate(450, 250);
         playMenuRoot.getChildren().add(ok);
 
         EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
@@ -529,88 +436,17 @@ public class PlayMenuView {
                 ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        String str = "change";
+                        String str = "PvP";
                         Text taken = new Text();
                         taken.setFont(Font.font(30));
                         taken.relocate(450, 400);
                         playMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())){
-                            taken.setText("Username & password successfully changed!");
-                            str += " "+username.getText()+" "+pass.getText();
-
-                        } else {
-                            taken.setText("Select another username");
-                        }
-                        Menu.profileMenu(str);
-                    }
-                });
-            }
-        };
-        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
-                    }
-                });
-            }
-        };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
-        back.setOnAction(event2);
-
-    }
-
-    public void createButtonClicked(){
-        playMenuRoot.getChildren().clear();
-        playMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        playMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        playMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
-        Button back = new Button("Go to login menu");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        playMenuRoot.getChildren().add(back);
-        playMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "create";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        playMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())){
-                            taken.setText("New account created!");
-                            str += " "+username.getText()+" "+pass.getText();
+                        if (Menu.checkUsername(username.getText()) && Menu.getLoginUser().getUsername().compareToIgnoreCase(username.getText())!=0) {
+                            str += " " + username.getText() + " " + wave.getText();
+                            Menu.playMenu(str);
                         } else {
                             taken.setText("invalid username");
                         }
-                        Menu.profileMenu(str);
                     }
                 });
             }
@@ -620,194 +456,13 @@ public class PlayMenuView {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.loginMenuView();
+                        Menu.playMenuView();
                     }
                 });
             }
         };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
         back.setOnAction(event2);
-    }
-
-    public void showButtonClicked(){
-        playMenuRoot.getChildren().clear();
-        playMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        Label username = new Label(Menu.getLoginUser().getUsername());
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        playMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        Label pass = new Label(Menu.getLoginUser().getPassword());
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        playMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        playMenuRoot.getChildren().add(back);
-        playMenuRoot.getChildren().add(ok);
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
-                    }
-                });
-            }
-        };
-        back.setOnAction(event);
-    }
-
-    public void renameButtonClicked(){
-        playMenuRoot.getChildren().clear();
-        playMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        playMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        playMenuRoot.getChildren().add(back);
-        playMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "create";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        playMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())){
-                            taken.setText("Name changed!");
-                            str += " "+username.getText();
-                        } else {
-                            taken.setText("invalid username");
-                        }
-                        Menu.profileMenu(str);
-                    }
-                });
-            }
-        };
-        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
-                    }
-                });
-            }
-        };
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
-        back.setOnAction(event2);
-    }
-
-    public void deleteButtonClicked(){
-        playMenuRoot.getChildren().clear();
-        playMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        playMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        playMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        playMenuRoot.getChildren().add(back);
-        playMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "delete";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        playMenuRoot.getChildren().add(taken);
-                        if (Menu.getLoginUser().getUsername().compareTo(username.getText())==0 && Menu.getLoginUser().getPassword().compareTo(pass.getText())==0){
-                            taken.setText("This account deleted!");
-                            str += " "+username.getText()+" "+pass.getText();
-                            Menu.profileMenu(str);
-                            EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                        @Override
-                                        public void handle(MouseEvent event) {
-                                            Menu.loginMenuView();
-                                        }
-                                    });
-                                }
-                            };
-                            back.setOnAction(event2);
-                        } else {
-                            taken.setText("Account deleted");
-                            Menu.profileMenu(str);
-                            EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                        @Override
-                                        public void handle(MouseEvent event) {
-                                            Menu.profileMenuView();
-                                        }
-                                    });
-                                }
-                            };
-                            back.setOnAction(event2);
-                        }
-                    }
-                });
-            }
-        };
-        pass.setOnAction(event1);
+        wave.setOnAction(event1);
         username.setOnAction(event1);
         ok.setOnAction(event1);
     }
