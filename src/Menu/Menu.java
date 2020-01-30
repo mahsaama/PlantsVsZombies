@@ -35,6 +35,9 @@ public class Menu extends Application {
     static String input = new String();
     static boolean EXIT = false;
 
+    public static User getLoginUser() {
+        return loginUser;
+    }
 
     public static void loginMenuView() {
         LoginMenuView menuView = new LoginMenuView(input);
@@ -109,13 +112,13 @@ public class Menu extends Application {
         String order = s;
         //while (true) {
             if (order.compareToIgnoreCase("Play") == 0) {
-                playMenu();
+                playMenuView();
                 //break;
             } else if (order.compareToIgnoreCase("profile") == 0) {
-                profileMenu();
+                profileMenuView();
                // break;
             } else if (order.compareToIgnoreCase("shop") == 0) {
-                shopMenu();
+                shopMenuView();
                 //break;
             } else if (order.compareToIgnoreCase("exit") == 0) {
                 loginMenuView();
@@ -128,29 +131,34 @@ public class Menu extends Application {
         //}
     }
 
-
-    public static void profileMenu() {
-        String order = "help";
-        while (true) {
-            if (order.compareToIgnoreCase("Change") == 0) {
-                String username = scanner.nextLine();
-                String password = scanner.nextLine();
-                if (login(username, password)) break;
-            } else if (order.compareToIgnoreCase("Delete") == 0) {
-                String username = scanner.nextLine();
-                String password = scanner.nextLine();
-                removeUser(username, password);
-            } else if (order.compareToIgnoreCase("Rename") == 0) {
-                String newUsername = scanner.nextLine();
-                loginUser.setUsername(newUsername);
-            } else if (order.compareToIgnoreCase("Create") == 0) {
-                String username = scanner.nextLine();
-                String password = scanner.nextLine();
-                if (!checkUsername(username)) {
-                    User user = new User(username, password);
+    public static void profileMenuView(){
+        ProfileMenuView menuView = new ProfileMenuView();
+        Main.changeScene(menuView.getProfileMenuScene());
+    }
+    public static void profileMenu(String s) {
+        String order = s;
+        String[] array = s.split(" ");
+        //while (true) {
+            if (array[0].compareToIgnoreCase("Change") == 0) {
+                //String username = scanner.nextLine();
+                //String password = scanner.nextLine();
+                loginUser.setUsername(array[1]);
+                loginUser.setPassword(array[2]);
+            } else if (array[0].compareToIgnoreCase("Delete") == 0) {
+                //String username = scanner.nextLine();
+                //String password = scanner.nextLine();
+                removeUser(array[1], array[2]);
+            } else if (array[0].compareToIgnoreCase("Rename") == 0) {
+                //String newUsername = scanner.nextLine();
+                loginUser.setUsername(array[1]);
+            } else if (array[0].compareToIgnoreCase("Create") == 0) {
+               // String username = scanner.nextLine();
+                //String password = scanner.nextLine();
+                if (!checkUsername(array[1])) {
+                    User user = new User(array[1], array[2]);
                     users.add(user);
-                    mainMenuView();
-                    break;
+                    profileMenuView();
+                    //break;
                 } else
                     System.out.println("invalid username");
             } else if (order.compareToIgnoreCase("Show") == 0) {
@@ -159,11 +167,11 @@ public class Menu extends Application {
                 System.out.println("Change\nDelete\nRename\nCreate\nShow\nhelp\nexit");
             } else if (order.compareToIgnoreCase("exit") == 0) {
                 mainMenuView();
-                break;
-            } else
-                System.out.println("invalid command");
-            order = scanner.nextLine();
-        }
+                //break;
+            //} else
+               // System.out.println("invalid command");
+           // order = scanner.nextLine();
+            }
     }
 
     private static void removeUser(String username, String password) {
@@ -175,44 +183,52 @@ public class Menu extends Application {
         } else
             System.out.println("invalid username");
     }
-
-    public static void shopMenu() {
-        String order = "help";
-        while (true) {
-            if (order.compareToIgnoreCase("show shop") == 0) {
+    public static void shopMenuView(){
+        ShopMenuView menuView = new ShopMenuView();
+        Main.changeScene(menuView.getShopMenuScene());
+    }
+    public static void shopMenu(String s) {
+        String order = s;
+        String[] array = s.split(" ");
+       // while (true) {
+            if (array[0].compareToIgnoreCase("show shop") == 0) {
                 for (Plant plant : shop.getPlantList()) {
                     System.out.println(plant.getName() + " : " + plant.getPrice());
                 }
                 for (Zombie zombie : shop.getZombieList()) {
                     System.out.println(zombie.getName() + " : " + zombie.getPrice());
                 }
-            } else if (order.compareToIgnoreCase("collection") == 0) {
+            } else if (array[0].compareToIgnoreCase("collection") == 0) {
                 for (Plant plant : loginUser.getCollection().getPlants()) {
                     System.out.println(plant.getName() + " : " + plant.getPrice());
                 }
                 for (Zombie zombie : loginUser.getCollection().getZombies()) {
                     System.out.println(zombie.getName() + " : " + zombie.getPrice());
                 }
-            } else if (order.compareToIgnoreCase("buy") == 0) {
-                String cardName = scanner.nextLine();
-                shop.buy(cardName, loginUser);
-            } else if (order.compareToIgnoreCase("money") == 0) {
+            } else if (array[0].compareToIgnoreCase("buy") == 0) {
+                //String cardName = scanner.nextLine();
+                shop.buy(array[1], loginUser);
+            } else if (array[0].compareToIgnoreCase("money") == 0) {
                 System.out.println(loginUser.getCoins());
-            } else if (order.compareToIgnoreCase("help") == 0) {
+            } else if (array[0].compareToIgnoreCase("help") == 0) {
                 System.out.println("show shop\ncollection\nbuy\nmoney\nexit");
-            } else if (order.compareToIgnoreCase("exit") == 0) {
+            } else if (array[0].compareToIgnoreCase("exit") == 0) {
                 mainMenuView();
-                break;
-            } else
-                System.out.println("invalid command");
-            order = scanner.nextLine();
+                //break;
+           // } else
+               // System.out.println("invalid command");
+            //order = scanner.nextLine();
         }
     }
-
-    public static void playMenu() {
-        String gameType = scanner.nextLine();
+    public static void playMenuView(){
+        PlayMenuView menuView = new PlayMenuView();
+        Main.changeScene(menuView.getPlayMenuScene());
+    }
+    public static void playMenu(String s) {
+        //String gameType = scanner.nextLine();
+        String[] array = s.split(" ");
         tempUser = loginUser;
-        switch (gameType) {
+        switch (array[0]) {
             case "Day":
                 collectionMenu("plant", "Day");
                 break;
@@ -226,11 +242,11 @@ public class Menu extends Application {
                 collectionMenu("zombie", "Zombie");
                 break;
             case "PvP":
-                String opponentUsername = scanner.nextLine();
-                int waves = scanner.nextInt();
-                numberOfWaves = waves;
-                opponent = getUserByName(opponentUsername);
-                scanner.nextLine();
+                //String opponentUsername = scanner.nextLine();
+                //int waves = scanner.nextInt();
+                numberOfWaves = Integer.parseInt(array[2]);
+                opponent = getUserByName(array[1]);
+                //scanner.nextLine();
                 collectionMenu("plant", "PvP");
                 break;
         }
@@ -302,7 +318,7 @@ public class Menu extends Application {
             } else if (order.compareToIgnoreCase("help") == 0) {
                 System.out.println("show hand\nshow collection\nselect\nplay\nremove\nhelp\nexit");
             } else if (order.compareToIgnoreCase("exit") == 0) {
-                playMenu();
+                playMenuView();
                 break;
             } else if (order.compareToIgnoreCase("play") == 0) {
                 if (typeOfGame.compareToIgnoreCase("PvP") == 0 && type.compareToIgnoreCase("plant") == 0) {

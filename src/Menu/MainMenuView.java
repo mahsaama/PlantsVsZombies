@@ -19,8 +19,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class MainMenuView {
-    private Group MainMenuRoot;
-    private Scene MainMenuScene;
+    private Group mainMenuRoot;
+    private Scene mainMenuScene;
     private GaussianBlur blur= new GaussianBlur ();
 
     private Image buttonImage = new Image("pics/beforeclick.webp");
@@ -64,11 +64,11 @@ public class MainMenuView {
     public MainMenuView() {
 
         enteredPlayer.setVolume(0.1);
-        MainMenuRoot = new Group();
+        mainMenuRoot = new Group();
         backgroundImageView.setFitHeight(height);
         backgroundImageView.setFitWidth(width);
-        MainMenuScene = new Scene(MainMenuRoot, width, height);
-        MainMenuRoot.getChildren().add(backgroundImageView);
+        mainMenuScene = new Scene(mainMenuRoot, width, height);
+        mainMenuRoot.getChildren().add(backgroundImageView);
 
 
         //play
@@ -77,10 +77,10 @@ public class MainMenuView {
         playButtonImageView1.setOpacity(0);
         setButton(playButton, 0);
         setLabel(playLabel, 0);
-        MainMenuRoot.getChildren().add(playButtonImageView);
-        MainMenuRoot.getChildren().add(playButtonImageView1);
-        MainMenuRoot.getChildren().add(playButton);
-        MainMenuRoot.getChildren().add(playLabel);
+        mainMenuRoot.getChildren().add(playButtonImageView);
+        mainMenuRoot.getChildren().add(playButtonImageView1);
+        mainMenuRoot.getChildren().add(playButton);
+        mainMenuRoot.getChildren().add(playLabel);
 
         //profile
         setImageView(profileButtonImageView, 1);
@@ -88,10 +88,10 @@ public class MainMenuView {
         profileButtonImageView1.setOpacity(0);
         setButton(profileButton, 1);
         setLabel(profileLabel, 1);
-        MainMenuRoot.getChildren().add(profileButtonImageView);
-        MainMenuRoot.getChildren().add(profileButtonImageView1);
-        MainMenuRoot.getChildren().add(profileLabel);
-        MainMenuRoot.getChildren().add(profileButton);
+        mainMenuRoot.getChildren().add(profileButtonImageView);
+        mainMenuRoot.getChildren().add(profileButtonImageView1);
+        mainMenuRoot.getChildren().add(profileLabel);
+        mainMenuRoot.getChildren().add(profileButton);
 
         //shop
         setImageView(shopButtonImageView, 2);
@@ -99,10 +99,10 @@ public class MainMenuView {
         shopButtonImageView1.setOpacity(0);
         setButton(shopButton , 2);
         setLabel(shopLabel, 2);
-        MainMenuRoot.getChildren().add((shopButtonImageView));
-        MainMenuRoot.getChildren().add((shopButtonImageView1));
-        MainMenuRoot.getChildren().add(shopLabel);
-        MainMenuRoot.getChildren().add(shopButton );
+        mainMenuRoot.getChildren().add((shopButtonImageView));
+        mainMenuRoot.getChildren().add((shopButtonImageView1));
+        mainMenuRoot.getChildren().add(shopLabel);
+        mainMenuRoot.getChildren().add(shopButton );
 
         //exit
         setImageView(exitButtonImageView, 3);
@@ -110,10 +110,10 @@ public class MainMenuView {
         exitButtonImageView1.setOpacity(0);
         setButton(exitButton, 3);
         setLabel(exitLabel, 3);
-        MainMenuRoot.getChildren().add(exitButtonImageView);
-        MainMenuRoot.getChildren().add(exitButtonImageView1);
-        MainMenuRoot.getChildren().add(exitLabel);
-        MainMenuRoot.getChildren().add(exitButton);
+        mainMenuRoot.getChildren().add(exitButtonImageView);
+        mainMenuRoot.getChildren().add(exitButtonImageView1);
+        mainMenuRoot.getChildren().add(exitLabel);
+        mainMenuRoot.getChildren().add(exitButton);
 
         //help
         setImageView(helpButtonImageView, 4);
@@ -121,17 +121,17 @@ public class MainMenuView {
         helpButtonImageView1.setOpacity(0);
         setButton(helpButton, 4);
         setLabel(helpLabel, 4);
-        MainMenuRoot.getChildren().add(helpButtonImageView);
-        MainMenuRoot.getChildren().add(helpButtonImageView1);
-        MainMenuRoot.getChildren().add(helpLabel);
-        MainMenuRoot.getChildren().add(helpButton);
+        mainMenuRoot.getChildren().add(helpButtonImageView);
+        mainMenuRoot.getChildren().add(helpButtonImageView1);
+        mainMenuRoot.getChildren().add(helpLabel);
+        mainMenuRoot.getChildren().add(helpButton);
 
         checkMovements();
 
     }
 
     public Scene getMainMenuScene() {
-        return MainMenuScene;
+        return mainMenuScene;
     }
 
     public void checkMovements() {
@@ -269,7 +269,7 @@ public class MainMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                Menu.mainMenu("play");
+                Menu.playMenuView();
             }
         });
 
@@ -278,7 +278,7 @@ public class MainMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                Menu.mainMenu("profile");
+                Menu.profileMenuView();
             }
         });
 
@@ -287,7 +287,7 @@ public class MainMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                Menu.mainMenu("shop");
+                Menu.shopMenuView();
             }
         });
 
@@ -349,13 +349,13 @@ public class MainMenuView {
             }
     }
     public void showHelpClicked(String s){
-        MainMenuRoot.getChildren ().clear();
-        MainMenuRoot.getChildren().add(backgroundImageView);
+        mainMenuRoot.getChildren ().clear();
+        mainMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
         Button back = new Button("Back");
         back.setPrefSize(80, 50);
         back.relocate(100, 600);
-        MainMenuRoot.getChildren().add(back);
+        mainMenuRoot.getChildren().add(back);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -380,7 +380,7 @@ public class MainMenuView {
         taken.setFont(Font.font(30));
         taken.setFill(Color.WHITE);
         taken.relocate(200, 100);
-        MainMenuRoot.getChildren().add(taken);
+        mainMenuRoot.getChildren().add(taken);
         Menu.mainMenu(s);
     }
 }
