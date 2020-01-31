@@ -255,10 +255,11 @@ public class Menu extends Application {
         CollectionMenuView menuView = new CollectionMenuView(s1,s2);
         Main.changeScene(menuView.getCollectionMenuScene());
     }
-    public static void collectionMenu(String type, String typeOfGame) {
-        String order = "help";
-        while (true) {
-            if (order.compareToIgnoreCase("show hand") == 0) {
+    public static void collectionMenu(String type, String typeOfGame,String s) {
+        String order = s;
+        String[] array = s.split(" ");
+       // while (true) {
+            if (array[0].compareToIgnoreCase("show hand") == 0) {
                 if (type.compareTo("plant") == 0) {
                     for (Plant plant : tempUser.getPlantHand()) {
                         System.out.println(plant.getName());
@@ -268,7 +269,7 @@ public class Menu extends Application {
                         System.out.println(zombie.getName());
                     }
 
-            } else if (order.compareToIgnoreCase("show collection") == 0) {
+            } else if (array[0].compareToIgnoreCase("show collection") == 0) {
                 if (type.compareTo("plant") == 0) {
                     for (Plant plant : tempUser.getCollection().getPlants()) {
                         System.out.println(plant.getName());
@@ -277,8 +278,9 @@ public class Menu extends Application {
                     for (Zombie zombie : tempUser.getCollection().getZombies()) {
                         System.out.println(zombie.getName());
                     }
-            } else if (order.compareToIgnoreCase("select") == 0) {
-                String name = scanner.nextLine();
+            } else if (array[0].compareToIgnoreCase("select") == 0) {
+                //String name = scanner.nextLine();
+                String name = array[1];
                 if (type.compareTo("plant") == 0) {
                     if (tempUser.getPlantHand().size() >= 7) {
                         System.out.println("you have 7 plants already");
@@ -303,7 +305,7 @@ public class Menu extends Application {
                         loginUser.getCollection().getZombies().remove(zombie);
                     } else System.out.println("invalid zombie");
                 }
-            } else if (order.compareToIgnoreCase("remove") == 0) {
+            } else if (array[0].compareToIgnoreCase("remove") == 0) {
                 String name = scanner.nextLine();
                 if (type.compareTo("plant") == 0) {
                     if (tempUser.checkHandPlant(name)) {
@@ -318,18 +320,18 @@ public class Menu extends Application {
                     tempUser.getCollection().getZombies().add(zombie);
                 } else
                     System.out.println("invalid zombie");
-            } else if (order.compareToIgnoreCase("help") == 0) {
+            } else if (array[0].compareToIgnoreCase("help") == 0) {
                 System.out.println("show hand\nshow collection\nselect\nplay\nremove\nhelp\nexit");
-            } else if (order.compareToIgnoreCase("exit") == 0) {
+            } else if (array[0].compareToIgnoreCase("exit") == 0) {
                 playMenuView();
-                break;
-            } else if (order.compareToIgnoreCase("play") == 0) {
+                //break;
+            } else if (array[0].compareToIgnoreCase("play") == 0) {
                 if (typeOfGame.compareToIgnoreCase("PvP") == 0 && type.compareToIgnoreCase("plant") == 0) {
                     tempUser = opponent;
-                    collectionMenu("zombie", "PvP");
+                    collectionMenuView("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase("PvP") == 0 && type.compareToIgnoreCase("zombie") == 0) {
                     prepareTwoPersonGame();
-                    break;
+                   // break;
                 } else if (typeOfGame.compareToIgnoreCase("PvP") != 0) {
                     if (tempUser.getPlantHand().size() < 7 && typeOfGame.compareToIgnoreCase("zombie") != 0) {
                         System.out.println("you don't have enough cards");
@@ -337,13 +339,12 @@ public class Menu extends Application {
                         System.out.println("you don't have enough cards");
                     } else {
                         prepareGame(typeOfGame);
-                        break;
+                       // break;
                     }
-
                 }
-            } else
-                System.out.println("invalid command");
-            order = scanner.nextLine();
+            //} else
+               // System.out.println("invalid command");
+            //order = scanner.nextLine();
         }
 
     }

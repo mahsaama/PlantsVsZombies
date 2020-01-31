@@ -482,14 +482,14 @@ public class ShopMenuView {
                 priceLabel.setPrefSize(100,30);
                 shopMenuRoot.getChildren().add(priceLabel);
             }else{
-                Image listImage = new Image("pics/"+Shop.getZombieList().get(i).getName()+".webp");
+                Image listImage = new Image("pics/"+Shop.getZombieList().get(i-Shop.getPlantList().size()).getName()+".webp");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
                 listImageView.setX(25+ (i%8)*150);
                 listImageView.setY(10+ (i/8)*140);
                 shopMenuRoot.getChildren().add(listImageView);
-                Label priceLabel = new Label(Shop.getPlantList().get(i).getPrice()+"");
+                Label priceLabel = new Label(Shop.getPlantList().get(i -Shop.getPlantList().size()).getPrice()+"");
                 priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
                 priceLabel.setFont(Font.font(20));
                 priceLabel.setTextFill(Color.WHITE);
@@ -655,14 +655,14 @@ public class ShopMenuView {
                 priceLabel.setPrefSize(100,30);
                 shopMenuRoot.getChildren().add(priceLabel);
             }else{
-                Image listImage = new Image("pics/"+Menu.getLoginUser().getCollection().getZombies().get(i).getName()+".webp");
+                Image listImage = new Image("pics/"+Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getName()+".webp");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
                 listImageView.setX(25+ (i%8)*150);
                 listImageView.setY(10+ (i/8)*140);
                 shopMenuRoot.getChildren().add(listImageView);
-                Label priceLabel = new Label(Menu.getLoginUser().getCollection().getZombies().get(i).getPrice()+"");
+                Label priceLabel = new Label(Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getPrice()+"");
                 priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
                 priceLabel.setFont(Font.font(20));
                 priceLabel.setTextFill(Color.WHITE);
