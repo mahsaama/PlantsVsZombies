@@ -41,6 +41,9 @@ public class Game {
         this.numberOfWaves = numberOfWaves;
     }
 
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 
     public void setGameEnvironment() {
         currentPlayer = firstPlayer;
@@ -112,14 +115,14 @@ public class Game {
                             winner.setCoins(winner.getCoins() + 10 * winner.getNumberOfKilledZombies());
                             winner.setNumberOfZombiesKilledOverAll(winner.getNumberOfZombiesKilledOverAll() + winner.getNumberOfKilledZombies());
                             System.out.println("game finished");
-                            Menu.mainMenu();
+                            Menu.mainMenuView();
                             break;
                         }
                         break;
                     }
                     else if(!checkWinnerForSingleWave(playGround)){
                         System.out.println("you lost the game");
-                        Menu.mainMenu();
+                        Menu.mainMenuView();
                         break;
                     }
                     if (turn == startTurn[waveNum]) {
@@ -336,7 +339,7 @@ public class Game {
 
             if (checkWinnerForZombie (playGround, coin) == 1) {
                 System.out.println ("game finished");
-                Menu.mainMenu ( );
+                Menu.mainMenuView( );
                 break;
             }
         }
@@ -394,7 +397,7 @@ public class Game {
                 if (zombieMove (playGround)) {
                     currentPlayer.setScore (currentPlayer.getNumberOfKilledZombies ( ));
                     System.out.println ("game finished");
-                    Menu.mainMenu ( );
+                    Menu.mainMenuView ( );
                     break;
                 }
                 System.out.println ("Turn ended. New turn Started!");
@@ -502,7 +505,7 @@ public class Game {
             }
         }
         if (isFinished == 1) {
-            Menu.mainMenu ( );
+            Menu.mainMenuView( );
         }
     }
 
