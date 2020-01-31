@@ -582,9 +582,9 @@ public class Game {
 
     public void randomCard(ArrayList<Plant> cards) {
         SecureRandom rand = new SecureRandom ( );
-        String[] plantLibrary = {"Cabbage-pult", "Cactus", "Cattail", "CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "SplitPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};
+        String[] plantLibrary = {"Cabbage-pult", "Cactus","CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};
         if (cards.size ( ) < 11) {
-            int randomNum = rand.nextInt (22);
+            int randomNum = rand.nextInt (20);
             currentPlayer.getPlantHand ( ).add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
             cards.add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
         }

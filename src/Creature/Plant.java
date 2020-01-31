@@ -309,30 +309,6 @@ public class Plant {
                     }
                     zombie.setStoppedTurns(zombieStopTurns);
                 }
-            } else if (name.equals("SplitPea")) {
-                zombie.setLife(hurtOfBullet, 1);
-                if (zombie.getLife() == 0) {
-                    playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                    zombie = null;
-                }
-                Zombie zombie1 = null;
-                for (int i = y - 1; i >= 0; i--) {
-                    for (Zombie item : playGround.getCells()[x][i].getZombieContent()) {
-                        if (item != null) {
-                            zombie1 = item;
-                            break;
-                        }
-                    }
-                    if (zombie1 != null)
-                        break;
-                }
-                if(zombie1 != null)
-                    zombie1.setLife(hurtOfBullet, 2);
-                if (zombie1 != null && zombie1.getLife() == 0 ) {
-                    playGround.getCells()[zombie1.getX()][zombie1.getX()].getZombieContent().remove(zombie1);
-                    zombie1 = null;
-
-                }
             } else if (name.equals("Melon-pult")) {
                 if (plantTurn % 4 == 0) {
                     zombie.setLife(hurtOfBullet, 1);
@@ -352,10 +328,6 @@ public class Plant {
                     }
 
                 }
-            } else if (name.equals("Cattail")) {
-                zombie = nearestZombie(playGround);
-                playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                zombie = null;
             } else if (name.equals("CherryBomb")) {
                 if (playGround.getCells()[x][y].getZombieContent() != null) {
                     for (Zombie item : playGround.getCells()[x][y].getZombieContent()){
