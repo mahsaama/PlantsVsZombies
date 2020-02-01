@@ -39,6 +39,10 @@ public class Menu extends Application {
         return loginUser;
     }
 
+    public static User getTempUser() {
+        return tempUser;
+    }
+
     public static void loginMenuView() {
         LoginMenuView menuView = new LoginMenuView(input);
         Main.changeScene(menuView.getLoginMenuScene());
@@ -259,7 +263,7 @@ public class Menu extends Application {
         String order = s;
         String[] array = s.split(" ");
        // while (true) {
-            if (array[0].compareToIgnoreCase("show hand") == 0) {
+            if (array[0].compareToIgnoreCase("showHand") == 0) {
                 if (type.compareTo("plant") == 0) {
                     for (Plant plant : tempUser.getPlantHand()) {
                         System.out.println(plant.getName());
@@ -269,7 +273,7 @@ public class Menu extends Application {
                         System.out.println(zombie.getName());
                     }
 
-            } else if (array[0].compareToIgnoreCase("show collection") == 0) {
+            } else if (array[0].compareToIgnoreCase("showCollection") == 0) {
                 if (type.compareTo("plant") == 0) {
                     for (Plant plant : tempUser.getCollection().getPlants()) {
                         System.out.println(plant.getName());
@@ -306,7 +310,8 @@ public class Menu extends Application {
                     } else System.out.println("invalid zombie");
                 }
             } else if (array[0].compareToIgnoreCase("remove") == 0) {
-                String name = scanner.nextLine();
+                //String name = scanner.nextLine();
+                String name = array[1];
                 if (type.compareTo("plant") == 0) {
                     if (tempUser.checkHandPlant(name)) {
                         Plant plant = getPlantByName(name);
@@ -330,7 +335,7 @@ public class Menu extends Application {
                     tempUser = opponent;
                     collectionMenuView("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase("PvP") == 0 && type.compareToIgnoreCase("zombie") == 0) {
-                    prepareTwoPersonGame();
+                    prepareTwoPersonGame();//TODO
                    // break;
                 } else if (typeOfGame.compareToIgnoreCase("PvP") != 0) {
                     if (tempUser.getPlantHand().size() < 7 && typeOfGame.compareToIgnoreCase("zombie") != 0) {
@@ -345,7 +350,7 @@ public class Menu extends Application {
             //} else
                // System.out.println("invalid command");
             //order = scanner.nextLine();
-        }
+             }
 
     }
 

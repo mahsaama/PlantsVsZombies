@@ -452,7 +452,7 @@ public class ShopMenuView {
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
         Button back = new Button("Back");
-        back.setPrefSize(250, 100);
+        back.setPrefSize(200, 80);
         back.relocate(925, 570);
         shopMenuRoot.getChildren().add(back);
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
@@ -468,7 +468,7 @@ public class ShopMenuView {
         back.setOnAction(event2);
         for (int i=0 ; i< Shop.getPlantList().size() + Shop.getZombieList().size() ;i++){
             if (i < Shop.getPlantList().size()) {
-                Image listImage = new Image("pics/"+Shop.getPlantList().get(i).getName()+".webp");
+                Image listImage = new Image("pics/"+Shop.getPlantList().get(i).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
@@ -482,7 +482,7 @@ public class ShopMenuView {
                 priceLabel.setPrefSize(100,30);
                 shopMenuRoot.getChildren().add(priceLabel);
             }else{
-                Image listImage = new Image("pics/"+Shop.getZombieList().get(i-Shop.getPlantList().size()).getName()+".webp");
+                Image listImage = new Image("pics/"+Shop.getZombieList().get(i-Shop.getPlantList().size()).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
@@ -625,7 +625,7 @@ public class ShopMenuView {
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
         Button back = new Button("Back");
-        back.setPrefSize(250, 100);
+        back.setPrefSize(200, 80);
         back.relocate(925, 570);
         shopMenuRoot.getChildren().add(back);
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
@@ -641,7 +641,7 @@ public class ShopMenuView {
         back.setOnAction(event2);
         for (int i=0 ; i< Menu.getLoginUser().getCollection().getPlants().size() + Menu.getLoginUser().getCollection().getZombies().size() ;i++){
             if (i < Menu.getLoginUser().getCollection().getPlants().size()) {
-                Image listImage = new Image("pics/"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".webp");
+                Image listImage = new Image("pics/"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
@@ -655,7 +655,7 @@ public class ShopMenuView {
                 priceLabel.setPrefSize(100,30);
                 shopMenuRoot.getChildren().add(priceLabel);
             }else{
-                Image listImage = new Image("pics/"+Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getName()+".webp");
+                Image listImage = new Image("pics/"+Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
