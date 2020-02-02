@@ -10,9 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
 
 import javax.swing.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -44,6 +48,7 @@ public class Main extends Application {
             }
         });
         thread.start();
+
 //        Image menuImage = new Image("pics/menu.jpg");
 //        ImageView menuView = new ImageView(menuImage);
 //        menuView.setFitWidth(30);
@@ -67,6 +72,7 @@ public class Main extends Application {
                 stage.setScene(scene);
             }
         });
+
         /*
         stage.setScene(scene);*/
     }

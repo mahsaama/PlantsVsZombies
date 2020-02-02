@@ -23,6 +23,7 @@ public class MainMenuView {
     private Scene mainMenuScene;
     private GaussianBlur blur= new GaussianBlur ();
 
+
     private Image buttonImage = new Image("pics/beforeclick.webp");
     private Image buttonImage1 = new Image("pics/afterclick.webp");
     private Image mainMenuBackgroundImage = new Image("pics/bg2.jpg");

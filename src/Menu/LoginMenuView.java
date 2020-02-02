@@ -18,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.io.File;
 import java.util.Comparator;
 
 public class LoginMenuView {
@@ -126,9 +128,11 @@ public class LoginMenuView {
 
     }
 
+
     public Scene getLoginMenuScene() {
         return loginMenuScene;
     }
+
     public void checkMovements(String input) {
 
         createAccountButton.setOnMouseEntered(new EventHandler<MouseEvent>() {

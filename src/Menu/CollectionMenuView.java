@@ -498,6 +498,9 @@ public class CollectionMenuView {
                taken.setText("you don't have enough cards");
             }
         }
+        if(s.compareToIgnoreCase("zombie") != 0){
+            ZombiePlayView zombiePlayView = new ZombiePlayView();
+        }
 
     }
 
