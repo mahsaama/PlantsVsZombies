@@ -293,6 +293,7 @@ public class Menu extends Application {
                         Plant plant = getPlantByName(name);
                         tempUser.getPlantHand().add(plant);
                         tempUser.getCollection().getPlants().remove(plant);
+                        System.out.println("Card Selected!");
                     } else
                         System.out.println("invalid plant");
                 } else {
@@ -301,12 +302,9 @@ public class Menu extends Application {
                     }
                     if (checkZombie(name)) {
                         Zombie zombie = Shop.makeNewZombieByName(name);
-                        loginUser.getZombieHand().add(zombie);
-                        for (Zombie zom : loginUser.getZombieHand()) {
-
-                        }
-                        System.out.println();
-                        loginUser.getCollection().getZombies().remove(zombie);
+                        tempUser.getZombieHand().add(zombie);
+                        tempUser.getCollection().getZombies().remove(zombie);
+                        System.out.println("Card Selected!");
                     } else System.out.println("invalid zombie");
                 }
             } else if (array[0].compareToIgnoreCase("remove") == 0) {
@@ -317,12 +315,14 @@ public class Menu extends Application {
                         Plant plant = getPlantByName(name);
                         tempUser.getPlantHand().remove(plant);
                         tempUser.getCollection().getPlants().add(plant);
+                        System.out.println("Card Removed!");
                     } else
                         System.out.println("invalid plant");
                 } else if (tempUser.checkHandZombie(name)) {
                     Zombie zombie = getZombieByName(name);
                     tempUser.getZombieHand().remove(zombie);
                     tempUser.getCollection().getZombies().add(zombie);
+                    System.out.println("Card Removed!");
                 } else
                     System.out.println("invalid zombie");
             } else if (array[0].compareToIgnoreCase("help") == 0) {
@@ -335,7 +335,7 @@ public class Menu extends Application {
                     tempUser = opponent;
                     collectionMenuView("zombie", "PvP");
                 } else if (typeOfGame.compareToIgnoreCase("PvP") == 0 && type.compareToIgnoreCase("zombie") == 0) {
-                    prepareTwoPersonGame();//TODO
+                    prepareTwoPersonGame();
                    // break;
                 } else if (typeOfGame.compareToIgnoreCase("PvP") != 0) {
                     if (tempUser.getPlantHand().size() < 7 && typeOfGame.compareToIgnoreCase("zombie") != 0) {
