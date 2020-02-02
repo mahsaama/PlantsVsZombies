@@ -1,4 +1,6 @@
 package Menu;
+import Creature.Plant;
+import Shop.Shop;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -18,7 +20,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class CollectionMenuView {//TODO
+public class CollectionMenuView {
     private Group collectionMenuRoot;
     private Scene collectionMenuScene;
     private GaussianBlur blur = new GaussianBlur();
@@ -27,19 +29,19 @@ public class CollectionMenuView {//TODO
     private Image buttonImage1 = new Image("pics/afterclick.webp");
     private Image mainMenuBackgroundImage = new Image("pics/bg3.jpg");
 
-    private Button changeButton = new Button("Change");
-    private Button deleteButton = new Button("Delete");
-    private Button renameButton = new Button("Rename");
-    private Button createButton = new Button("Create");
-    private Button showButton = new Button("Show");
+    private Button playButton = new Button("play");
+    private Button showHandButton = new Button("ShowHand");
+    private Button showCollectionButton = new Button("ShowCollection");
+    private Button selectButton = new Button("Select");
+    private Button removeButton = new Button("Remove");
     private Button exitButton = new Button("Exit");
     private Button helpButton = new Button("Help");
 
-    private Label changeLabel = new Label("Change");
-    private Label deleteLabel = new Label("Delete");
-    private Label renameLabel = new Label("Rename");
-    private Label createLabel = new Label("Create");
-    private Label showLabel = new Label("Show");
+    private Label playLabel = new Label("Play");
+    private Label showHandLabel = new Label("Show hand");
+    private Label showCollectionLabel = new Label("ShowCollection");
+    private Label selectLabel = new Label("Select");
+    private Label removeLabel = new Label("Remove");
     private Label exitLabel = new Label("Exit");
     private Label helpLabel = new Label("Help");
 
@@ -48,16 +50,16 @@ public class CollectionMenuView {//TODO
     private final int height = 700;
     private final int width = 1200;
 
-    private ImageView changeButtonImageView = new ImageView(buttonImage);
-    private ImageView changeButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView deleteButtonImageView = new ImageView(buttonImage);
-    private ImageView deleteButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView createButtonImageView = new ImageView(buttonImage);
-    private ImageView createButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView renameButtonImageView = new ImageView(buttonImage);
-    private ImageView renameButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView showButtonImageView = new ImageView(buttonImage);
-    private ImageView showButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView playButtonImageView = new ImageView(buttonImage);
+    private ImageView playButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView showHandButtonImageView = new ImageView(buttonImage);
+    private ImageView showHandButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView selectButtonImageView = new ImageView(buttonImage);
+    private ImageView selectButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView showCollectionButtonImageView = new ImageView(buttonImage);
+    private ImageView showCollectionButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView removeButtonImageView = new ImageView(buttonImage);
+    private ImageView removeButtonImageView1 = new ImageView(buttonImage1);
     private ImageView exitButtonImageView = new ImageView(buttonImage);
     private ImageView exitButtonImageView1 = new ImageView(buttonImage1);
     private ImageView helpButtonImageView = new ImageView(buttonImage);
@@ -69,7 +71,7 @@ public class CollectionMenuView {//TODO
     MediaPlayer clickedPlayer = new MediaPlayer(mouseClicked);
     MediaPlayer enteredPlayer = new MediaPlayer(mouseEntered);
 
-    public CollectionMenuView(String s1,String s2) {
+    public CollectionMenuView(String s1, String s2) {
 
         enteredPlayer.setVolume(0.1);
         collectionMenuRoot = new Group();
@@ -78,60 +80,60 @@ public class CollectionMenuView {//TODO
         collectionMenuScene = new Scene(collectionMenuRoot, width, height);
         collectionMenuRoot.getChildren().add(backgroundImageView);
 
-        //change
-        setImageView(changeButtonImageView, 0);
-        setImageView(changeButtonImageView1, 0);
-        changeButtonImageView1.setOpacity(0);
-        setButton(changeButton, 0);
-        setLabel(changeLabel, 0);
-        collectionMenuRoot.getChildren().add(changeButtonImageView);
-        collectionMenuRoot.getChildren().add(changeButtonImageView1);
-        collectionMenuRoot.getChildren().add(changeButton);
-        collectionMenuRoot.getChildren().add(changeLabel);
+        //play
+        setImageView(playButtonImageView, 0);
+        setImageView(playButtonImageView1, 0);
+        playButtonImageView1.setOpacity(0);
+        setButton(playButton, 0);
+        setLabel(playLabel, 0);
+        collectionMenuRoot.getChildren().add(playButtonImageView);
+        collectionMenuRoot.getChildren().add(playButtonImageView1);
+        collectionMenuRoot.getChildren().add(playButton);
+        collectionMenuRoot.getChildren().add(playLabel);
 
-        //delete
-        setImageView(deleteButtonImageView, 1);
-        setImageView(deleteButtonImageView1, 1);
-        deleteButtonImageView1.setOpacity(0);
-        setButton(deleteButton, 1);
-        setLabel(deleteLabel, 1);
-        collectionMenuRoot.getChildren().add(deleteButtonImageView);
-        collectionMenuRoot.getChildren().add(deleteButtonImageView1);
-        collectionMenuRoot.getChildren().add(deleteLabel);
-        collectionMenuRoot.getChildren().add(deleteButton);
+        //show hand
+        setImageView(showHandButtonImageView, 1);
+        setImageView(showHandButtonImageView1, 1);
+        showHandButtonImageView1.setOpacity(0);
+        setButton(showHandButton, 1);
+        setLabel(showHandLabel, 1);
+        collectionMenuRoot.getChildren().add(showHandButtonImageView);
+        collectionMenuRoot.getChildren().add(showHandButtonImageView1);
+        collectionMenuRoot.getChildren().add(showHandLabel);
+        collectionMenuRoot.getChildren().add(showHandButton);
 
-        //create
-        setImageView(createButtonImageView, 2);
-        setImageView(createButtonImageView1, 2);
-        createButtonImageView1.setOpacity(0);
-        setButton(createButton, 2);
-        setLabel(createLabel, 2);
-        collectionMenuRoot.getChildren().add(createButtonImageView);
-        collectionMenuRoot.getChildren().add(createButtonImageView1);
-        collectionMenuRoot.getChildren().add(createLabel);
-        collectionMenuRoot.getChildren().add(createButton);
+        //show collection
+        setImageView(showCollectionButtonImageView, 2);
+        setImageView(showCollectionButtonImageView1, 2);
+        showCollectionButtonImageView1.setOpacity(0);
+        setButton(showCollectionButton, 2);
+        setLabel(showCollectionLabel, 2);
+        collectionMenuRoot.getChildren().add(showCollectionButtonImageView);
+        collectionMenuRoot.getChildren().add(showCollectionButtonImageView1);
+        collectionMenuRoot.getChildren().add(showCollectionButton);
+        collectionMenuRoot.getChildren().add(showCollectionLabel);
 
-        //rename
-        setImageView(renameButtonImageView, 3);
-        setImageView(renameButtonImageView1, 3);
-        renameButtonImageView1.setOpacity(0);
-        setButton(renameButton, 3);
-        setLabel(renameLabel, 3);
-        collectionMenuRoot.getChildren().add(renameButtonImageView);
-        collectionMenuRoot.getChildren().add(renameButtonImageView1);
-        collectionMenuRoot.getChildren().add(renameLabel);
-        collectionMenuRoot.getChildren().add(renameButton);
+        //select
+        setImageView(selectButtonImageView, 3);
+        setImageView(selectButtonImageView1, 3);
+        selectButtonImageView1.setOpacity(0);
+        setButton(selectButton, 3);
+        setLabel(selectLabel, 3);
+        collectionMenuRoot.getChildren().add(selectButtonImageView);
+        collectionMenuRoot.getChildren().add(selectButtonImageView1);
+        collectionMenuRoot.getChildren().add(selectLabel);
+        collectionMenuRoot.getChildren().add(selectButton);
 
-        //show
-        setImageView(showButtonImageView, 4);
-        setImageView(showButtonImageView1, 4);
-        showButtonImageView1.setOpacity(0);
-        setButton(showButton, 4);
-        setLabel(showLabel, 4);
-        collectionMenuRoot.getChildren().add(showButtonImageView);
-        collectionMenuRoot.getChildren().add(showButtonImageView1);
-        collectionMenuRoot.getChildren().add(showLabel);
-        collectionMenuRoot.getChildren().add(showButton);
+        //remove
+        setImageView(removeButtonImageView, 4);
+        setImageView(removeButtonImageView1, 4);
+        removeButtonImageView1.setOpacity(0);
+        setButton(removeButton, 4);
+        setLabel(removeLabel, 4);
+        collectionMenuRoot.getChildren().add(removeButtonImageView);
+        collectionMenuRoot.getChildren().add(removeButtonImageView1);
+        collectionMenuRoot.getChildren().add(removeLabel);
+        collectionMenuRoot.getChildren().add(removeButton);
 
         //exit
         setImageView(exitButtonImageView, 5);
@@ -155,7 +157,7 @@ public class CollectionMenuView {//TODO
         collectionMenuRoot.getChildren().add(helpLabel);
         collectionMenuRoot.getChildren().add(helpButton);
 
-        checkMovements();
+        checkMovements(s1, s2);
 
     }
 
@@ -163,127 +165,127 @@ public class CollectionMenuView {//TODO
         return collectionMenuScene;
     }
 
-    public void checkMovements() {
+    public void checkMovements(String s1, String s2) {
 
-        changeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (changeButtonImageView.getOpacity() == 100)
-                    changeButtonImageView.setOpacity(0);
-                if (changeButtonImageView1.getOpacity() == 0)
-                    changeButtonImageView1.setOpacity(100);
+                if (playButtonImageView.getOpacity() == 100)
+                    playButtonImageView.setOpacity(0);
+                if (playButtonImageView1.getOpacity() == 0)
+                    playButtonImageView1.setOpacity(100);
             }
         });
 
 
-        changeButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        playButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                if (changeButtonImageView1.getOpacity() == 100)
-                    changeButtonImageView1.setOpacity(0);
-                if (changeButtonImageView.getOpacity() == 0)
-                    changeButtonImageView.setOpacity(100);
+                if (playButtonImageView1.getOpacity() == 100)
+                    playButtonImageView1.setOpacity(0);
+                if (playButtonImageView.getOpacity() == 0)
+                    playButtonImageView.setOpacity(100);
             }
         });
 
 
-        deleteButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (deleteButtonImageView.getOpacity() == 100)
-                    deleteButtonImageView.setOpacity(0);
-                if (deleteButtonImageView1.getOpacity() == 0)
-                    deleteButtonImageView1.setOpacity(100);
-            }
-        });
-
-
-        deleteButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                if (deleteButtonImageView1.getOpacity() == 100)
-                    deleteButtonImageView1.setOpacity(0);
-                if (deleteButtonImageView.getOpacity() == 0)
-                    deleteButtonImageView.setOpacity(100);
-            }
-        });
-
-        createButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        showHandButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (createButtonImageView.getOpacity() == 100)
-                    createButtonImageView.setOpacity(0);
-                if (createButtonImageView1.getOpacity() == 0)
-                    createButtonImageView1.setOpacity(100);
+                if (showHandButtonImageView.getOpacity() == 100)
+                    showHandButtonImageView.setOpacity(0);
+                if (showHandButtonImageView1.getOpacity() == 0)
+                    showHandButtonImageView1.setOpacity(100);
             }
         });
 
 
-        createButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (createButtonImageView1.getOpacity() == 100)
-                    createButtonImageView1.setOpacity(0);
-                if (createButtonImageView.getOpacity() == 0)
-                    createButtonImageView.setOpacity(100);
-            }
-        });
-
-        renameButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        showHandButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                enteredPlayer.play();
-                enteredPlayer.seek(Duration.ZERO);
-                if (renameButtonImageView.getOpacity() == 100)
-                    renameButtonImageView.setOpacity(0);
-                if (renameButtonImageView1.getOpacity() == 0)
-                    renameButtonImageView1.setOpacity(100);
+                if (showHandButtonImageView1.getOpacity() == 100)
+                    showHandButtonImageView1.setOpacity(0);
+                if (showHandButtonImageView.getOpacity() == 0)
+                    showHandButtonImageView.setOpacity(100);
             }
         });
 
-
-        renameButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (renameButtonImageView1.getOpacity() == 100)
-                    renameButtonImageView1.setOpacity(0);
-                if (renameButtonImageView.getOpacity() == 0)
-                    renameButtonImageView.setOpacity(100);
-            }
-        });
-
-        showButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        selectButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (showButtonImageView.getOpacity() == 100)
-                    showButtonImageView.setOpacity(0);
-                if (showButtonImageView1.getOpacity() == 0)
-                    showButtonImageView1.setOpacity(100);
+                if (selectButtonImageView.getOpacity() == 100)
+                    selectButtonImageView.setOpacity(0);
+                if (selectButtonImageView1.getOpacity() == 0)
+                    selectButtonImageView1.setOpacity(100);
             }
         });
 
 
-        showButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        selectButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (showButtonImageView1.getOpacity() == 100)
-                    showButtonImageView1.setOpacity(0);
-                if (showButtonImageView.getOpacity() == 0)
-                    showButtonImageView.setOpacity(100);
+                if (selectButtonImageView1.getOpacity() == 100)
+                    selectButtonImageView1.setOpacity(0);
+                if (selectButtonImageView.getOpacity() == 0)
+                    selectButtonImageView.setOpacity(100);
+            }
+        });
+
+        showCollectionButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (showCollectionButtonImageView.getOpacity() == 100)
+                    showCollectionButtonImageView.setOpacity(0);
+                if (showCollectionButtonImageView1.getOpacity() == 0)
+                    showCollectionButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        showCollectionButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (showCollectionButtonImageView1.getOpacity() == 100)
+                    showCollectionButtonImageView1.setOpacity(0);
+                if (showCollectionButtonImageView.getOpacity() == 0)
+                    showCollectionButtonImageView.setOpacity(100);
+            }
+        });
+
+        removeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (removeButtonImageView.getOpacity() == 100)
+                    removeButtonImageView.setOpacity(0);
+                if (removeButtonImageView1.getOpacity() == 0)
+                    removeButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        removeButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (removeButtonImageView1.getOpacity() == 100)
+                    removeButtonImageView1.setOpacity(0);
+                if (removeButtonImageView.getOpacity() == 0)
+                    removeButtonImageView.setOpacity(100);
             }
         });
 
@@ -338,48 +340,48 @@ public class CollectionMenuView {//TODO
         });
 
 
-        changeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                changeButtonClicked();
+                playButtonClicked(s2);
             }
         });
 
-        createButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        selectButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                createButtonClicked();
+                selectButtonClicked(s1,s2);
             }
         });
 
-        showButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        removeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                showButtonClicked();
+                removeButtonClicked(s1,s2);
             }
         });
 
-        renameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        showCollectionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                renameButtonClicked();
+                showCollectionButtonClicked(s1,s2);
             }
         });
 
-        deleteButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        showHandButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                deleteButtonClicked();
+                showHandButtonClicked(s1,s2);
             }
         });
 
@@ -388,7 +390,7 @@ public class CollectionMenuView {//TODO
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                Menu.profileMenu("exit");
+                Menu.collectionMenu("", "", "exit");
             }
         });
 
@@ -405,7 +407,6 @@ public class CollectionMenuView {//TODO
     }
 
     public void setImageView(ImageView buttonImageView, int n) {
-
         buttonImageView.setFitWidth(buttonSizeWidth);
         buttonImageView.setFitHeight(buttonSizeHeight);
         if (n < 2) {
@@ -440,7 +441,7 @@ public class CollectionMenuView {//TODO
 
     public void setLabel(Label label, int n) {
         label.setTextFill(Color.WHITE);
-        label.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+        label.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
         if (n < 2) {
             label.relocate(330 + 200 * n, 110);
         } else if (n > 1 && n < 4) {
@@ -472,11 +473,11 @@ public class CollectionMenuView {//TODO
         };
         back.setOnAction(event);
         Text taken = new Text("Help:\n" +
-                "1)Press change button to change username & password\n" +
-                "2)Press delete button to delete your account\n" +
-                "3)Press rename button to change your name\n" +
-                "4)Press create button to create an account\n" +
-                "5)Press show button to see your username and password\n");
+                "1)Press play button to start the game\n" +
+                "2)Press show hand button to show selected cards\n" +
+                "3)Press show collection button to show unselected cards\n" +
+                "4)Press select button to select a card\n" +
+                "5)Press remove to remove a card\n");
         taken.setFont(Font.font(30));
         taken.setFill(Color.WHITE);
         taken.relocate(200, 100);
@@ -484,326 +485,276 @@ public class CollectionMenuView {//TODO
         Menu.profileMenu(s);
     }
 
-    public void changeButtonClicked() {
+    public void playButtonClicked(String s) {
+        Text taken = new Text();
+        taken.setFont(Font.font(30));
+        taken.relocate(400, 620);
+        collectionMenuRoot.getChildren().add(taken);
+        Menu.collectionMenu("",s,"play");
+        if (s.compareToIgnoreCase("PvP") != 0) {
+            if (Menu.getTempUser().getPlantHand().size() < 7 && s.compareToIgnoreCase("zombie") != 0) {
+                taken.setText("you don't have enough cards");
+            } else if (Menu.getTempUser().getZombieHand().size() < 7 && s.compareToIgnoreCase("zombie") == 0) {
+               taken.setText("you don't have enough cards");
+            }
+        }
+
+    }
+
+    public void selectButtonClicked(String s1,String s2) {
         collectionMenuRoot.getChildren().clear();
         collectionMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        collectionMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        collectionMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
         Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
+        back.setPrefSize(100, 80);
+        back.relocate(20, 610);
         collectionMenuRoot.getChildren().add(back);
-        collectionMenuRoot.getChildren().add(ok);
 
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "change";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        collectionMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())) {
-                            taken.setText("Username & password successfully changed!");
-                            str += " " + username.getText() + " " + pass.getText();
-                            Menu.profileMenu(str);
-                        } else {
-                            taken.setText("Select another username");
-                        }
-                    }
-                });
-            }
-        };
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
+                        Menu.collectionMenuView(s1,s2);
                     }
                 });
             }
         };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
         back.setOnAction(event2);
+        if (s1.compareTo("plant") == 0) {
+            for (int i = 0; i < Menu.getTempUser().getCollection().getPlants().size(); i++) {
+                Button button = new Button(Menu.getTempUser().getCollection().getPlants().get(i).getName());
+                Image buttonImage = new Image("pics/" + Menu.getTempUser().getCollection().getPlants().get(i).getName() + ".jpg");
+                ImageView buttonImageView = new ImageView(buttonImage);
+                buttonImageView.setFitWidth(200);
+                buttonImageView.setFitHeight(100);
+                buttonImageView.setX(20 + (i % 5) * 240);
+                buttonImageView.setY(10 + (i / 5) * 120);
+                button.setOpacity(0);
+                button.relocate(20 + (i % 5) * 240, 10 + (i / 5) * 120);
+                button.setPrefSize(200, 100);
+                collectionMenuRoot.getChildren().add(buttonImageView);
+                collectionMenuRoot.getChildren().add(button);
+                button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        clickedPlayer.play();
+                        clickedPlayer.seek(Duration.ZERO);
+                        Text taken = new Text();
+                        taken.setFont(Font.font(30));
+                        taken.relocate(150, 610);
+                        collectionMenuRoot.getChildren().add(taken);
+                        if (Menu.getTempUser().getPlantHand().size() >= 7) {
+                            taken.setText("you have 7 plants already");
+                        }
+                        else{
+                            Menu.collectionMenu(s1,s2,"select "+button.getText());
+                        }
+                        button.setDisable(true);
+                    }
+                });
+            }
+        } else {
+            for (int i = 0; i < Menu.getTempUser().getCollection().getZombies().size(); i++) {
+                Button button = new Button(Menu.getTempUser().getCollection().getZombies().get(i).getName());
+                Image buttonImage = new Image("pics/" + Menu.getTempUser().getCollection().getZombies().get(i).getName() + ".jpg");
+                ImageView buttonImageView = new ImageView(buttonImage);
+                buttonImageView.setFitWidth(200);
+                buttonImageView.setFitHeight(100);
+                buttonImageView.setX(20 + (i % 5) * 240);
+                buttonImageView.setY(10 + (i / 5) * 120);
+                button.setOpacity(0);
+                button.relocate(20 + (i % 5) * 240, 10 + (i / 5) * 120);
+                button.setPrefSize(200, 100);
 
+                collectionMenuRoot.getChildren().add(buttonImageView);
+                collectionMenuRoot.getChildren().add(button);
+                button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        clickedPlayer.play();
+                        clickedPlayer.seek(Duration.ZERO);
+                        Text taken = new Text();
+                        taken.setFont(Font.font(30));
+                        taken.relocate(150, 610);
+                        collectionMenuRoot.getChildren().add(taken);
+                        if (Menu.getTempUser().getPlantHand().size() >= 7) {
+                            taken.setText("you have 7 zombies already");
+                        }
+                        else{
+                            Menu.collectionMenu(s1,s2,"select "+button.getText());
+                        }
+                        button.setDisable(true);
+                    }
+                });
+            }
+        }
     }
 
-    public void createButtonClicked() {
+    public void removeButtonClicked(String s1,String s2) {
         collectionMenuRoot.getChildren().clear();
         collectionMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        collectionMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        collectionMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
         Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
+        back.setPrefSize(100, 80);
+        back.relocate(20, 610);
         collectionMenuRoot.getChildren().add(back);
-        collectionMenuRoot.getChildren().add(ok);
 
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "create";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        collectionMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())) {
-                            taken.setText("New account created!");
-                            str += " " + username.getText() + " " + pass.getText();
-                            Menu.profileMenu(str);
-                        } else {
-                            taken.setText("invalid username");
-                        }
-                    }
-                });
-            }
-        };
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
+                        Menu.collectionMenuView(s1,s2);
                     }
                 });
             }
         };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
         back.setOnAction(event2);
-    }
-
-    public void showButtonClicked() {
-        collectionMenuRoot.getChildren().clear();
-        collectionMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        Label username = new Label(Menu.getLoginUser().getUsername());
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        collectionMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        Label pass = new Label(Menu.getLoginUser().getPassword());
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        collectionMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        collectionMenuRoot.getChildren().add(back);
-        collectionMenuRoot.getChildren().add(ok);
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        if (s1.compareTo("plant") == 0) {
+            for (int i = 0; i < Menu.getTempUser().getPlantHand().size(); i++) {
+                Button button = new Button(Menu.getTempUser().getPlantHand().get(i).getName());
+                Image buttonImage = new Image("pics/" + Menu.getTempUser().getPlantHand().get(i).getName() + ".jpg");
+                ImageView buttonImageView = new ImageView(buttonImage);
+                buttonImageView.setFitWidth(200);
+                buttonImageView.setFitHeight(100);
+                buttonImageView.setX(20 + (i % 5) * 240);
+                buttonImageView.setY(10 + (i / 5) * 120);
+                button.setOpacity(0);
+                button.relocate(20 + (i % 5) * 240, 10 + (i / 5) * 120);
+                button.setPrefSize(200, 100);
+                collectionMenuRoot.getChildren().add(buttonImageView);
+                collectionMenuRoot.getChildren().add(button);
+                button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
-                    }
-                });
-            }
-        };
-        back.setOnAction(event);
-    }
-
-    public void renameButtonClicked() {
-        collectionMenuRoot.getChildren().clear();
-        collectionMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        collectionMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        collectionMenuRoot.getChildren().add(back);
-        collectionMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "rename";
+                        clickedPlayer.play();
+                        clickedPlayer.seek(Duration.ZERO);
                         Text taken = new Text();
                         taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
+                        taken.relocate(150, 610);
                         collectionMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())) {
-                            taken.setText("Name changed!");
-                            str += " " + username.getText();
-                        } else {
-                            taken.setText("invalid username");
-                        }
-                        Menu.profileMenu(str);
+                        Menu.collectionMenu(s1,s2,"remove "+button.getText());
+                        button.setDisable(true);
                     }
                 });
             }
-        };
+        } else {
+            for (int i = 0; i < Menu.getTempUser().getZombieHand().size(); i++) {
+                Button button = new Button(Menu.getTempUser().getZombieHand().get(i).getName());
+                Image buttonImage = new Image("pics/" + Menu.getTempUser().getZombieHand().get(i).getName() + ".jpg");
+                ImageView buttonImageView = new ImageView(buttonImage);
+                buttonImageView.setFitWidth(200);
+                buttonImageView.setFitHeight(100);
+                buttonImageView.setX(20 + (i % 5) * 240);
+                buttonImageView.setY(10 + (i / 5) * 120);
+                button.setOpacity(0);
+                button.relocate(20 + (i % 5) * 240, 10 + (i / 5) * 120);
+                button.setPrefSize(200, 100);
+                collectionMenuRoot.getChildren().add(buttonImageView);
+                collectionMenuRoot.getChildren().add(button);
+                button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        clickedPlayer.play();
+                        clickedPlayer.seek(Duration.ZERO);
+                        Text taken = new Text();
+                        taken.setFont(Font.font(30));
+                        taken.relocate(150, 610);
+                        collectionMenuRoot.getChildren().add(taken);
+                        Menu.collectionMenu(s1,s2,"remove "+button.getText());
+                        button.setDisable(true);
+                    }
+                });
+            }
+        }
+    }
+
+    public void showCollectionButtonClicked(String s1,String s2) {
+        Menu.collectionMenu(s1,"","showCollection");
+        collectionMenuRoot.getChildren().clear();
+        collectionMenuRoot.getChildren().add(backgroundImageView);
+        backgroundImageView.setEffect(blur);
+        Button back = new Button("Back");
+        back.setPrefSize(100, 80);
+        back.relocate(20, 610);
+        collectionMenuRoot.getChildren().add(back);
+
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
+                        Menu.collectionMenuView(s1,s2);
                     }
                 });
             }
         };
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
         back.setOnAction(event2);
+        if (s1.compareTo("plant") == 0) {
+            for (int i = 0; i < Menu.getTempUser().getCollection().getPlants().size(); i++) {
+                Image listImage = new Image("pics/" + Menu.getTempUser().getCollection().getPlants().get(i).getName() + ".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(200);
+                listImageView.setFitHeight(100);
+                listImageView.setX(20 + (i % 5) * 240);
+                listImageView.setY(10 + (i / 5) * 120);
+                collectionMenuRoot.getChildren().add(listImageView);
+            }
+        } else {
+            for (int i = 0; i < Menu.getTempUser().getCollection().getZombies().size(); i++) {
+                Image listImage = new Image("pics/" + Menu.getTempUser().getCollection().getZombies().get(i).getName() + ".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(200);
+                listImageView.setFitHeight(100);
+                listImageView.setX(20 + (i % 5) * 240);
+                listImageView.setY(10 + (i / 5) * 120);
+                collectionMenuRoot.getChildren().add(listImageView);
+            }
+        }
     }
 
-    public void deleteButtonClicked() {
+    public void showHandButtonClicked(String s1,String s2) {
+        Menu.collectionMenu(s1,"","showHand");
         collectionMenuRoot.getChildren().clear();
         collectionMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        collectionMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        collectionMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
         Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
+        back.setPrefSize(100, 80);
+        back.relocate(20, 610);
         collectionMenuRoot.getChildren().add(back);
-        collectionMenuRoot.getChildren().add(ok);
 
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "delete";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        collectionMenuRoot.getChildren().add(taken);
-                        if (Menu.getLoginUser().getUsername().compareTo(username.getText()) == 0) {
-                            if (Menu.checkPassword(username.getText(), pass.getText())) {
-                                taken.setText("Account deleted");
-                                str += " "+username.getText()+" "+pass.getText();
-                                Menu.profileMenu(str);
-                                EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-                                    public void handle(ActionEvent e) {
-                                        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                            @Override
-                                            public void handle(MouseEvent event) {
-                                                Menu.loginMenuView();
-                                            }
-                                        });
-                                    }
-                                };
-                                back.setOnAction(event2);
-                            }
-                            else {
-                                taken.setText("inavlid password!");
-                            }
-                        } else {
-                            taken.setText("invalid username!");
-                        }
-                    }
-                });
-            }
-        };
         EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
+                        Menu.collectionMenuView(s1,s2);
                     }
                 });
             }
         };
         back.setOnAction(event2);
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
+        if (s1.compareTo("plant") == 0) {
+            for (int i = 0; i < Menu.getTempUser().getPlantHand().size(); i++) {
+                Image listImage = new Image("pics/" + Menu.getTempUser().getPlantHand().get(i).getName() + ".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(200);
+                listImageView.setFitHeight(100);
+                listImageView.setX(20 + (i % 5) * 240);
+                listImageView.setY(10 + (i / 5) * 120);
+                collectionMenuRoot.getChildren().add(listImageView);
+            }
+        } else {
+            for (int i = 0; i < Menu.getTempUser().getZombieHand().size(); i++) {
+                Image listImage = new Image("pics/" + Menu.getTempUser().getZombieHand().get(i).getName() + ".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(200);
+                listImageView.setFitHeight(100);
+                listImageView.setX(20 + (i % 5) * 240);
+                listImageView.setY(10 + (i / 5) * 120);
+                collectionMenuRoot.getChildren().add(listImageView);
+            }
+        }
     }
 }
-

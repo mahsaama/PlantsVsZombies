@@ -1,4 +1,7 @@
 package Menu;
+import Creature.Plant;
+import Creature.Zombie;
+import Shop.Shop;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -25,18 +28,18 @@ public class ShopMenuView {
 
     private Image buttonImage = new Image("pics/beforeclick.webp");
     private Image buttonImage1 = new Image("pics/afterclick.webp");
-    private Image mainMenuBackgroundImage = new Image("pics/bg3.jpg");
+    Image mainMenuBackgroundImage = new Image("pics/bg3.jpg");
 
     private Button showShopButton = new Button("Show shop");
     private Button collectionButton = new Button("Collection");
-    private Button buyButton = new Button("Rename");
+    private Button buyButton = new Button("Buy");
     private Button moneyButton = new Button("Money");
     private Button exitButton = new Button("Exit");
     private Button helpButton = new Button("Help");
 
     private Label showShopLabel = new Label("Show shop");
     private Label collectionLabel = new Label("Collection");
-    private Label buyLabel = new Label("Rename");
+    private Label buyLabel = new Label("Buy");
     private Label moneyLabel = new Label("Money");
     private Label exitLabel = new Label("Exit");
     private Label helpLabel = new Label("Help");
@@ -358,20 +361,28 @@ public class ShopMenuView {
     }
 
     public void setImageView(ImageView buttonImageView, int n) {
-
-        buttonImageView.setFitWidth(buttonSizeWidth);
-        buttonImageView.setFitHeight(buttonSizeHeight);
         if (n < 2) {
+            buttonImageView.setFitWidth(buttonSizeWidth);
+            buttonImageView.setFitHeight(buttonSizeHeight);
             buttonImageView.setX( 300+ n*200);
             buttonImageView.setY(50);
         }
         else if (n>1 && n<4){
+            buttonImageView.setFitWidth(buttonSizeWidth);
+            buttonImageView.setFitHeight(buttonSizeHeight);
             buttonImageView.setX(400 + (n-2)*200);
             buttonImageView.setY(200);
         }
-        else{
+        else if (n>3 && n<6){
+            buttonImageView.setFitWidth(buttonSizeWidth);
+            buttonImageView.setFitHeight(buttonSizeHeight);
             buttonImageView.setX(500 + (n-4)*200);
             buttonImageView.setY(350);
+        }else{
+            buttonImageView.setFitWidth(100);
+            buttonImageView.setFitHeight(100);
+            buttonImageView.setX(340);
+            buttonImageView.setY(150);
         }
 
     }
@@ -404,6 +415,7 @@ public class ShopMenuView {
         }
     }
     public void showHelpClicked(String s){
+        Menu.shopMenu("help");
         shopMenuRoot.getChildren ().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
@@ -416,7 +428,7 @@ public class ShopMenuView {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.mainMenuView();
+                        Menu.shopMenuView();
                     }
                 });
             }
@@ -434,34 +446,79 @@ public class ShopMenuView {
         Menu.playMenu(s);
     }
 
-    public void showShopButtonClicked(){//TODO
+    public void showShopButtonClicked(){
+        Menu.shopMenu("showshop");
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        shopMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        shopMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
+        Button back = new Button("Back");
+        back.setPrefSize(200, 80);
+        back.relocate(925, 570);
+        shopMenuRoot.getChildren().add(back);
+        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Menu.shopMenuView();
+                    }
+                });
+            }
+        };
+        back.setOnAction(event2);
+        for (int i=0 ; i< Shop.getPlantList().size() + Shop.getZombieList().size() ;i++){
+            if (i < Shop.getPlantList().size()) {
+                Image listImage = new Image("pics/"+Shop.getPlantList().get(i).getName()+".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(100);
+                listImageView.setFitHeight(100);
+                listImageView.setX(25+ (i%8)*150);
+                listImageView.setY(10+ (i/8)*140);
+                shopMenuRoot.getChildren().add(listImageView);
+                Label priceLabel = new Label(Shop.getPlantList().get(i).getPrice()+"");
+                priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
+                priceLabel.setFont(Font.font(20));
+                priceLabel.setTextFill(Color.WHITE);
+                priceLabel.setPrefSize(100,30);
+                shopMenuRoot.getChildren().add(priceLabel);
+            }else{
+                Image listImage = new Image("pics/"+Shop.getZombieList().get(i-Shop.getPlantList().size()).getName()+".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(100);
+                listImageView.setFitHeight(100);
+                listImageView.setX(25+ (i%8)*150);
+                listImageView.setY(10+ (i/8)*140);
+                shopMenuRoot.getChildren().add(listImageView);
+                Label priceLabel = new Label(Shop.getPlantList().get(i -Shop.getPlantList().size()).getPrice()+"");
+                priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
+                priceLabel.setFont(Font.font(20));
+                priceLabel.setTextFill(Color.WHITE);
+                priceLabel.setPrefSize(100,30);
+                shopMenuRoot.getChildren().add(priceLabel);
+            }
+        }
+
+    }
+
+    public void buyButtonClicked(){
+        shopMenuRoot.getChildren().clear();
+        shopMenuRoot.getChildren().add(backgroundImageView);
+        backgroundImageView.setEffect(blur);
+        Label cardNameLabel = new Label("Insert the card name:");
+        cardNameLabel.relocate(350, 50);
+        TextField cardName = new TextField();
+        cardName.relocate(350, 75);
+        cardNameLabel.setFont(Font.font(20));
+        cardNameLabel.setLabelFor(cardName);
+        cardNameLabel.setTextFill(Color.BLACK);
+        shopMenuRoot.getChildren().addAll(cardName, cardNameLabel);
+        cardName.setPrefSize(200, 50);
         Button back = new Button("Back");
         back.setPrefSize(80, 50);
-        back.relocate(500, 550);
+        back.relocate(350, 150);
         Button ok = new Button("OK");
         ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
+        ok.relocate(450, 150);
         shopMenuRoot.getChildren().add(back);
         shopMenuRoot.getChildren().add(ok);
 
@@ -470,19 +527,43 @@ public class ShopMenuView {
                 ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        String str = "showshop";
+                        String str = "buy";
                         Text taken = new Text();
                         taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
+                        taken.relocate(450, 250);
                         shopMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())){
-                            taken.setText("Username & password successfully changed!");
-                            str += " "+username.getText()+" "+pass.getText();
-
-                        } else {
-                            taken.setText("Select another username");
+                        Boolean found = false;
+                        for(Plant plant : Shop.getPlantList()){
+                            if(plant.getName ().compareTo(cardName.getText()) == 0){
+                                found = true;
+                                if(Menu.getLoginUser().getCoins () >= plant.getPrice ()){
+                                    str += " "+cardName.getText();
+                                    taken.setText("you bought this plant successfully");
+                                    Menu.shopMenu(str);
+                                }
+                                else
+                                    taken.setText ("not enough money" );
+                            }
                         }
-                        Menu.profileMenu(str);
+                        if(!found){
+                            for(Zombie zombie : Shop.getZombieList()){
+                                if(zombie.getName ().compareTo (cardName.getText()) == 0){
+                                    found = true;
+                                    if(Menu.getLoginUser().getCoins () >= zombie.getPrice ()){
+                                        str += " "+cardName.getText();
+                                        taken.setText("you bought this zombie successfully");
+                                        Menu.shopMenu(str);
+                                    }
+                                    else
+                                        taken.setText("not enough money" );
+
+                                }
+                            }
+                        }
+                        if(!found){
+                            taken.setText("invalid name");
+                            Menu.profileMenu(str);
+                        }
                     }
                 });
             }
@@ -492,122 +573,45 @@ public class ShopMenuView {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
+                        Menu.shopMenuView();
                     }
                 });
             }
         };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
-        back.setOnAction(event2);
-
-    }
-
-    public void buyButtonClicked(){//TODO
-        shopMenuRoot.getChildren().clear();
-        shopMenuRoot.getChildren().add(backgroundImageView);
-        backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        shopMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        shopMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
-        Button back = new Button("Go to login menu");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
-        shopMenuRoot.getChildren().add(back);
-        shopMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        String str = "create";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        shopMenuRoot.getChildren().add(taken);
-                        if (!Menu.checkUsername(username.getText())){
-                            taken.setText("New account created!");
-                            str += " "+username.getText()+" "+pass.getText();
-                        } else {
-                            taken.setText("invalid username");
-                        }
-                        Menu.profileMenu(str);
-                    }
-                });
-            }
-        };
-        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        Menu.loginMenuView();
-                    }
-                });
-            }
-        };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
+        cardName.setOnAction(event1);
         ok.setOnAction(event1);
         back.setOnAction(event2);
     }
 
-    public void moneyButtonClicked(){//TODO
+    public void moneyButtonClicked(){
+        Menu.shopMenu("money");
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        Label username = new Label(Menu.getLoginUser().getUsername());
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        shopMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        Label pass = new Label(Menu.getLoginUser().getPassword());
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        shopMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
+        Image chestImage = new Image("pics/ch.png");
+        ImageView chestImageView = new ImageView(chestImage);
+        setImageView(chestImageView, 6);
+        shopMenuRoot.getChildren().add(chestImageView);
+        Label moneyLabel = new Label("Your money:");
+        moneyLabel.relocate(450, 100);
+        Label money = new Label(Menu.getLoginUser().getCoins() + "");
+        money.relocate(450, 150);
+        moneyLabel.setFont(Font.font(30));
+        moneyLabel.setLabelFor(money);
+        moneyLabel.setTextFill(Color.BLACK);
+        shopMenuRoot.getChildren().addAll(money, moneyLabel);
+        money.setPrefSize(300, 100);
+        money.setFont(Font.font(40));
         Button back = new Button("Back");
         back.setPrefSize(80, 50);
         back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
         shopMenuRoot.getChildren().add(back);
-        shopMenuRoot.getChildren().add(ok);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        Menu.profileMenuView();
+                        Menu.shopMenuView();
                     }
                 });
             }
@@ -615,83 +619,56 @@ public class ShopMenuView {
         back.setOnAction(event);
     }
 
-    public void collectionButtonClicked(){//TODO
+    public void collectionButtonClicked(){
+        Menu.shopMenu("collection");
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
-        Label usernameLabel = new Label("Username:");
-        usernameLabel.relocate(350, 50);
-        TextField username = new TextField();
-        username.relocate(350, 75);
-        usernameLabel.setFont(Font.font(20));
-        usernameLabel.setLabelFor(username);
-        usernameLabel.setTextFill(Color.BLACK);
-        shopMenuRoot.getChildren().addAll(username, usernameLabel);
-        username.setPrefSize(200, 50);
-        TextField pass = new TextField();
-        Label passwordLabel = new Label("Password:");
-        passwordLabel.relocate(350, 150);
-        passwordLabel.setTextFill(Color.BLACK);
-        pass.relocate(350, 175);
-        shopMenuRoot.getChildren().addAll(pass, passwordLabel);
-        pass.setPrefSize(200, 50);
-        passwordLabel.setFont(Font.font(20));
-        passwordLabel.setLabelFor(pass);
         Button back = new Button("Back");
-        back.setPrefSize(80, 50);
-        back.relocate(500, 550);
-        Button ok = new Button("OK");
-        ok.setPrefSize(80, 50);
-        ok.relocate(600, 550);
+        back.setPrefSize(200, 80);
+        back.relocate(925, 570);
         shopMenuRoot.getChildren().add(back);
-        shopMenuRoot.getChildren().add(ok);
-
-        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        String str = "collection";
-                        Text taken = new Text();
-                        taken.setFont(Font.font(30));
-                        taken.relocate(450, 400);
-                        shopMenuRoot.getChildren().add(taken);
-                        if (Menu.getLoginUser().getUsername().compareTo(username.getText())==0 && Menu.getLoginUser().getPassword().compareTo(pass.getText())==0){
-                            taken.setText("This account deleted!");
-                            str += " "+username.getText()+" "+pass.getText();
-                            Menu.profileMenu(str);
-                            EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                        @Override
-                                        public void handle(MouseEvent event) {
-                                            Menu.loginMenuView();
-                                        }
-                                    });
-                                }
-                            };
-                            back.setOnAction(event2);
-                        } else {
-                            taken.setText("Account deleted");
-                            Menu.profileMenu(str);
-                            EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                                        @Override
-                                        public void handle(MouseEvent event) {
-                                            Menu.profileMenuView();
-                                        }
-                                    });
-                                }
-                            };
-                            back.setOnAction(event2);
-                        }
+                        Menu.shopMenuView();
                     }
                 });
             }
         };
-        pass.setOnAction(event1);
-        username.setOnAction(event1);
-        ok.setOnAction(event1);
+        back.setOnAction(event2);
+        for (int i=0 ; i< Menu.getLoginUser().getCollection().getPlants().size() + Menu.getLoginUser().getCollection().getZombies().size() ;i++){
+            if (i < Menu.getLoginUser().getCollection().getPlants().size()) {
+                Image listImage = new Image("pics/"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(100);
+                listImageView.setFitHeight(100);
+                listImageView.setX(25+ (i%8)*150);
+                listImageView.setY(10+ (i/8)*140);
+                shopMenuRoot.getChildren().add(listImageView);
+                Label priceLabel = new Label(Menu.getLoginUser().getCollection().getPlants().get(i).getPrice()+"");
+                priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
+                priceLabel.setFont(Font.font(20));
+                priceLabel.setTextFill(Color.WHITE);
+                priceLabel.setPrefSize(100,30);
+                shopMenuRoot.getChildren().add(priceLabel);
+            }else{
+                Image listImage = new Image("pics/"+Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getName()+".jpg");
+                ImageView listImageView = new ImageView(listImage);
+                listImageView.setFitWidth(100);
+                listImageView.setFitHeight(100);
+                listImageView.setX(25+ (i%8)*150);
+                listImageView.setY(10+ (i/8)*140);
+                shopMenuRoot.getChildren().add(listImageView);
+                Label priceLabel = new Label(Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getPrice()+"");
+                priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
+                priceLabel.setFont(Font.font(20));
+                priceLabel.setTextFill(Color.WHITE);
+                priceLabel.setPrefSize(100,30);
+                shopMenuRoot.getChildren().add(priceLabel);
+            }
+        }
     }
 }
