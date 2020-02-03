@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 public class ZombiePlayView implements GameModeView{
     private Group zombiePlayRoot;
@@ -30,6 +31,10 @@ public class ZombiePlayView implements GameModeView{
     public Scene getZombiePlayScene(){ return zombiePlayScene; }
 
     public void attack(){
+        Text text = new Text();
+        text.setText("OK");
+        text.relocate(600, 40);
+        text.resize(20,20);
 
     }
 
