@@ -500,6 +500,7 @@ public class CollectionMenuView {
         }
         if(s.compareToIgnoreCase("zombie") != 0){
             ZombiePlayView zombiePlayView = new ZombiePlayView();
+            Main.changeScene(zombiePlayView.getZombiePlayScene());
         }
 
     }

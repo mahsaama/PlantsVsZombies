@@ -6,7 +6,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ZombiePlayView {
+public class ZombiePlayView implements GameModeView{
     private Group zombiePlayRoot;
     private Scene zombiePlayScene;
     private GaussianBlur blur = new GaussianBlur();
@@ -23,6 +23,13 @@ public class ZombiePlayView {
         backImageView.setFitWidth(width);
         zombiePlayScene = new Scene(zombiePlayRoot, width, height);
         zombiePlayRoot.getChildren().add(backImageView);
+        attack();
+
+    }
+
+    public Scene getZombiePlayScene(){ return zombiePlayScene; }
+
+    public void attack(){
 
     }
 
