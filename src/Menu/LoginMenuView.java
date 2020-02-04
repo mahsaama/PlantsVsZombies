@@ -61,16 +61,17 @@ public class LoginMenuView {
     MediaPlayer clickedPlayer= new MediaPlayer (mouseClicked);
     MediaPlayer enteredPlayer= new MediaPlayer (mouseEntered);
 
-//    Thread thread = new Thread(new Runnable() {
-//        @Override
-//        public void run() {
-//            Media duringGame= new Media (getClass().getClassLoader().getResource ("audio/02 Crazy Dave (Intro Theme).mp3").toExternalForm ());
-//            MediaPlayer wholePlayer = new MediaPlayer(duringGame);
-//            wholePlayer.setVolume(0.05);
-//            wholePlayer.play();
-//            wholePlayer.seek(Duration.INDEFINITE);
-//        }
-//    });
+    Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            Media duringGame= new Media (getClass().getClassLoader().getResource ("audio/02 Crazy Dave (Intro Theme).mp3").toExternalForm ());
+            MediaPlayer wholePlayer = new MediaPlayer(duringGame);
+            wholePlayer.setVolume(0.05);
+            wholePlayer.play();
+            wholePlayer.seek(Duration.INDEFINITE);
+        }
+    });
+
 
     public LoginMenuView(String input) {
         enteredPlayer.setVolume(0.1);
@@ -79,6 +80,7 @@ public class LoginMenuView {
         backgroundImageView.setFitWidth(width);
         loginMenuScene = new Scene(loginMenuRoot, width, height);
         loginMenuRoot.getChildren().add(backgroundImageView);
+        thread.start();
 
         //create new account
         setImageView(createAccountButtonImageView, 0);

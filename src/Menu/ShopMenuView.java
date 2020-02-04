@@ -641,7 +641,7 @@ public class ShopMenuView {
         back.setOnAction(event2);
         for (int i=0 ; i< Menu.getLoginUser().getCollection().getPlants().size() + Menu.getLoginUser().getCollection().getZombies().size() ;i++){
             if (i < Menu.getLoginUser().getCollection().getPlants().size()) {
-                Image listImage = new Image("pics/"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".jpg");
+                Image listImage = new Image("/pics/"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);
                 listImageView.setFitWidth(100);
                 listImageView.setFitHeight(100);
