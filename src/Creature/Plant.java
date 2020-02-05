@@ -1,40 +1,43 @@
 package Creature;
 
+import Game.Game;
 import Map.PlayGround;
 
-import java.util.ArrayList;
-
-public class Plant {
+public class Plant{
     String name;
     String bulletType;
     private int plantTurn;
-    private int x;
-    private int y;
+    private static int x;
+    private static int y;
     private int id;
     private int life;
-    private int rest;
+    private int coolDown;
     private int numberOfSuns;
     private int hurtOfBullet;
-    private int turn;
-    private int shootNum;
     private int hurtToZombie;
     private int zombieStopTurns;
     private int offTurns;
     private int minDistanceToShoot;
+    private int maxDistanceToShoot;
     private int effectOnZombieSpeed;
-    private int turnsUnderEffect;
     private int turnOfFront;
     private int shootNumOfFront;
-    private int turnOfBack;
-    private int shootNumOfBack;
     private int sunProduct;
     private int price;
-    private int startedTurn = 0;
     private String plantType;
     private int numberOfUsesInGame = 0;
+    private Zombie zombie;
 
     public int getPrice() {
         return price;
+    }
+
+    public void setPlantTurn(int plantTurn) {
+        this.plantTurn = plantTurn;
+    }
+
+    public int getPlantTurn() {
+        return plantTurn;
     }
 
     public void setX(int x) {
@@ -49,7 +52,7 @@ public class Plant {
         this.price = price;
     }
 
-    public void setLife() {
+    public void zombieLifeDec() {
         this.life--;
     }
 
@@ -69,8 +72,12 @@ public class Plant {
         return life;
     }
 
-    public int getRest() {
-        return rest;
+    public void setLife() {
+        this.life --;
+    }
+
+    public int getCoolDown() {
+        return coolDown;
     }
 
     public int getNumberOfSuns() {
@@ -85,20 +92,12 @@ public class Plant {
         return plantType;
     }
 
-    public int getTurn() {
-        return turn;
-    }
-
     public int getNumberOfUsesInGame() {
         return numberOfUsesInGame;
     }
 
     public void setNumberOfUsesInGame(int numberOfUsesInGame) {
         this.numberOfUsesInGame = numberOfUsesInGame;
-    }
-
-    public int getShootNum() {
-        return shootNum;
     }
 
     public int getHurtToZombie() {
@@ -121,10 +120,6 @@ public class Plant {
         return effectOnZombieSpeed;
     }
 
-    public int getTurnsUnderEffect() {
-        return turnsUnderEffect;
-    }
-
     public int getTurnOfFront() {
         return turnOfFront;
     }
@@ -133,24 +128,8 @@ public class Plant {
         return shootNumOfFront;
     }
 
-    public int getTurnOfBack() {
-        return turnOfBack;
-    }
-
-    public int getShootNumOfBack() {
-        return shootNumOfBack;
-    }
-
     public int getSunProduct() {
         return sunProduct;
-    }
-
-    public void setStartedTurn(int startedTurn) {
-        this.startedTurn = startedTurn;
-    }
-
-    public int getStartedTurn() {
-        return startedTurn;
     }
 
     public int getX() {
@@ -161,386 +140,272 @@ public class Plant {
         return y;
     }
 
-    public void attack(PlayGround playGround, boolean sameCell) {
-        Zombie zombie;
+    public Zombie getZombie() {
+        return zombie;
+    }
+
+    public Plant(int plantTurn) {
+        this.plantTurn = plantTurn;
+    }
+
+    public void attack(PlayGround playGround,int turn) {
         zombie = findZombie(playGround, x);
-
-        if (zombie == null) {
-            return;
-        }
-        if (sameCell) {
-            if (zombie.getName().equals("FootballZombie") && name == "Cactus") {
-                if (plantTurn % 2 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                        zombie = null;
-                    }
-                }
-            } else if (name.equals("TangleKelp")) {
-                playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                zombie = null;
-                return;
-            } else if (name.equals("PotatoMine")) {
-                if (offTurns == 1) {
-                    offTurns--;
-                    return;
-                } else {
-                    playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                    zombie = null;
-                }
-            }
-        } else {
-            if (name.equals("Peashooter")) {
-                if (plantTurn % 2 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);//life should be set when the pea arrives to zombie
-                }
-            } else if (name.equals("SnowPea")) {
-                if (plantTurn % 3 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    zombie.setCurrentSpeed(effectOnZombieSpeed);
-
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                        zombie = null;
-                    }
-                }
-            } else if (name.equals("Cabbage-pult")) {
-                if (plantTurn % 2 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                        zombie = null;
-
-                    }
-
-                }
-            } else if (name.equals("Repeater")) {
-                if (plantTurn % 3 == 0) {
-                    zombie.setLife(hurtOfBullet, 2);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                        zombie = null;
-
-                    }
-
-                }
-            } else if (name.equals("Threepeater")) {
-                if (plantTurn % 4 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                        zombie = null;
-
-                    }
-
-                    if (x > 0) {
-                        Zombie zombie1;
-                        zombie1 = findZombie(playGround, x - 1);
-                        if (zombie1 != null) {
-                            zombie1.setLife(hurtOfBullet, 1);
-                            if (zombie1.getLife() == 0) {
-                                playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                                zombie1 = null;
-
-                            }
+        if (offTurns == 0) {
+            if (bulletType != null) {
+                if ((turn-plantTurn) % turnOfFront == 0) {
+                    int distance = zombie.getY() - y;
+                    if (name.equals("Threepeater")) {
+                        if (x > 0) {
+                            shoot(playGround, x - 1);
+                        }
+                        if (x < 6) {
+                            shoot(playGround, x + 1);
                         }
                     }
-                    if (x < 6) {
-                        Zombie zombie2;
-                        zombie2 = findZombie(playGround, x + 1);
-                        if (zombie2 != null) {
-
-                            zombie2.setLife(hurtOfBullet, 1);
-                            if (zombie2.getLife() == 0) {
-                                playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                                zombie2 = null;
-                            }
-                        }
-                    }
-                }
-            } else if (name.equals("Cactus")) {
-                if (plantTurn % 2 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
-                        zombie = null;
-
-                    }
-                }
-            } else if (name.equals("GatlingPea")) {
-                if (plantTurn % 5 == 0) {
-                    zombie.setLife(hurtOfBullet, 4);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                        zombie = null;
-
-                    }
-                }
-            } else if (name.equals("Scaredy-shroom")) {
-                if (plantTurn % 2 == 0) {
-                    int distance;
-
-                    for (int i = y; i < 19; i++) {
-                        for (Zombie item : playGround.getCells()[x][i].getZombieContent()) {
-                            if (item != null) {
-                                distance = i - y;
-                                zombie = item;
-                                if (distance > minDistanceToShoot) {
-                                    zombie.setLife(hurtOfBullet, 1);
-                                    if (zombie.getLife() == 0) {
-                                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                                        zombie = null;
-
-                                    }
-                                }
+                    if (distance >= minDistanceToShoot && distance <= maxDistanceToShoot) {
+                            if (zombie == null) {
                                 return;
                             }
+                            if (hurtToZombie != 0 && zombie.getX() == x && zombie.getY() == y) {
+                                if (!zombie.getName().equals("FootballZombie")) {
+                                    if (bulletType.equals("shot")){
+                                        zombie.setLife(zombie.getLife() - hurtOfBullet);
+                                        if (zombie.getLife() == 0){
+                                            playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                                        }
+                                    }else{
+                                        zombie.guardLifeDec(hurtOfBullet);
+                                    }
+                                }
+                            }
+                            if (zombieStopTurns != 0) {
+                                zombie.setStoppedTurns(zombieStopTurns);
+                            }
+                            for (int i = 0; i < shootNumOfFront; i++) {
+                                shoot(playGround, x);
+                            }
+                    }
+                }
+            }else {
+                if (hurtToZombie != 0 && zombie.getX() == x && zombie.getY() == y) {
+                    if (zombie == null) {
+                        return;
+                    }
+                    zombie.setLife(zombie.getLife() - hurtToZombie);
+                    if (zombie.getLife() == 0){
+                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                    }
+                }
+                if (name.equals("TangleKelp") || name.equals("PotatoMine")) {
+                    if (zombie == null) {
+                        return;
+                    }
+                    playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                    //TODO
+                    //remove this plant
+                } else if (name.equals("Jalapeno")) {
+                            for (int i = 0; i < 16; i++) {
+                                playGround.getCells()[x][i].getZombieContent().clear();
+                            }
+                } else if (name.equals("CherryBomb")) {
+                    if (playGround.getCells()[x][y].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x][y].getZombieContent()) {
+                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
                         }
                     }
-                }
-            } else if (name.equals("Kernel-pult")) {
-                if (plantTurn % 4 == 0) {
-                    zombie.setLife(hurtOfBullet, 4);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                        zombie = null;
-
+                    if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x - 1][y].getZombieContent()) {
+                            playGround.getCells()[item.getX() - 1][item.getY()].getZombieContent().remove(item);
+                        }
                     }
-                    zombie.setStoppedTurns(zombieStopTurns);
-                }
-            } else if (name.equals("Melon-pult")) {
-                if (plantTurn % 4 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                        zombie = null;
+                    if (y > 1 && playGround.getCells()[x][y - 1].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x][y - 1].getZombieContent()) {
+                            playGround.getCells()[item.getX()][item.getY() - 1].getZombieContent().remove(item);
+                        }
                     }
-
-                }
-            } else if (name.equals("WinterMelon")) {
-                if (plantTurn % 4 == 0) {
-                    zombie.setLife(hurtOfBullet, 1);
-                    zombie.setCurrentSpeed(effectOnZombieSpeed);
-                    if (zombie.getLife() == 0) {
-                        playGround.getCells()[zombie.getX()][zombie.getX()].getZombieContent().remove(zombie);
-                        zombie = null;
+                    if (x < 6 && playGround.getCells()[x + 1][y].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x + 1][y].getZombieContent()) {
+                            playGround.getCells()[item.getX() + 1][item.getY()].getZombieContent().remove(item);
+                        }
                     }
-
-                }
-            } else if (name.equals("CherryBomb")) {
-                if (playGround.getCells()[x][y].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x][y].getZombieContent()){
-                        playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
-                        item = null;
+                    if (y < 19 && playGround.getCells()[x][y + 1].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x][y + 1].getZombieContent()) {
+                            playGround.getCells()[item.getX()][item.getY() + 1].getZombieContent().remove(item);
+                        }
                     }
-                }
-                if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x - 1][y].getZombieContent()){
-                        playGround.getCells()[item.getX() - 1][item.getY()].getZombieContent().remove(item);
-                        item = null; // kill the zombie in graphic
-
+                    if (y < 19 && x < 6 && playGround.getCells()[x + 1][y + 1].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x + 1][y + 1].getZombieContent()) {
+                            playGround.getCells()[item.getX() + 1][item.getY() + 1].getZombieContent().remove(item);
+                        }
                     }
-                }
-                if (y > 1 && playGround.getCells()[x][y - 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x][y - 1].getZombieContent()){
-                        playGround.getCells()[item.getX()][item.getY() - 1].getZombieContent().remove(item);
-                        item = null; // kill the zombie in graphic
-
+                    if (x > 0 && y > 0 && playGround.getCells()[x - 1][y - 1].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x - 1][y - 1].getZombieContent()) {
+                            playGround.getCells()[item.getX() - 1][item.getY() - 1].getZombieContent().remove(item);
+                        }
                     }
-                }
-                if (x < 6 && playGround.getCells()[x + 1][y].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x + 1][y].getZombieContent()){
-                        playGround.getCells()[item.getX() + 1][item.getY()].getZombieContent().remove(item);
-
-                        item = null; // kill the zombie in graphic
-
+                    if (x < 9 && y > 0 && playGround.getCells()[x + 1][y - 1].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x + 1][y - 1].getZombieContent()) {
+                            playGround.getCells()[item.getX() + 1][item.getY() - 1].getZombieContent().remove(item);
+                        }
                     }
-                }
-                if (y < 19 && playGround.getCells()[x][y + 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x][y + 1].getZombieContent()){
-                        playGround.getCells()[item.getX()][item.getY() + 1].getZombieContent().remove(item);
-                        item = null; // kill the zombie in graphic
-
+                    if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent() != null) {
+                        for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent()) {
+                            playGround.getCells()[item.getX() - 1][item.getY() + 1].getZombieContent().remove(item);
+                        }
                     }
-                }
-                if (y < 19 && x < 6 && playGround.getCells()[x + 1][y + 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x + 1][y + 1].getZombieContent()){
-                        playGround.getCells()[item.getX() + 1][item.getY() + 1].getZombieContent().remove(item);
-
-                        item = null; // kill the zombie in graphic
-
-                    }
-                }
-                if (x > 0 && y > 0 && playGround.getCells()[x - 1][y - 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x - 1][y - 1].getZombieContent()){
-                        playGround.getCells()[item.getX() - 1][item.getY() - 1].getZombieContent().remove(item);
-
-                        item = null; // kill the zombie in graphic
-
-                    }
-                }
-                if (x < 9 && y > 0 && playGround.getCells()[x + 1][y - 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x + 1][y - 1].getZombieContent()){
-                        playGround.getCells()[item.getX() + 1][item.getY() - 1].getZombieContent().remove(item);
-                        item = null; // kill the zombie in graphic
-
-                    }
-                }
-                if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent() != null) {
-                    for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent()){
-                        playGround.getCells()[item.getX() - 1][item.getY() + 1].getZombieContent().remove(item);
-                        item = null; // kill the zombie in graphic
-
-                    }
-                }
-            } else if (name.equals("Magnet-shroom")) {
-                if (plantTurn % 3 == 0) {
+                } else if (name.equals("Magnet-shroom")) {
                     if (playGround.getCells()[x][y].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x][y].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
                     }
                     if (x > 1 && playGround.getCells()[x - 1][y].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x - 1][y].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
-
                     }
                     if (y > 1 && playGround.getCells()[x][y - 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x][y - 1].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
-
                     }
                     if (x < 6 && playGround.getCells()[x + 1][y].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x + 1][y].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
-
                     }
                     if (y < 19 && playGround.getCells()[x][y + 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x][y + 1].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
-
                     }
                     if (y < 19 && x < 6 && playGround.getCells()[x + 1][y + 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x + 1][y + 1].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
-
                     }
                     if (x > 0 && y > 0 && playGround.getCells()[x - 1][y - 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x - 1][y - 1].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
-
                     }
                     if (x < 9 && y > 0 && playGround.getCells()[x + 1][y - 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x + 1][y - 1].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
                     }
                     if (x > 0 && y < 19 && playGround.getCells()[x - 1][y + 1].getZombieContent().size() != 0) {
                         for (Zombie item : playGround.getCells()[x - 1][y + 1].getZombieContent())
-                            if (item.getName().equals("BucketheadZombie") || item.getName().equals("NewspaperZombie")
-                                    || item.getName().equals("TargetZombie") || item.getName().equals("ScreenDoorZombie") ||
-                                    item.getName().equals("DolphinRiderZombie")) {
+                            if (magnetZombies(item)) {
                                 item.setGuard(false);
                                 item.setHat(false);
                                 if (item.getName().equals("BucketheadZombie")) {
                                     if (item.getLife() > 1) {
-                                        item.setLife(1, 0);
+                                        item.setLife(item.getLife() - 1);
+                                        if (item.getLife() == 0){
+                                            playGround.getCells()[item.getX()][item.getY()].getZombieContent().remove(item);
+                                        }
                                     }
                                 }
                             }
                     }
-                }
-
-            } else if (name.equals("Jalapeno")) {
-                for (int i = 0; i < 16; i++) {
-                    if (playGround.getCells()[x][i].getZombieContent().size() != 0) {
-                        playGround.getCells()[x][i].getZombieContent().clear();
-                    }
+                    offTurns = 3;
                 }
             }
+        } else {
+            offTurns--;
         }
     }
+    public static boolean magnetZombies(Zombie zombie){
+        if (zombie.getName().equals("BucketheadZombie") || zombie.getName().equals("NewspaperZombie")
+                || zombie.getName().equals("TargetZombie") || zombie.getName().equals("ScreenDoorZombie") ||
+                zombie.getName().equals("DolphinRiderZombie")) {
+            return true;
+        }
+        return false;
+    }
 
-    public Zombie findZombie(PlayGround playGround, int row) {
+    public static Zombie findZombie(PlayGround playGround, int row) {
         for (int i = y; i < 19; i++) {
             for (Zombie item : playGround.getCells()[row][i].getZombieContent()) {
                 if (item != null) {
@@ -551,28 +416,65 @@ public class Plant {
         return null;
     }
 
-    public Zombie nearestZombie(PlayGround playGround) {
-        Zombie zombie = null;
-        int Distance = 50690;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 19; j++) {
-                if (playGround.getCells()[i][j].getZombieContent() != null) {
-                    int d = (int) (Math.pow(Math.abs(i - x), 2) + Math.pow(Math.abs(j - y), 2));
-                    if (d < Distance) {
-                        Distance = d;
-                        zombie = playGround.getCells()[i][j].getZombieContent().get(0);
+    public void shoot(PlayGround playGround,int row){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Zombie zombie;
+                Bullet bullet = new Bullet(row,y,plantTurn);
+                boolean speedEffect = true;
+                while (bullet.getTurn() == bullet.getBulletTurn()){
+                    zombie = findZombie(playGround, row);
+                    if (zombie != null){
+                        if (zombie.getY() <= bullet.getY()){
+                            if (bulletType.equals("shot")){
+                                zombie.setLife(zombie.getLife() - hurtOfBullet);
+                                if (zombie.getLife() == 0){
+                                    playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                                }
+                            }else{
+                                zombie.guardLifeDec(hurtOfBullet);
+                            }
+                            if (effectOnZombieSpeed != 0) {
+                                if (speedEffect) {
+                                    if (zombie.getSpeed() == zombie.getCurrentSpeed()) {
+                                        zombie.setCurrentSpeed(zombie.getCurrentSpeed() / effectOnZombieSpeed);
+                                    } else if (zombie.getSpeed() / effectOnZombieSpeed < zombie.getCurrentSpeed()) {
+                                        zombie.setCurrentSpeed(zombie.getSpeed() / effectOnZombieSpeed);
+                                    }
+                                    speedEffect = false;
+                                }
+                            }
+                            break;
+                        }else{
+                            bullet.setY(bullet.getY()+3);
+                            bullet.setBulletTurn(bullet.getBulletTurn() +1);
+                            if (bullet.getY() >18){
+                                bullet = null;
+                                if (bulletType.equals("shot")){
+                                    zombie.setLife(zombie.getLife() - hurtOfBullet);
+                                    if (zombie.getLife() == 0){
+                                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                                    }
+                                }else{
+                                    zombie.guardLifeDec(hurtOfBullet);
+                                }
+                                if (effectOnZombieSpeed != 0) {
+                                    if (speedEffect) {
+                                        if (zombie.getSpeed() == zombie.getCurrentSpeed()) {
+                                            zombie.setCurrentSpeed(zombie.getCurrentSpeed() / effectOnZombieSpeed);
+                                        } else if (zombie.getSpeed() / effectOnZombieSpeed < zombie.getCurrentSpeed()) {
+                                            zombie.setCurrentSpeed(zombie.getSpeed() / effectOnZombieSpeed);
+                                        }
+                                        speedEffect = false;
+                                    }
+                                }
+                                break;
+                            }
+                        }
                     }
                 }
             }
-        }
-        return zombie;
-    }
-
-    public void checkPlantsInRow(ArrayList<Plant> plants) {
-
-    }
-
-    public void checkZombiesInRow(ArrayList<Zombie> zombies) {
-
+        }).start();
     }
 }
