@@ -33,7 +33,6 @@ public class Menu extends Application {
     private static Shop shop = new Shop();
     private static int numberOfWaves;
     static String input = new String();
-    static boolean EXIT = false;
 
     public static User getLoginUser() {
         return loginUser;
@@ -290,9 +289,13 @@ public class Menu extends Application {
                         System.out.println("you have 7 plants already");
                     }
                     if (checkPlant(name)) {
-                        Plant plant = getPlantByName(name);
+                        Plant plant = Shop.makeNewPlantByName(name);
                         tempUser.getPlantHand().add(plant);
-                        tempUser.getCollection().getPlants().remove(plant);
+                        for (int i=0;i<tempUser.getCollection().getPlants().size();i++){
+                            if (tempUser.getCollection().getPlants().get(i).getName().equals(plant.getName())){
+                                tempUser.getCollection().getPlants().remove(i);
+                            }
+                        }
                         System.out.println("Card Selected!");
                     } else
                         System.out.println("invalid plant");
@@ -303,7 +306,11 @@ public class Menu extends Application {
                     if (checkZombie(name)) {
                         Zombie zombie = Shop.makeNewZombieByName(name);
                         tempUser.getZombieHand().add(zombie);
-                        tempUser.getCollection().getZombies().remove(zombie);
+                        for (int i=0;i<tempUser.getCollection().getZombies().size();i++){
+                            if (tempUser.getCollection().getZombies().get(i).getName().equals(zombie.getName())){
+                                tempUser.getCollection().getZombies().remove(i);
+                            }
+                        }
                         System.out.println("Card Selected!");
                     } else System.out.println("invalid zombie");
                 }
@@ -312,15 +319,23 @@ public class Menu extends Application {
                 String name = array[1];
                 if (type.compareTo("plant") == 0) {
                     if (tempUser.checkHandPlant(name)) {
-                        Plant plant = getPlantByName(name);
-                        tempUser.getPlantHand().remove(plant);
+                        Plant plant = Shop.makeNewPlantByName(name);
+                        for (int i=0;i<tempUser.getPlantHand().size();i++){
+                            if (tempUser.getPlantHand().get(i).getName().equals(plant.getName())){
+                                tempUser.getPlantHand().remove(i);
+                            }
+                        }
                         tempUser.getCollection().getPlants().add(plant);
                         System.out.println("Card Removed!");
                     } else
                         System.out.println("invalid plant");
                 } else if (tempUser.checkHandZombie(name)) {
-                    Zombie zombie = getZombieByName(name);
-                    tempUser.getZombieHand().remove(zombie);
+                    Zombie zombie = Shop.makeNewZombieByName(name);
+                    for (int i=0;i<tempUser.getZombieHand().size();i++){
+                        if (tempUser.getZombieHand().get(i).getName().equals(zombie.getName())){
+                            tempUser.getZombieHand().remove(i);
+                        }
+                    }
                     tempUser.getCollection().getZombies().add(zombie);
                     System.out.println("Card Removed!");
                 } else
@@ -451,4 +466,5 @@ public class Menu extends Application {
     public static ArrayList<User> getUsers() {
         return users;
     }
+
 }

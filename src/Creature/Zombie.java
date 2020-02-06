@@ -2,8 +2,6 @@ package Creature;
 
 import Map.PlayGround;
 
-import java.util.ArrayList;
-
 public class Zombie {
     private String name;
     private int x;
@@ -22,13 +20,19 @@ public class Zombie {
     private int stoppedTurns = 0;
     private int DuckOrLadder = 0;
 
-    public void setCurrentSpeed(int amount) {
-        if (speed == currentSpeed){
-            this.currentSpeed /= amount;
-        }else if(speed / amount < currentSpeed){
-            this.currentSpeed = speed / amount;
-        }
+    public int getCurrentSpeed() {
+        return currentSpeed;
+    }
 
+    public void setCurrentSpeed(int currentSpeed) {
+        this.currentSpeed = currentSpeed;
+    }
+    public void guardLifeDec(int amount){
+        if (guardLife - amount > 0){
+            guardLife -= amount;
+        }else{
+            guard = false;
+        }
     }
 
     public void setStoppedTurns(int stoppedTurns) {
@@ -75,8 +79,8 @@ public class Zombie {
         this.price = price;
     }
 
-    public void setLife(int amount, int shootnum) {
-        this.life -= amount * shootnum;
+    public void setLife(int life) {
+        this.life = life;
     }
 
     public String getName() {
@@ -118,7 +122,6 @@ public class Zombie {
     public boolean isCar() {
         return car;
     }
-
 
     public String attack(PlayGround playGround) {
         Plant plant = playGround.getCells()[x][y].getPlantContent().get(playGround.getCells()[x][y].getPlantContent().size() - 1);
