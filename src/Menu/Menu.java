@@ -382,7 +382,7 @@ public class Menu extends Application {
             player.setTypeOfPlayer("plant");
             game.setFirstPlayer(player);
         }
-        game.setGameEnvironment();
+        game.setGameEnvironment(1);
 
     }
 
@@ -397,7 +397,7 @@ public class Menu extends Application {
         opponentPlayer.setTypeOfPlayer("zombie");
         game.setFirstPlayer(player);
         game.setSecondPlayer(opponentPlayer);
-        game.setGameEnvironment();
+        game.setGameEnvironment(1);
     }
 
 
