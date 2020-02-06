@@ -432,9 +432,9 @@ public class Game {
                     for (int k = 0; k <= j; k++) {
                         for (Plant plant : playGround.getCells ( )[i][k].getPlantContent ( )) {
                             if (j == k) {
-                                plant.attack (playGround, true);
+                                plant.attack (playGround, turn);
                             } else {
-                                plant.attack (playGround, false);
+                                plant.attack (playGround, turn);
                             }
                         }
                     }
@@ -452,7 +452,7 @@ public class Game {
                     if (currentPlayer.getTypeOfPlayer ( ).compareToIgnoreCase ("plant") == 0) {
                         for (Plant plant : currentPlayer.getPlantHand ( )) {
                             System.out.println ("selected plant:" + plant.getName ( ) + " numberOfSuns:" +
-                                    plant.getNumberOfSuns ( ) + " timeToRest: " + plant.getRest ( ));
+                                    plant.getNumberOfSuns ( ) + " timeToRest: " + plant.getCoolDown ( ));
                         }
                     } else {
                         for (Zombie zombie : currentPlayer.getZombieHand ( )) {

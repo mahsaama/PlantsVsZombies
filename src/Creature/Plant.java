@@ -1,6 +1,5 @@
 package Creature;
 
-import Game.Game;
 import Map.PlayGround;
 
 public class Plant{
@@ -148,7 +147,7 @@ public class Plant{
         this.plantTurn = plantTurn;
     }
 
-    public void attack(PlayGround playGround,int turn) {
+    public void attack(PlayGround playGround, int turn) {
         zombie = findZombie(playGround, x);
         if (offTurns == 0) {
             if (bulletType != null) {
