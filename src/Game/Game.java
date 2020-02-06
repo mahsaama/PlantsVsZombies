@@ -23,7 +23,19 @@ public class Game {
     private Scanner scanner = new Scanner (System.in);
     private Player currentPlayer;
     private int turn = 0;
-    PlayGround playGround = new PlayGround ( );
+    public PlayGround playGround = new PlayGround ( );
+
+    public PlayGround getPlayGround() {
+        return playGround;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
 
     public void setFirstPlayer(Player firstPlayer) {
         this.firstPlayer = firstPlayer;
@@ -77,7 +89,7 @@ public class Game {
                 if (order.compareToIgnoreCase("show hand") == 0) {
                     for (Plant plant : currentPlayer.getPlantHand()) {
                         System.out.println("Name: " + plant.getName() + " numberOfSuns: " + plant.getNumberOfSuns()
-                                + " timeToRest: " + plant.getRest());
+                                + " timeToRest: " + plant.getCoolDown());
                     }
                 } else if (order.compareToIgnoreCase("select") == 0) {
                     String name = scanner.nextLine();
@@ -164,12 +176,12 @@ public class Game {
                     currentPlayer.setSelectedPlant (plant);
                     currentPlayer.setNumberOfSuns (currentPlayer.getNumberOfSuns ( ) - plant.getNumberOfSuns ( ));
                     getPlantFromHand (name).setNumberOfUsesInGame (1);
-                    getPlantFromHand (name).setStartedTurn (turn);
+                    getPlantFromHand (name).setPlantTurn (turn);
                     System.out.println ("you selected this plant");
-                } else if (firstPlayer.getNumberOfSuns ( ) >= plant.getNumberOfSuns ( ) && turn - getPlantFromHand (name).getStartedTurn ( ) >= plant.getRest ( ) && getPlantFromHand (name).getNumberOfUsesInGame ( ) != 0) {
+                } else if (firstPlayer.getNumberOfSuns ( ) >= plant.getNumberOfSuns ( ) && turn - getPlantFromHand (name).getPlantTurn ( ) >= plant.getCoolDown() && getPlantFromHand (name).getNumberOfUsesInGame ( ) != 0) {
                     currentPlayer.setSelectedPlant (plant);
                     currentPlayer.setNumberOfSuns (currentPlayer.getNumberOfSuns ( ) - plant.getNumberOfSuns ( ));
-                    getPlantFromHand (name).setStartedTurn (turn);
+                    getPlantFromHand (name).setPlantTurn (turn);
                     System.out.println ("you selected this plant");
                 } else
                     System.out.println ("you can't use this plant now.");
@@ -255,31 +267,31 @@ public class Game {
                                 break;
                             }
 
-                        }
                     }
-                    while (checkWinnerForZombie (playGround, coin) == -1) {
-                        for (int i = 0; i < 6; i++) {
-                            for (int j = 0; j < 19; j++) {
-                                for (Plant plant : playGround.getCells ( )[i][j].getPlantContent ( )) {
-                                    for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( ))
-                                        plant.attack (playGround, true);
-                                    plant.attack (playGround, false);
-                                }
-                                ArrayList<String> killedPlantsInTheTurn = new ArrayList<> ( );
-                                for (int m = 0; m < 6; m++) {
-                                    for (int l = 0; l < 19; l++) {
-                                        if (playGround.getCells ( )[m][l].getZombieContent ( ) != null) {
-                                            for (Zombie zombie : playGround.getCells ( )[m][l].getZombieContent ( )) {
-                                                for (int k = 0; k < zombie.getSpeed ( ); k++) {
-                                                    if (playGround.getCells ( )[m][l].getPlantContent ( ).size ( ) != 0) {
-                                                        String name = zombie.attack (playGround);
-                                                        if (!name.equals ("not")) {
-                                                            killedPlantsInTheTurn.add (name);
-                                                        }
+                }
+                while (checkWinnerForZombie (playGround, coin) == -1) {
+                    for (int i = 0; i < 6; i++) {
+                        for (int j = 0; j < 19; j++) {
+                            for (Plant plant : playGround.getCells ( )[i][j].getPlantContent ( )) {
+                                for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( ))
+                                    plant.attack (playGround,turn);
+                                plant.attack (playGround,turn);
+                            }
+                            ArrayList<String> killedPlantsInTheTurn = new ArrayList<> ( );
+                            for (int m = 0; m < 6; m++) {
+                                for (int l = 0; l < 19; l++) {
+                                    if (playGround.getCells ( )[m][l].getZombieContent ( ) != null) {
+                                        for (Zombie zombie : playGround.getCells ( )[m][l].getZombieContent ( )) {
+                                            for (int k = 0; k < zombie.getSpeed ( ); k++) {
+                                                if (playGround.getCells ( )[m][l].getPlantContent ( ).size ( ) != 0) {
+                                                    String name = zombie.attack (playGround);
+                                                    if (!name.equals ("not")) {
+                                                        killedPlantsInTheTurn.add (name);
                                                     }
-                                                    if (zombie != null && (zombie.getY ( ) - 1) > 0) {
-                                                        zombie.setY (zombie.getY ( ) - 1);
-                                                    }
+                                                }
+                                                if (zombie != null && (zombie.getY ( ) - 1) > 0) {
+                                                    zombie.setY (zombie.getY ( ) - 1);
+                                                }
 
                                                 }
                                             }
@@ -712,8 +724,8 @@ public class Game {
                 for (int j = 0; j < 19; j++) {
                     for (Plant plant : playGround.getCells ( )[i][j].getPlantContent ( )) {
                         for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( ))
-                            plant.attack (playGround, true);
-                        plant.attack (playGround, false);
+                            plant.attack (playGround,turn);
+                        plant.attack (playGround,turn);
                     }
                     ArrayList<String> killedPlantsInTheTurn = new ArrayList<> ( );
                     for (int m = 0; m < 6; m++) {

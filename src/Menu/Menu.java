@@ -33,7 +33,6 @@ public class Menu extends Application {
     private static Shop shop = new Shop();
     private static int numberOfWaves;
     static String input = new String();
-    static boolean EXIT = false;
 
     public static User getLoginUser() {
         return loginUser;
