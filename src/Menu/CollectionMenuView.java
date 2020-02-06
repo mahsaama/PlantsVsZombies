@@ -1,5 +1,8 @@
 package Menu;
+
 import Creature.Plant;
+import Game.Game;
+import Game.ZombieModeOfGame;
 import Shop.Shop;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -499,8 +502,8 @@ public class CollectionMenuView {
             }
         }
         if(s.compareToIgnoreCase("zombie") != 0){
-            ZombiePlayView zombiePlayView = new ZombiePlayView();
-            Main.changeScene(zombiePlayView.getZombiePlayScene());
+            Game game = new Game();
+            Main.changeScene(game.zombieGame("", 1).getZombiePlayScene());
         }
 
     }
@@ -761,4 +764,6 @@ public class CollectionMenuView {
             }
         }
     }
+
+
 }
