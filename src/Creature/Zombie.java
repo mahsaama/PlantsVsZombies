@@ -54,6 +54,7 @@ public class Zombie {
         this.guard = guard;
     }
 
+
     public int getDuckOrLadder() {
         return DuckOrLadder;
     }
