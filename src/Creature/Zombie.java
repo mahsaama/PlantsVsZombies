@@ -18,6 +18,7 @@ public class Zombie {
     private boolean guard;
     private boolean car;
     private int price;
+    private int remainTurns;
     private int stoppedTurns = 0;
     private int DuckOrLadder = 0;
 
@@ -148,7 +149,6 @@ public class Zombie {
                 life = 2;
                 speed = 2;
                 currentSpeed = speed;
-                lifeDec = 1;
                 car = false;
                 price = 60;
                 return nameOfPlant;
@@ -156,13 +156,21 @@ public class Zombie {
             return nameOfPlant;
         }
         if (name.equals("BungeeZombie")) {
-            
+            if (remainTurns == 0){
+                playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
+                nameOfPlant.add(plant.name);
+                return nameOfPlant;
+            }else{
+                remainTurns--;
+            }
         }
-        plant.setLife();
-        if (plant.getLife() == 0) {
-            nameOfPlant.add(plant.name);
-            playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
-            return nameOfPlant;
+        if (lifeDec > 0){
+            plant.setLife();
+            if (plant.getLife() == 0) {
+                nameOfPlant.add(plant.name);
+                playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
+                return nameOfPlant;
+            }
         }
         nameOfPlant.add("not");
         return nameOfPlant;
