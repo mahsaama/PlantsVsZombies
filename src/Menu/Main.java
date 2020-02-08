@@ -17,6 +17,9 @@ import javafx.scene.media.Media;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class Main extends Application {
@@ -43,27 +46,30 @@ public class Main extends Application {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                ServerSocket serverSocket = null;
+                try {
+                    serverSocket = new ServerSocket(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Server is waiting...");
+                try {
+                    Socket client = serverSocket.accept();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Client connected.");
                 Shop shop = new Shop ();
                 Menu.loginMenuView();
             }
         });
         thread.start();
 
-//        Image menuImage = new Image("pics/menu.jpg");
-//        ImageView menuView = new ImageView(menuImage);
-//        menuView.setFitWidth(30);
-//        menuView.setFitHeight(30);
-//        Button button = new Button("", menuView);
-//        button.setMaxSize(30, 30);
-//
-//        button.relocate(600,610);
-//        group.getChildren().add(button);
-//        button.setOnMouseClicked(event -> thread.start());
-
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         launch(args);
+
     }
     public static void changeScene(Scene scene) {
         Platform.runLater(new Runnable() {
