@@ -21,6 +21,9 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class ShopMenuView {
     private Group shopMenuRoot;
     private Scene shopMenuScene;
@@ -308,7 +311,11 @@ public class ShopMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                showShopButtonClicked();
+                try {
+                    showShopButtonClicked();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -446,7 +453,7 @@ public class ShopMenuView {
         Menu.playMenu(s);
     }
 
-    public void showShopButtonClicked(){
+    public void showShopButtonClicked() throws FileNotFoundException {
         Menu.shopMenu("showshop");
         shopMenuRoot.getChildren().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
@@ -468,19 +475,24 @@ public class ShopMenuView {
         back.setOnAction(event2);
         for (int i=0 ; i< Shop.getPlantList().size() + Shop.getZombieList().size() ;i++){
             if (i < Shop.getPlantList().size()) {
-                Image listImage = new Image("pics/"+Shop.getPlantList().get(i).getName()+".jpg");
-                ImageView listImageView = new ImageView(listImage);
-                listImageView.setFitWidth(100);
-                listImageView.setFitHeight(100);
-                listImageView.setX(25+ (i%8)*150);
-                listImageView.setY(10+ (i/8)*140);
-                shopMenuRoot.getChildren().add(listImageView);
-                Label priceLabel = new Label(Shop.getPlantList().get(i).getPrice()+"");
-                priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
-                priceLabel.setFont(Font.font(20));
-                priceLabel.setTextFill(Color.WHITE);
-                priceLabel.setPrefSize(100,30);
-                shopMenuRoot.getChildren().add(priceLabel);
+                try {
+                    Image listImage = new Image("pics/" + Shop.getPlantList().get(i).getName() + ".jpg");
+                    ImageView listImageView = new ImageView(listImage);
+                    listImageView.setFitWidth(100);
+                    listImageView.setFitHeight(100);
+                    listImageView.setX(25 + (i % 8) * 150);
+                    listImageView.setY(10 + (i / 8) * 140);
+                    shopMenuRoot.getChildren().add(listImageView);
+                    Label priceLabel = new Label(Shop.getPlantList().get(i).getPrice() + "");
+                    priceLabel.relocate(25 + (i % 8) * 150, 110 + (i / 8) * 140);
+                    priceLabel.setFont(Font.font(20));
+                    priceLabel.setTextFill(Color.WHITE);
+                    priceLabel.setPrefSize(100, 30);
+                    shopMenuRoot.getChildren().add(priceLabel);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                    System.out.println(Shop.getPlantList().get(i).getName());
+                }
             }else{
                 Image listImage = new Image("pics/"+Shop.getZombieList().get(i-Shop.getPlantList().size()).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);
@@ -641,19 +653,24 @@ public class ShopMenuView {
         back.setOnAction(event2);
         for (int i=0 ; i< Menu.getLoginUser().getCollection().getPlants().size() + Menu.getLoginUser().getCollection().getZombies().size() ;i++){
             if (i < Menu.getLoginUser().getCollection().getPlants().size()) {
-                Image listImage = new Image("/pics/"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".jpg");
-                ImageView listImageView = new ImageView(listImage);
-                listImageView.setFitWidth(100);
-                listImageView.setFitHeight(100);
-                listImageView.setX(25+ (i%8)*150);
-                listImageView.setY(10+ (i/8)*140);
-                shopMenuRoot.getChildren().add(listImageView);
-                Label priceLabel = new Label(Menu.getLoginUser().getCollection().getPlants().get(i).getPrice()+"");
-                priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
-                priceLabel.setFont(Font.font(20));
-                priceLabel.setTextFill(Color.WHITE);
-                priceLabel.setPrefSize(100,30);
-                shopMenuRoot.getChildren().add(priceLabel);
+                try{
+                    Image listImage = new Image("/pics"+ Menu.getLoginUser().getCollection().getPlants().get(i).getName()+".jpg");
+                    ImageView listImageView = new ImageView(listImage);
+                    listImageView.setFitWidth(100);
+                    listImageView.setFitHeight(100);
+                    listImageView.setX(25+ (i%8)*150);
+                    listImageView.setY(10+ (i/8)*140);
+                    shopMenuRoot.getChildren().add(listImageView);
+                    Label priceLabel = new Label(Menu.getLoginUser().getCollection().getPlants().get(i).getPrice()+"");
+                    priceLabel.relocate(25+ (i%8)*150, 110 +(i/8)*140);
+                    priceLabel.setFont(Font.font(20));
+                    priceLabel.setTextFill(Color.WHITE);
+                    priceLabel.setPrefSize(100,30);
+                    shopMenuRoot.getChildren().add(priceLabel);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
             }else{
                 Image listImage = new Image("pics/"+Menu.getLoginUser().getCollection().getZombies().get(i-Menu.getLoginUser().getCollection().getPlants().size()).getName()+".jpg");
                 ImageView listImageView = new ImageView(listImage);

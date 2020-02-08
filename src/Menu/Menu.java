@@ -362,10 +362,7 @@ public class Menu extends Application {
                        // break;
                     }
                 }
-            //} else
-               // System.out.println("invalid command");
-            //order = scanner.nextLine();
-             }
+            }
 
     }
 

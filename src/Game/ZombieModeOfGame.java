@@ -147,8 +147,8 @@ public class ZombieModeOfGame {
         back.setOnAction(event);
 
         for(int i = 0; i < user.getZombieHand().size(); i++){
-            Button button = new Button(Menu.getTempUser().getCollection().getZombies().get(i).getName());
-            Image buttonImage = new Image("pics/" + Menu.getTempUser().getCollection().getZombies().get(i).getName() + ".jpg");
+            Button button = new Button(user.getZombieHand().get(i).getName());
+            Image buttonImage = new Image("pics/" + user.getZombieHand().get(i).getName() + ".jpg");
             ImageView buttonImageView = new ImageView(buttonImage);
             buttonImageView.setFitWidth(200);
             buttonImageView.setFitHeight(100);

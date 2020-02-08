@@ -29,9 +29,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         stage = primaryStage;
-
         Image iconImage = new Image("pics/a.jpg");
+
         ImageView imageView = new ImageView(iconImage);
+
         imageView.setX(0);
         imageView.setY(0);
         imageView.fitWidthProperty().bind(stage.widthProperty());
@@ -46,19 +47,19 @@ public class Main extends Application {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                ServerSocket serverSocket = null;
-                try {
-                    serverSocket = new ServerSocket(1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Server is waiting...");
-                try {
-                    Socket client = serverSocket.accept();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("Client connected.");
+//                ServerSocket serverSocket = null;
+//                try {
+//                    serverSocket = new ServerSocket(1);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println("Server is waiting...");
+//                try {
+//                    Socket client = serverSocket.accept();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println("Client connected.");
                 Shop shop = new Shop ();
                 Menu.loginMenuView();
             }

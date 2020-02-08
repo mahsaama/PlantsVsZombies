@@ -348,7 +348,7 @@ public class CollectionMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play();
                 clickedPlayer.seek(Duration.ZERO);
-                playButtonClicked(s2);
+                playButtonClicked(s1,s2);
             }
         });
 
@@ -488,25 +488,25 @@ public class CollectionMenuView {
         Menu.profileMenu(s);
     }
 
-    public void playButtonClicked(String s) {
+    public void playButtonClicked(String s1,String s2) {
         Text taken = new Text();
         taken.setFont(Font.font(30));
         taken.relocate(400, 620);
         collectionMenuRoot.getChildren().add(taken);
-        Menu.collectionMenu("",s,"play");
-        if (s.compareToIgnoreCase("PvP") != 0) {
-            if (Menu.getTempUser().getPlantHand().size() < 7 && s.compareToIgnoreCase("zombie") != 0) {
+        if (s2.compareToIgnoreCase("PvP") != 0) {
+            if (Menu.getTempUser().getPlantHand().size() < 7 && s2.compareToIgnoreCase("zombie") != 0) {
                 taken.setText("you don't have enough cards");
-            } else if (Menu.getTempUser().getZombieHand().size() < 7 && s.compareToIgnoreCase("zombie") == 0) {
+            } else if (Menu.getTempUser().getZombieHand().size() < 7 && s2.compareToIgnoreCase("zombie") == 0) {
                taken.setText("you don't have enough cards");
             }
         }
-        if(s.compareToIgnoreCase("zombie") != 0){
+        if(s2.compareToIgnoreCase("zombie") == 0){
             Game game = new Game();
             ZombieModeOfGame zombieGame = game.zombieGame("", 1);
             zombieGame.getTheGame(game);
             Main.changeScene(zombieGame.getZombiePlayScene());
         }
+        //TODO
 
     }
 
