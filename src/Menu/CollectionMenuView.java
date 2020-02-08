@@ -503,7 +503,9 @@ public class CollectionMenuView {
         }
         if(s.compareToIgnoreCase("zombie") != 0){
             Game game = new Game();
-            Main.changeScene(game.zombieGame("", 1).getZombiePlayScene());
+            ZombieModeOfGame zombieGame = game.zombieGame("", 1);
+            zombieGame.getTheGame(game);
+            Main.changeScene(zombieGame.getZombiePlayScene());
         }
 
     }

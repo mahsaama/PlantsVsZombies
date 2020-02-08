@@ -8,6 +8,8 @@ import Map.PlayGround;
 import Menu.Menu;
 import Shop.Shop;
 import User.Player;
+import User.User;
+import javafx.scene.control.Button;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -208,6 +210,7 @@ public class Game {
                     for (Zombie zombie : currentPlayer.getZombieHand ( )) {
                         System.out.println ("Zombie name = " + zombie.getName ( ) + " life = " + zombie.getLife ( ));
                     }
+                    return null;
                 } else if (order.compareToIgnoreCase ("show lanes") == 0) {
                     for (int i = 0; i < 6; i++) {
                         if(playGround.getCells()[i][18].getZombieContent().size() != 0){
@@ -218,25 +221,27 @@ public class Game {
                             System.out.println();
                         }
                     }
+                    return null;
 
                 } else if (order.compareToIgnoreCase ("put") == 0) {
                     System.out.println("inter zombie name");
-                    String name = scanner.nextLine ( );
+
+                    //String name = scanner.nextLine ( );
                     System.out.println("inter number of zombies:" );
-                    int num = scanner.nextInt();
+                    //int num = scanner.nextInt();
                     System.out.println("inter row num:");
-                    int row = scanner.nextInt();
+                    //int row = scanner.nextInt();
                     System.out.println("ok");
-                    Zombie zombie = Shop.makeNewZombieByName (name);
+                    //Zombie zombie = Shop.makeNewZombieByName (name);
                     boolean isThere2Zombies = false;
                     int numOfZombieInRow = 0;
-                    if (coin >= zombie.getLife ( ) * 10) {
+                    /*if (coin >= zombie.getLife ( ) * 10) {
                         for (int i = 0; i < 19; i++) {
-                        /*if (numOfZombieInRow == 2) {
+                        *//*if (numOfZombieInRow == 2) {
                             isThere2Zombies = true;
                             zombie = null;
                             break;
-                        }*/
+                        }*//*
                             if (playGround.getCells ( )[row][i].getZombieContent ( ) != null) {
                                 numOfZombieInRow++;
                             }
@@ -251,7 +256,7 @@ public class Game {
                         }
                         System.out.println("Zombie put successfully");
                     }else
-                        System.out.println("not enough money!");
+                        System.out.println("not enough money!");*/
                 } else if (order.compareToIgnoreCase ("start") == 0) {
                     SecureRandom rand = new SecureRandom ( );
                     for (int i = 0; i < 7; i++) {
@@ -268,6 +273,7 @@ public class Game {
                             }
 
                     }
+                        return null;
                 }
                 while (checkWinnerForZombie (playGround, coin) == -1) {
                     for (int i = 0; i < 6; i++) {
@@ -323,13 +329,13 @@ public class Game {
                         while(true){
                             System.out.println ("choose a zombie");
 
-                            x = scanner.nextInt();
-                            y = scanner.nextInt();
+                            //x = scanner.nextInt();
+                            //y = scanner.nextInt();
                             if(playGround.getCells()[x][y].getZombieContent() == null){
                                 System.out.println("NO ZOMBIE FOUND HERE");
 
                                 System.out.println("tired of Choosing? if yes, enter 1, else enter 0");
-                                tired = scanner.nextInt();
+                              //  tired = scanner.nextInt();
                                 if(tired == 1)
                                     break;
                             } else {
@@ -343,11 +349,11 @@ public class Game {
                         Zombie  chosenZombie = playGround.getCells()[x][y].getZombieContent().get(0);
                         int choice2;
                         System.out.println ("if you want ladder enter 1, if you want duck enter 2");
-                        choice2 = scanner.nextInt ( );
-                        if (choice2 == 1)
-                            chosenZombie.setDuckOrLadder (choice2);
-                        else
-                            chosenZombie.setDuckOrLadder (choice2);
+                        //choice2 = scanner.nextInt ( );
+                        //if (choice2 == 1)
+                          //  chosenZombie.setDuckOrLadder (choice2);
+                        //else
+                            //chosenZombie.setDuckOrLadder (choice2);
 
                     }
 
@@ -361,7 +367,7 @@ public class Game {
                     //break;
                 }
             }
-            return null;
+            return  null;
         }
     //}
     private void railGame() {
@@ -763,4 +769,5 @@ public class Game {
 
         }
     }
+
 }
