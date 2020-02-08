@@ -263,17 +263,16 @@ public class Game {
                         int randInt1 = rand.nextInt (Shop.getPlantList ( ).size ( ));
                         Plant newRandPlant = Shop.makeNewPlantByName (Shop.getPlantList ( ).get (randInt1).getName ( ));
                         while (true) {
-                            int randInt2 = rand.nextInt (6);
-                            int randInt3 = rand.nextInt (3);
-                            if (playGround.getCells ( )[randInt2][randInt3].getPlantContent ( ) == null) {
-                                newRandPlant.setX (randInt2);
-                                newRandPlant.setY (randInt3);
+                            int randInt2 = rand.nextInt(6);
+                            int randInt3 = rand.nextInt(3);
+                            if (playGround.getCells()[randInt2][randInt3].getPlantContent() == null) {
+                                newRandPlant.setX(randInt2);
+                                newRandPlant.setY(randInt3);
                                 playGround.getCells()[randInt2][randInt3].setPlantContent(newRandPlant);
                                 break;
                             }
 
                     }
-                        return null;
                 }
                 while (checkWinnerForZombie (playGround, coin) == -1) {
                     for (int i = 0; i < 6; i++) {
