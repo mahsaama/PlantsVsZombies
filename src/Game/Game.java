@@ -62,7 +62,7 @@ public class Game {
         if (typeOfGame.compareTo ("PvP") == 0) {
             PvPGame ( );
         } else if (typeOfGame.compareTo ("Rail") == 0) {
-            railGame ( );
+            railGame( );
         } else if (typeOfGame.compareToIgnoreCase ("Zombie") == 0) {
             zombieGame ("", situation );
         } else if (typeOfGame.compareToIgnoreCase ("Day") == 0) {
@@ -364,7 +364,6 @@ public class Game {
             return null;
         }
     //}
-
     private void railGame() {
         SecureRandom rand = new SecureRandom ( );
         ArrayList<Plant> cards = new ArrayList<> ( );
