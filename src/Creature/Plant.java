@@ -167,13 +167,13 @@ public class Plant{
                             }
                             if (hurtToZombie != 0 && zombie.getX() == x && zombie.getY() == y) {
                                 if (!zombie.getName().equals("FootballZombie")) {
-                                    if (bulletType.equals("shot")){
-                                        zombie.setLife(zombie.getLife() - hurtOfBullet);
+                                    if (!zombie.isGuard()){
+                                        zombie.setLife(zombie.getLife() - hurtToZombie);
                                         if (zombie.getLife() == 0){
                                             playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
                                         }
                                     }else{
-                                        zombie.guardLifeDec(hurtOfBullet);
+                                        zombie.guardLifeDec(hurtToZombie);
                                     }
                                 }
                             }
@@ -426,10 +426,12 @@ public class Plant{
                     zombie = findZombie(playGround, row);
                     if (zombie != null){
                         if (zombie.getY() <= bullet.getY()){
-                            if (bulletType.equals("shot")){
-                                zombie.setLife(zombie.getLife() - hurtOfBullet);
-                                if (zombie.getLife() == 0){
-                                    playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                            if (!zombie.isGuard()){
+                                if (!(zombie.getName().equals("BalloonZombie") && bulletType.equals("pea"))){
+                                    zombie.setLife(zombie.getLife() - hurtOfBullet);
+                                    if (zombie.getLife() == 0){
+                                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                                    }
                                 }
                             }else{
                                 zombie.guardLifeDec(hurtOfBullet);
@@ -450,10 +452,12 @@ public class Plant{
                             bullet.setBulletTurn(bullet.getBulletTurn() +1);
                             if (bullet.getY() >18){
                                 bullet = null;
-                                if (bulletType.equals("shot")){
-                                    zombie.setLife(zombie.getLife() - hurtOfBullet);
-                                    if (zombie.getLife() == 0){
-                                        playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                                if (!zombie.isGuard()){
+                                    if (!(zombie.getName().equals("BalloonZombie") && bulletType.equals("pea"))){
+                                        zombie.setLife(zombie.getLife() - hurtOfBullet);
+                                        if (zombie.getLife() == 0){
+                                            playGround.getCells()[zombie.getX()][zombie.getY()].getZombieContent().remove(zombie);
+                                        }
                                     }
                                 }else{
                                     zombie.guardLifeDec(hurtOfBullet);

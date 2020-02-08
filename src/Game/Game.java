@@ -290,9 +290,11 @@ public class Game {
                                         for (Zombie zombie : playGround.getCells ( )[m][l].getZombieContent ( )) {
                                             for (int k = 0; k < zombie.getSpeed ( ); k++) {
                                                 if (playGround.getCells ( )[m][l].getPlantContent ( ).size ( ) != 0) {
-                                                    String name = zombie.attack (playGround);
-                                                    if (!name.equals ("not")) {
-                                                        killedPlantsInTheTurn.add (name);
+                                                    ArrayList<String> names = zombie.attack (playGround);
+                                                    if (!names.get(0).equals ("not")) {
+                                                        for (int o=0;0<names.size();o++){
+                                                            killedPlantsInTheTurn.add (names.get(o));
+                                                        }
                                                     }
                                                 }
                                                 if (zombie != null && (zombie.getY ( ) - 1) > 0) {
@@ -740,9 +742,11 @@ public class Game {
                                 for (Zombie zombie : playGround.getCells ( )[m][l].getZombieContent ( )) {
                                     for (int k = 0; k < zombie.getSpeed ( ); k++) {
                                         if (playGround.getCells ( )[m][l].getPlantContent ( ).size ( ) != 0) {
-                                            String name = zombie.attack (playGround);
-                                            if (!name.equals ("not")) {
-                                                killedPlantsInTheTurn.add (name);
+                                            ArrayList<String> names = zombie.attack (playGround);
+                                            if (!names.get(0).equals ("not")) {
+                                                for (int o=0;0<names.size();o++){
+                                                    killedPlantsInTheTurn.add (names.get(o));
+                                                }
                                             }
                                         }
                                         if (zombie != null && (zombie.getY ( ) - 1) > 0) {
