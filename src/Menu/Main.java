@@ -73,7 +73,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        Server server = new Server();
+        //Server server = new Server();
         launch(args);
 
     }
