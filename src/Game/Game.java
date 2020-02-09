@@ -694,7 +694,7 @@ public class Game {
 
     }
 
-    public String randomCard(ArrayList<Plant> cards) {
+    public void randomCard(ArrayList<Plant> cards) {
         SecureRandom rand = new SecureRandom ( );
         String[] plantLibrary = {"Cabbage-pult", "Cactus","CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};
         if (cards.size ( ) < 11) {
@@ -702,9 +702,7 @@ public class Game {
             String name = plantLibrary[randomNum];
             currentPlayer.getPlantHand ( ).add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
             cards.add (Shop.makeNewPlantByName (name));
-            return name;
         }
-        return null;
     }
 
     public void showLawn(PlayGround playGround) {

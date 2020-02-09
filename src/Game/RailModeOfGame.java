@@ -37,12 +37,18 @@ public class RailModeOfGame extends Game{
             public void run() {
                 SecureRandom rand = new SecureRandom ( );
                 int plantNextTurn = 0;
+                int i=0;
                 if (turn == plantNextTurn) {
-                    Image image = new Image(randomCard(cards));
+                    randomCard(cards);
+                    Image image = new Image(cards.get(cards.size()-1).getName());
                     int randomNum = rand.nextInt (3) + 2;
                     plantNextTurn = turn + randomNum;
                     ImageView imageView = new ImageView(image);
-
+                    imageView.setFitHeight(50);
+                    imageView.setFitWidth(70);
+                    imageView.relocate(10,i*50 +10);
+                    railPlayRoot.getChildren().add(imageView);
+                    i++;
 
                 }
             }
