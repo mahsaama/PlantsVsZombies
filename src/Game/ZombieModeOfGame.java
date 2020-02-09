@@ -88,7 +88,7 @@ public class ZombieModeOfGame {
         menuImageView.relocate(1100,650);
         menuButton.relocate(1100, 650);
         buyImageView.relocate(100, 20);
-        buyButton.relocate(1100, 20);
+        buyButton.relocate(100, 20);
         ok.relocate(50, 620);
         done.relocate(90, 620);
 //320
@@ -98,7 +98,7 @@ public class ZombieModeOfGame {
         zombiePlayRoot.getChildren().add(buyButton);
         zombiePlayRoot.getChildren().add(ok);
         zombiePlayRoot.getChildren().add(done);
-
+        buyButton.setOpacity(0);
         
 
         checkMovements();
@@ -161,27 +161,54 @@ public class ZombieModeOfGame {
         });
 
         done.setOnMouseClicked(event -> {
+            target1.setOpacity(0);
+            target2.setOpacity(0);
+            target3.setOpacity(0);
+            target4.setOpacity(0);
+            target5.setOpacity(0);
             SecureRandom rand = new SecureRandom ( );
+            boolean[][] places = new boolean[5][3];
+            for(int i = 0 ; i <  5; i++)
+                for(int j = 0; j < 3; j++)
+                    places[i][j] = false;
+
             for (int i = 0; i < 7; i++) {
-                int randInt1 = rand.nextInt (Shop.getPlantList ( ).size ( ));
-                Plant newRandPlant = Shop.makeNewPlantByName (Shop.getPlantList ( ).get (randInt1).getName ( ));
-                Image plantImage = new Image("pics/" + Shop.getPlantList ( ).get (randInt1).getName ( ) + ".jpg");
-                ImageView plantImageView = new ImageView(plantImage);
-                int randInt2 = rand.nextInt(5);
-                int randInt3 = rand.nextInt(3);
-                newRandPlant.setX(randInt2);
-                newRandPlant.setY(randInt3);
-                plantImageView.relocate(320 + randInt3 * 35, 590 - (4 - randInt2) * 120);
-                plantImageView.setFitWidth(80);
-                plantImageView.setFitHeight(40);
+                Plant newRandPlant;
+                ImageView plantImageView;
+
+                while (true){
+                    int randInt1 = rand.nextInt (Shop.getPlantList ( ).size ( ));
+                    if(Shop.getPlantList ( ).get (randInt1).getName ( ).equals("LilyPad"))
+                        continue;
+                    newRandPlant = Shop.makeNewPlantByName(Shop.getPlantList ( ).get (randInt1).getName ( ));
+                    Image plantImage = new Image("pics/" + Shop.getPlantList ( ).get (randInt1).getName ( ) + ".jpg");
+                    plantImageView = new ImageView(plantImage);
+                    break;
+                }
+
+                while(true){
+                    int randInt2 = rand.nextInt(5);
+                    int randInt3 = rand.nextInt(3);
+                    if(places[randInt2][randInt3] == true)
+                        continue;
+
+                    newRandPlant.setX(randInt2);
+                    newRandPlant.setY(randInt3);
+                    plantImageView.relocate(320 + randInt3 * 85, 550 - (4 - randInt2) * 120);
+                    plantImageView.setFitWidth(80);
+                    plantImageView.setFitHeight(40);
+                    places[randInt2][randInt3] = true;
+                    break;
+                }
+
                 //TODO
-                //You can use a 2D array for it to detemine with boolean amount if there's a plant in it or not
+
+                //You can use a 2D array for it to determine with boolean amount if there's a plant in it or not
 
 
                 zombiePlayRoot.getChildren().add(plantImageView);
             }
         });
-
 
 
         arrayOfButtons.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
