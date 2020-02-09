@@ -1,17 +1,17 @@
 package Menu;
 
-import Creature.Plant;
+import Game.DayModeOfGame;
 import Game.Game;
 import Game.ZombieModeOfGame;
 import Game.RailModeOfGame;
 import Shop.Shop;
+import User.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -494,18 +494,26 @@ public class CollectionMenuView {
         taken.setFont(Font.font(30));
         taken.relocate(400, 620);
         collectionMenuRoot.getChildren().add(taken);
-        if (s2.compareToIgnoreCase("PvP") != 0) {
-            if (Menu.getTempUser().getPlantHand().size() < 7 && s2.compareToIgnoreCase("zombie") != 0) {
-                taken.setText("you don't have enough cards");
-            } else if (Menu.getTempUser().getZombieHand().size() < 7 && s2.compareToIgnoreCase("zombie") == 0) {
-               taken.setText("you don't have enough cards");
-            }
-        }
+//        if (s2.compareToIgnoreCase("PvP") != 0) {
+//            if (Menu.getTempUser().getPlantHand().size() < 7 && s2.compareToIgnoreCase("zombie") != 0) {
+//                taken.setText("you don't have enough cards");
+//            } else if (Menu.getTempUser().getZombieHand().size() < 7 && s2.compareToIgnoreCase("zombie") == 0) {
+//               taken.setText("you don't have enough cards");
+//            }
+//        }
         if(s2.compareToIgnoreCase("zombie") == 0){
             Game game = new Game();
             ZombieModeOfGame zombieGame = game.zombieGame("", 1);
             zombieGame.getTheGame(game);
             Main.changeScene(zombieGame.getZombiePlayScene());
+        }
+        else if (s2.compareToIgnoreCase("day") == 0){
+            Game game = new Game ();
+            game.setFirstPlayer (Menu.getLoginPlayer ());
+            DayModeOfGame dayGame = game.dayGame (1);
+            dayGame.getTheGame(game);
+            Main.changeScene(dayGame.getDayPlayScene ());
+
         }
         //TODO
 

@@ -30,6 +30,12 @@ public class Menu extends Application {
     private static User loginUser;
     private static User opponent;
     private static User tempUser;
+
+    public static Player getLoginPlayer() {
+        return loginPlayer;
+    }
+
+    private static Player loginPlayer;
     private static ArrayList<User> users = new ArrayList<User>();
     private static Shop shop = new Shop();
     private static int numberOfWaves;
@@ -88,6 +94,7 @@ public class Menu extends Application {
             if (checkPassword(username, password)) {
                 System.out.println("login successfully");
                 loginUser = getUserByName(username);
+                loginPlayer  = new Player (loginUser);
                 mainMenuView();
                 return true;
             } else
@@ -287,7 +294,7 @@ public class Menu extends Application {
                 //String name = scanner.nextLine();
                 String name = array[1];
                 if (type.compareTo("plant") == 0) {
-                    if (tempUser.getPlantHand().size() >= 7) {
+                    if (tempUser.getPlantHand().size() >= 6) {
                         System.out.println("you have 7 plants already");
                     }
                     if (checkPlant(name)) {
@@ -302,7 +309,7 @@ public class Menu extends Application {
                     } else
                         System.out.println("invalid plant");
                 } else {
-                    if (tempUser.getZombieHand().size() >= 7) {
+                    if (tempUser.getZombieHand().size() >= 6) {
                         System.out.println("you have 7 zombies already");
                     }
                     if (checkZombie(name)) {
@@ -355,9 +362,9 @@ public class Menu extends Application {
                     prepareTwoPersonGame();
                    // break;
                 } else if (typeOfGame.compareToIgnoreCase("PvP") != 0) {
-                    if (tempUser.getPlantHand().size() < 7 && typeOfGame.compareToIgnoreCase("zombie") != 0) {
+                    if (tempUser.getPlantHand().size() < 6 && typeOfGame.compareToIgnoreCase("zombie") != 0) {
                         System.out.println("you don't have enough cards");
-                    } else if (tempUser.getZombieHand().size() < 7 && typeOfGame.compareToIgnoreCase("zombie") == 0) {
+                    } else if (tempUser.getZombieHand().size() < 6 && typeOfGame.compareToIgnoreCase("zombie") == 0) {
                         System.out.println("you don't have enough cards");
                     } else {
                         prepareGame(typeOfGame);
