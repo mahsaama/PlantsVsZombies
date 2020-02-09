@@ -31,7 +31,9 @@ public class DayModeOfGame {
     private Game currentGame;
     private Group dayPlayRoot;
     private Scene dayPlayScene;
-
+    private ArrayList<Zombie> gameZombies = new ArrayList<> ();
+    private ArrayList<ImageView> zombieImageViews = new ArrayList<> ();
+    private ArrayList<Image>  zombieImages = new ArrayList<> ();
     private Image back2Image = new Image("pics/bg4.jpg");
 
     private Image backImage = new Image("pics/frontyard.png");
@@ -126,9 +128,19 @@ public class DayModeOfGame {
 
         done.setOnMouseClicked(event -> {
             SecureRandom rand = new SecureRandom ( );
+
+            for(int j = 0 ; j < zombieImageViews.size () ; j ++){
+                System.out.println (gameZombies.get (j).getX () +" " + gameZombies.get (j).getY () );
+                zombieImageViews.get (j).relocate ( zombieImageViews.get(j).getX () - gameZombies.get (j).getSpeed (),zombieImageViews.get (j)
+                        .getY ());
+                gameZombies.get (j).setX (gameZombies.get (j).getX () - gameZombies.get (j).getSpeed () );
+                System.out.println (gameZombies.get (j).getX () +" " + gameZombies.get (j).getY () );
+            }
+
             for (int i = 0; i < 7; i++) {
                 int randInt1 = rand.nextInt (Shop.getZombieList ( ).size ( ));
                 Zombie newRandZombie = Shop.makeNewZombieByName (Shop.getZombieList ( ).get (randInt1).getName ( ));
+                gameZombies.add (newRandZombie);
                 Image zombieImage = new Image("pics/" + Shop.getZombieList ( ).get (randInt1).getName ( ) + ".jpg");
                 ImageView zombieImageView = new ImageView(zombieImage);
                 int randInt2 = rand.nextInt(5);
@@ -138,12 +150,13 @@ public class DayModeOfGame {
                 zombieImageView.relocate( 1050  , 590 - (4 - randInt2) * 120);
                 zombieImageView.setFitWidth(80);
                 zombieImageView.setFitHeight(40);
+                zombieImageViews.add (zombieImageView);
+                zombieImages.add ( zombieImage);
                 //TODO
                 //You can use a 2D array for it to detemine with boolean amount if there's a plant in it or not
-
-
                 dayPlayRoot.getChildren().add(zombieImageView);
             }
+
         });
 
 
