@@ -74,7 +74,7 @@ public class Game {
         } else if (typeOfGame.compareTo ("Rail") == 0) {
            // railGame( );
         } else if (typeOfGame.compareToIgnoreCase ("Zombie") == 0) {
-            zombieGame ("", situation );
+            zombieGame ("", situation , null);
         } else if (typeOfGame.compareToIgnoreCase ("Day") == 0) {
             dayGame (1);
         } else if (typeOfGame.compareToIgnoreCase ("Water") == 0) {
@@ -122,6 +122,7 @@ public class Game {
                         turn++;
                         if(turn % 2 == 1){
                             System.out.println("zombie's turn");
+                            zombieMove(playGround);
                         }
                         else
                             System.out.println("your turn");
@@ -284,7 +285,7 @@ public class Game {
             System.out.println ("plant doesn't exist");
         }
     }
-    public ZombieModeOfGame zombieGame(String order, int situation) {
+    public ZombieModeOfGame zombieGame(String order, int situation, PlayGround playGround) {
         int coin = 50;
         int numLadder = 3;
         int numDuck = 3;
@@ -347,7 +348,7 @@ public class Game {
                     }else
                         System.out.println("not enough money!");*/
                 } else if (order.compareToIgnoreCase ("start") == 0) {
-                    SecureRandom rand = new SecureRandom ( );
+                    /*SecureRandom rand = new SecureRandom ( );
                     for (int i = 0; i < 7; i++) {
                         int randInt1 = rand.nextInt (Shop.getPlantList ( ).size ( ));
                         Plant newRandPlant = Shop.makeNewPlantByName (Shop.getPlantList ( ).get (randInt1).getName ( ));
@@ -362,13 +363,15 @@ public class Game {
                             }
 
                     }
-                }
+                }*/
                 while (checkWinnerForZombie (playGround, coin) == -1) {
                     for (int i = 0; i < 6; i++) {
                         for (int j = 0; j < 19; j++) {
                             for (Plant plant : playGround.getCells ( )[i][j].getPlantContent ( )) {
-                                for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( ))
+                                for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( )){
                                     plant.attack (playGround,turn);
+                                    zombie.attack(playGround);
+                                }
                                 plant.attack (playGround,turn);
                             }
                             ArrayList<String> killedPlantsInTheTurn = new ArrayList<> ( );

@@ -2,7 +2,9 @@ package Game;
 
 import Creature.Plant;
 import Creature.Zombie;
+import Map.PlayGround;
 import Menu.Menu;
+import Game.Game;
 import Shop.Shop;
 import User.User;
 import javafx.event.ActionEvent;
@@ -26,9 +28,11 @@ import java.util.ArrayList;
 
 
 public class ZombieModeOfGame {
+    private PlayGround playGround;
     private int coin = 50;
     private ArrayList<Button> arrayOfButtons = new ArrayList<>();
     private ArrayList<ImageView> arrayOfImageViews = new ArrayList<>();
+    private ArrayList<ImageView> zombiesImageView = new ArrayList<>();
     private User tempUser = Menu.getTempUser();
 
     private Game currentGame;
@@ -44,6 +48,7 @@ public class ZombieModeOfGame {
     private Button buyButton = new Button("BUY");
     private Button ok = new Button("PUT");
     private Button done = new Button("DONE");
+    private Button start = new Button("START");
 
     private Text coinAmount = new Text("50");
 
@@ -78,6 +83,7 @@ public class ZombieModeOfGame {
     private int width = 1200;
 
     public ZombieModeOfGame(){
+        playGround = new PlayGround();
         zombiePlayRoot = new Group();
         backImageView.setFitHeight(height);
         backImageView.setFitWidth(width);
@@ -91,7 +97,8 @@ public class ZombieModeOfGame {
         buyButton.relocate(100, 20);
         ok.relocate(50, 620);
         done.relocate(90, 620);
-//320
+        start.relocate(90, 650);
+
         zombiePlayRoot.getChildren().add(menuImageView);
         zombiePlayRoot.getChildren().add(menuButton);
         zombiePlayRoot.getChildren().add(buyImageView);
@@ -108,6 +115,8 @@ public class ZombieModeOfGame {
 
 
     public Scene getZombiePlayScene(){ return zombiePlayScene; }
+
+    public void setCoin(int amount){ this.coin += amount; }
 
 
     public void getTheGame(Game game){ currentGame = game; }
@@ -202,13 +211,15 @@ public class ZombieModeOfGame {
                     places[randInt2][randInt3] = true;
                     break;
                 }
-
-                //TODO
-
-                //You can use a 2D array for it to determine with boolean amount if there's a plant in it or not
-
-
                 zombiePlayRoot.getChildren().add(plantImageView);
+            }
+            done.setDisable(true);
+
+        });
+        start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                currentGame.zombieGame("start", 0, playGround);
             }
         });
 
@@ -260,7 +271,6 @@ public class ZombieModeOfGame {
     }
 
     private void dragAndDrop(Button button, int i){
-        Zombie zomb  = new Zombie();
             button.setOnDragDetected(event -> {
                 Dragboard db = button.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
@@ -396,6 +406,8 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(0);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[0][18].getZombieContent().add(tempUser.getZombieHand().get(i));
+
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -429,6 +441,7 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(1);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[1][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -462,6 +475,7 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(2);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[2][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -495,6 +509,7 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(3);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[3][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -527,8 +542,10 @@ public class ZombieModeOfGame {
                         imageView.setFitHeight(80);
                         imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
+                        zombiesImageView.add(imageView);
                         tempUser.getZombieHand().get(i).setX(4);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[4 ][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -550,5 +567,6 @@ public class ZombieModeOfGame {
             button.setOnDragDone(Event::consume);
 
     }
+
 
 }
