@@ -3,6 +3,7 @@ package Menu;
 import Creature.Plant;
 import Creature.Zombie;
 import Game.Game;
+import Game.RailModeOfGame;
 import Map.PlayGround;
 import Shop.Shop;
 import User.User;
@@ -239,7 +240,8 @@ public class Menu extends Application {
                 collectionMenuView("plant", "Water");
                 break;
             case "Rail":
-                prepareGame("Rail");
+                RailModeOfGame railGame = new RailModeOfGame();
+                Main.changeScene(railGame.getRailPlayScene());
                 break;
             case "Zombie":
                 collectionMenuView("zombie", "Zombie");
