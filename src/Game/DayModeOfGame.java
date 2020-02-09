@@ -36,29 +36,26 @@ public class DayModeOfGame {
 
     private Image backImage = new Image("pics/frontyard.png");
     private ImageView backImageView = new ImageView(backImage);
-    private Button menuButton = new Button("MENU");
     private Button ok = new Button("PUT");
     private Button done = new Button("DONE");
 
     private Text coinAmount = new Text("50");
 
-    private Image menuImage = new Image("pics/menu.png");
     private Image putImage = new Image("pics/put.jpg");
     private Image coinImage  = new Image("pics/coin.jpg");
 
-    private ImageView menuImageView = new ImageView(menuImage);
     private ImageView putImageView = new ImageView(putImage);
     private ImageView coinImageView = new ImageView(coinImage);
 
-    Text target1 = new Text(1130, 90, "DRAG HERE");
+    Text target1 = new Text(300, 90, "DRAG HERE");
     int tar1 = 0;
-    Text target2 = new Text(1130, 210, "DRAG HERE");
+    Text target2 = new Text(300, 210, "DRAG HERE");
     int tar2 = 0;
-    Text target3 = new Text(1130, 320, "DRAG HERE");
+    Text target3 = new Text(300, 320, "DRAG HERE");
     int tar3 = 0;
-    Text target4 = new Text(1130, 430, "DRAG HERE");
+    Text target4 = new Text(300, 430, "DRAG HERE");
     int tar4 = 0;
-    Text target5 = new Text(1130, 530, "DRAG HERE");
+    Text target5 = new Text(300, 530, "DRAG HERE");
     int tar5 = 0;
 
     private Media mouseClicked = new Media(getClass().getClassLoader().getResource("audio/Button-SoundBible.com-1420500901.mp3").toExternalForm());
@@ -76,14 +73,9 @@ public class DayModeOfGame {
         dayPlayScene = new Scene(dayPlayRoot, width, height);
         dayPlayRoot.getChildren().add(backImageView);
 
-
-        menuImageView.relocate(1100,650);
-        menuButton.relocate(1100, 650);
         ok.relocate(50, 620);
         done.relocate(90, 620);
 //320
-        dayPlayRoot.getChildren().add(menuImageView);
-        dayPlayRoot.getChildren().add(menuButton);
         dayPlayRoot.getChildren().add(ok);
         dayPlayRoot.getChildren().add(done);
 
@@ -97,16 +89,7 @@ public class DayModeOfGame {
     public void getTheGame(Game game){ currentGame = game; }
 
     private void checkMovements(){
-        menuButton.setOnMouseEntered(event -> {
-            enteredPlayer.play();
-            enteredPlayer.seek(Duration.ZERO);
-        });
 
-        menuButton.setOnMouseClicked(event -> {
-            clickedPlayer.play();
-            clickedPlayer.seek(Duration.ZERO);
-
-        });
 
         for(int i = 0; i < tempUser.getPlantHand ().size(); i++){
             try {
@@ -122,7 +105,6 @@ public class DayModeOfGame {
                 button.setPrefSize(100, 60);
                 arrayOfButtons.add(button);
                 arrayOfImageViews.add(buttonImageView);
-
                 dayPlayRoot.getChildren().add(buttonImageView);
                 dayPlayRoot.getChildren().add(button);
 
@@ -151,9 +133,9 @@ public class DayModeOfGame {
                 ImageView zombieImageView = new ImageView(zombieImage);
                 int randInt2 = rand.nextInt(5);
                 int randInt3 = rand.nextInt(3);
-                newRandZombie.setX(randInt2);
+                newRandZombie.setX(1050);
                 newRandZombie.setY(randInt3);
-                zombieImageView.relocate( 1000  -  randInt3 * 35, 590 - (4 - randInt2) * 120);
+                zombieImageView.relocate( 1050  , 590 - (4 - randInt2) * 120);
                 zombieImageView.setFitWidth(80);
                 zombieImageView.setFitHeight(40);
                 //TODO
@@ -213,7 +195,6 @@ public class DayModeOfGame {
     }
 
     private void dragAndDrop(Button button, int i){
-        Zombie zomb  = new Zombie();
         button.setOnDragDetected(event -> {
             Dragboard db = button.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
@@ -340,18 +321,18 @@ public class DayModeOfGame {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
+                if(Shop.makeNewPlantByName (button.getText()).getLife() * 10 <= coin){
                     Image image = new Image("pics/" + button.getText() + ".jpg");
                     ImageView imageView = new ImageView(image);
                     imageView.relocate(target1.getX() - tar1*10 - 30, target1.getY() );
                     imageView.setFitHeight(80);
                     imageView.setFitWidth(120);
                     dayPlayRoot.getChildren().add(imageView);
-                    tempUser.getZombieHand().get(i).setX(0);
-                    tempUser.getZombieHand().get(i).setY(18);
-                    tempUser.getZombieHand().remove(i);
+                    tempUser.getPlantHand ().get(i).setX(0);
+                    tempUser.getPlantHand().get(i).setY(18);
+                    tempUser.getPlantHand().remove(i);
                     arrayOfImageViews.get(i).setOpacity(0);
-                    coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
+                    coin -= Shop.makeNewPlantByName (button.getText()).getLife() * 10;
 
                     tar1++;
                     if(tar1 == 2){
@@ -373,18 +354,18 @@ public class DayModeOfGame {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
+                if(Shop.makeNewPlantByName (button.getText()).getLife() * 10 <= coin){
                     Image image = new Image("pics/" + button.getText() + ".jpg");
                     ImageView imageView = new ImageView(image);
                     imageView.relocate(target2.getX() - tar2*10 - 30, target2.getY() );
                     imageView.setFitHeight(80);
                     imageView.setFitWidth(120);
                     dayPlayRoot.getChildren().add(imageView);
-                    tempUser.getZombieHand().get(i).setX(1);
-                    tempUser.getZombieHand().get(i).setY(18);
-                    tempUser.getZombieHand().remove(i);
+                    tempUser.getPlantHand().get(i).setX(1);
+                    tempUser.getPlantHand().get(i).setY(18);
+                    tempUser.getPlantHand().remove(i);
                     arrayOfImageViews.get(i).setOpacity(0);
-                    coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
+                    coin -= Shop.makeNewPlantByName (button.getText()).getLife() * 10;
 
                     tar2++;
                     if(tar2 == 2){
@@ -406,18 +387,18 @@ public class DayModeOfGame {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
+                if(Shop.makeNewPlantByName (button.getText()).getLife() * 10 <= coin){
                     Image image = new Image("pics/" + button.getText() + ".jpg");
                     ImageView imageView = new ImageView(image);
                     imageView.relocate(target3.getX() - tar3*10 - 30, target3.getY());
                     imageView.setFitHeight(80);
                     imageView.setFitWidth(120);
                     dayPlayRoot.getChildren().add(imageView);
-                    tempUser.getZombieHand().get(i).setX(2);
-                    tempUser.getZombieHand().get(i).setY(18);
-                    tempUser.getZombieHand().remove(i);
+                    tempUser.getPlantHand ().get(i).setX(2);
+                    tempUser.getPlantHand().get(i).setY(18);
+                    tempUser.getPlantHand().remove(i);
                     arrayOfImageViews.get(i).setOpacity(0);
-                    coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
+                    coin -= Shop.makeNewPlantByName (button.getText()).getLife() * 10;
 
                     tar3++;
                     if(tar3 == 2){
@@ -439,18 +420,18 @@ public class DayModeOfGame {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
+                if(Shop.makeNewPlantByName (button.getText()).getLife() * 10 <= coin){
                     Image image = new Image("pics/" + button.getText() + ".jpg");
                     ImageView imageView = new ImageView(image);
                     imageView.relocate(target4.getX() - tar4*10- 30, target4.getY());
                     imageView.setFitHeight(80);
                     imageView.setFitWidth(120);
                     dayPlayRoot.getChildren().add(imageView);
-                    tempUser.getZombieHand().get(i).setX(3);
-                    tempUser.getZombieHand().get(i).setY(18);
-                    tempUser.getZombieHand().remove(i);
+                    tempUser.getPlantHand().get(i).setX(3);
+                    tempUser.getPlantHand().get(i).setY(18);
+                    tempUser.getPlantHand().remove(i);
                     arrayOfImageViews.get(i).setOpacity(0);
-                    coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
+                    coin -= Shop.makeNewPlantByName (button.getText()).getLife() * 10;
 
                     tar4++;
                     if(tar4 == 2){
@@ -480,11 +461,11 @@ public class DayModeOfGame {
                 imageView.setFitHeight(80);
                 imageView.setFitWidth(120);
                 dayPlayRoot.getChildren().add(imageView);
-                tempUser.getZombieHand().get(i).setX(4);
-                tempUser.getZombieHand().get(i).setY(18);
-                tempUser.getZombieHand().remove(i);
+                tempUser.getPlantHand().get(i).setX(4);
+                tempUser.getPlantHand().get(i).setY(18);
+                tempUser.getPlantHand().remove(i);
                 arrayOfImageViews.get(i).setOpacity(0);
-                coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
+                coin -= Shop.makeNewPlantByName (button.getText()).getLife() * 10;
 
                 tar5++;
                 if(tar5 == 2){
