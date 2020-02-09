@@ -1,54 +1,43 @@
 package Server;
-
-import Menu.Menu;
-import Shop.Shop;
-import com.google.gson.internal.bind.util.ISO8601Utils;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.Formatter;
+import java.util.Scanner;
 
 public class Client {
-    private Socket socket = null;
-    private DataInputStream input = null;
-    private DataOutputStream out = null;
+    static Socket socket;
+    static Formatter formatter;
+    static String username;
 
-    public Client(String address, int port){
-        try {
-            socket = new Socket(address, port);
-            System.out.println("connected");
-            input = new DataInputStream(System.in);
-            out = new DataOutputStream(socket.getOutputStream());
-
-        }catch (UnknownHostException u){
-            System.out.println(u);
-        }catch (IOException i){
-            System.out.println(i);
-        }
+    public static void chat(String chat_message, String to) {
+        String message = Message.chat(username, to, chat_message);
+        formatter.format(message);
+        formatter.flush();
     }
 
-    public void sendMessage(){
-        String line = "";
-        while (!line.equals("bye")){
-            try {
-                line = input.readLine();
-                out.writeUTF(line);
-            }catch (IOException i){
-                System.out.println(i);
+    public static void get_list() {
+        String message = Message.lst();
+        formatter.format(message);
+        formatter.flush();
+    }
+
+    public static void main(String[] args) {
+        username = "1";
+        try {
+            socket = new Socket("localhost", 3456);
+            formatter = new Formatter(socket.getOutputStream());
+            ClientReader clientReader = new ClientReader(socket);
+        } catch (Exception e) {
+
+        }
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String id = scanner.nextLine();
+            if (id.equals("list")) {
+                get_list();
+            } else {
+                String data = scanner.nextLine();
+                chat(data, id);
             }
         }
     }
-    public static void main(String[] args){
-        Client client = new Client("127.0.0.1", 8000);
-    }
-
 }
