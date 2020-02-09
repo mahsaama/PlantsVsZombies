@@ -3,6 +3,8 @@ package Menu;
 import Game.DayModeOfGame;
 import Game.Game;
 import Game.ZombieModeOfGame;
+import Game.RailModeOfGame;
+import Shop.Shop;
 import User.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
