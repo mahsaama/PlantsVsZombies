@@ -12,10 +12,13 @@ import User.Player;
 import User.User;
 import javafx.scene.control.Button;
 
+import java.awt.*;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Game {
     private String typeOfGame;
@@ -24,9 +27,13 @@ public class Game {
     private int numberOfWaves = 0;
     private Player winner;
     private Scanner scanner = new Scanner (System.in);
-    private Player currentPlayer;
-    private int turn = 0;
+    Player currentPlayer;
+    int turn = 0;
     public PlayGround playGround = new PlayGround ( );
+
+    public User getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     public PlayGround getPlayGround() {
         return playGround;
@@ -65,21 +72,103 @@ public class Game {
         if (typeOfGame.compareTo ("PvP") == 0) {
             PvPGame ( );
         } else if (typeOfGame.compareTo ("Rail") == 0) {
-            railGame( );
+           // railGame( );
         } else if (typeOfGame.compareToIgnoreCase ("Zombie") == 0) {
             zombieGame ("", situation );
         } else if (typeOfGame.compareToIgnoreCase ("Day") == 0) {
-            dayOrWaterGame ("Day");
+            dayGame (1);
         } else if (typeOfGame.compareToIgnoreCase ("Water") == 0) {
-            dayOrWaterGame ("Water");
+            waterGame (1);
         }
     }
 
-    private void dayOrWaterGame(String gameKind) {
-        if (gameKind.compareToIgnoreCase ("Day") == 0) {
-            setPlayGround ("land");
-        } else
-            setPlayGround ("water");
+    public DayModeOfGame dayGame(int situation) {
+        currentPlayer = firstPlayer;
+        setPlayGround ("land");
+        firstPlayer.setNumberOfSuns (2);
+        numberOfWaves = 3;
+        int waveNum = 0;
+        int[] startTurn = new int[3];
+        int[] finishTurn = new int[3];
+        startTurn[0] = 3;
+        if(situation == 1){
+            DayModeOfGame dayPlayView = new DayModeOfGame();
+            return dayPlayView;
+        }
+        for (int i = 0; i < numberOfWaves; i++) {
+            while (true) {
+                String order = scanner.nextLine();
+                if (order.compareToIgnoreCase("show hand") == 0) {
+                    for (Plant plant : currentPlayer.getPlantHand()) {
+                        System.out.println("Name: " + plant.getName() + " numberOfSuns: " + plant.getNumberOfSuns()
+                                + " timeToRest: " + plant.getCoolDown());
+                        }
+                    } else if (order.compareToIgnoreCase("select") == 0) {
+                        String name = scanner.nextLine();
+                        selectPlant(name);
+                    } else if (order.compareToIgnoreCase("plant") == 0) {
+                        int y = scanner.nextInt();
+                        int x = scanner.nextInt();
+                        scanner.nextLine();
+                        plantPlant("day", y, x);
+
+                    } else if (order.compareToIgnoreCase("remove") == 0) {
+                        int a, b;
+                        a = scanner.nextInt();
+                        b = scanner.nextInt();
+                        scanner.nextLine();
+                        removePlant(a, b);
+                    } else if (order.compareToIgnoreCase("end turn") == 0) {
+                        turn++;
+                        if(turn % 2 == 1){
+                            System.out.println("zombie's turn");
+                        }
+                        else
+                            System.out.println("your turn");
+                        SecureRandom secureRandom = new SecureRandom();
+                        int j = secureRandom.nextInt(2);
+                        if (j == 0) {
+                            firstPlayer.setNumberOfSuns(firstPlayer.getNumberOfSuns() + getRandomNumberOfSuns());
+                        }
+                        if (checkWinnerForSingleWave(playGround)) {
+                            System.out.println("you won the wave");
+                            finishTurn[waveNum] = turn;
+                            if (waveNum == 3) {
+                                winner = firstPlayer;
+                                firstPlayer.setScore(firstPlayer.getNumberOfKilledZombies());
+                                winner.setCoins(winner.getCoins() + 10 * winner.getNumberOfKilledZombies());
+                                winner.setNumberOfZombiesKilledOverAll(winner.getNumberOfZombiesKilledOverAll() + winner.getNumberOfKilledZombies());
+                                System.out.println("game finished");
+                                Menu.mainMenuView();
+                                break;
+                            }
+                            break;
+                        }
+                        else if(!checkWinnerForSingleWave(playGround)){
+                            System.out.println("you lost the game");
+                            Menu.mainMenuView();
+                            break;
+                        }
+                        if (turn == startTurn[waveNum]) {
+                            System.out.println("wave began");
+                            int l = waveNum;
+                            startTurn[l] = turn;
+                            waveNum++;
+                            startTurn[waveNum] = finishTurn[l];
+                            startWave();
+                        }
+                    } else if (order.compareToIgnoreCase("show lawn") == 0) {
+                        showLawn(playGround);
+                    } else
+                        System.out.println("invalid command");
+                }
+            }
+        return null;
+
+    }
+
+    public WaterModeOfGame waterGame(int situation) {
+        setPlayGround ("water");
         firstPlayer.setNumberOfSuns (2);
         numberOfWaves = 3;
         int waveNum = 0;
@@ -101,7 +190,7 @@ public class Game {
                     int y = scanner.nextInt();
                     int x = scanner.nextInt();
                     scanner.nextLine();
-                    plantPlant(gameKind, y, x);
+                    plantPlant("water", y, x);
 
                 } else if (order.compareToIgnoreCase("remove") == 0) {
                     int a, b;
@@ -154,7 +243,7 @@ public class Game {
                     System.out.println("invalid command");
             }
         }
-
+        return null;
     }
 
     private void plantPlant(String gameKind, int y, int x) {
@@ -369,13 +458,14 @@ public class Game {
             return  null;
         }
     //}
-    private void railGame() {
+    public void railGame(String s) {
         SecureRandom rand = new SecureRandom ( );
         ArrayList<Plant> cards = new ArrayList<> ( );
         int plantNextTurn = 0;
         int zombieNextTurn = 0;
-        while (true) {
-            String order = scanner.nextLine ( );
+        String order = s;
+       // while (true) {
+          //  String order = scanner.nextLine ( );
             if (turn == plantNextTurn) {
                 randomCard (cards);
                 int randomNum = rand.nextInt (3) + 2;
@@ -389,7 +479,7 @@ public class Game {
                 int n = scanner.nextInt ( );
                 if (n > currentPlayer.getPlantHand ( ).size ( )) {
                     System.out.println ("Out of bound!");
-                    continue;
+                   // continue;
                 }
                 currentPlayer.setSelectedPlant (cards.get (n - 1));
                 currentPlayer.getPlantHand ( ).remove (cards.get (n - 1));
@@ -422,13 +512,13 @@ public class Game {
                     currentPlayer.setScore (currentPlayer.getNumberOfKilledZombies ( ));
                     System.out.println ("game finished");
                     Menu.mainMenuView ( );
-                    break;
+                   // break;
                 }
                 System.out.println ("Turn ended. New turn Started!");
             } else if (order.compareToIgnoreCase ("show lawn") == 0) {
                 showLawn (playGround);
             }
-        }
+       // }
     }
 
     private void attackCheck() {
@@ -604,14 +694,17 @@ public class Game {
 
     }
 
-    public void randomCard(ArrayList<Plant> cards) {
+    public String randomCard(ArrayList<Plant> cards) {
         SecureRandom rand = new SecureRandom ( );
         String[] plantLibrary = {"Cabbage-pult", "Cactus","CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};
         if (cards.size ( ) < 11) {
             int randomNum = rand.nextInt (20);
+            String name = plantLibrary[randomNum];
             currentPlayer.getPlantHand ( ).add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
-            cards.add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
+            cards.add (Shop.makeNewPlantByName (name));
+            return name;
         }
+        return null;
     }
 
     public void showLawn(PlayGround playGround) {

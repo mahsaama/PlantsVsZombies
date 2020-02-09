@@ -66,9 +66,9 @@ public class LoginMenuView {
         public void run() {
             Media duringGame= new Media (getClass().getClassLoader().getResource ("audio/02 Crazy Dave (Intro Theme).mp3").toExternalForm ());
             MediaPlayer wholePlayer = new MediaPlayer(duringGame);
-            wholePlayer.setVolume(0.05);
+            wholePlayer.setVolume(0.1);
             wholePlayer.play();
-            wholePlayer.seek(Duration.INDEFINITE);
+            wholePlayer.setOnEndOfMedia(() -> wholePlayer.seek(Duration.ZERO));
         }
     });
 

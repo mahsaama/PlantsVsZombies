@@ -101,6 +101,8 @@ public class ZombieModeOfGame {
         buyButton.setOpacity(0);
         
 
+
+
         checkMovements();
     }
 
