@@ -94,7 +94,7 @@ public class ZombieModeOfGame {
         zombiePlayRoot.getChildren().add(buyButton);
         zombiePlayRoot.getChildren().add(ok);
 
-        
+
 
         checkMovements();
     }
