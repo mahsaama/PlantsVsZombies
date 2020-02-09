@@ -1,7 +1,9 @@
 package Game;
 
+import Creature.Plant;
 import Creature.Zombie;
 import Menu.Menu;
+import Shop.Shop;
 import User.User;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -19,28 +21,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 
 public class ZombieModeOfGame {
     private int coin = 50;
     private ArrayList<Button> arrayOfButtons = new ArrayList<>();
+    private ArrayList<ImageView> arrayOfImageViews = new ArrayList<>();
     private User tempUser = Menu.getTempUser();
 
     private Game currentGame;
     private Group zombiePlayRoot;
     private Scene zombiePlayScene;
-    private GaussianBlur blur = new GaussianBlur();
 
     private Image back2Image = new Image("pics/bg4.jpg");
-    private ImageView back2ImageView = new ImageView(back2Image);
 
 
     private Image backImage = new Image("pics/frontyard.png");
     private ImageView backImageView = new ImageView(backImage);
     private Button menuButton = new Button("MENU");
     private Button buyButton = new Button("BUY");
-    private Button ok = new Button("OK");
+    private Button ok = new Button("PUT");
+    private Button done = new Button("DONE");
 
     private Text coinAmount = new Text("50");
 
@@ -55,15 +58,15 @@ public class ZombieModeOfGame {
     private ImageView putImageView = new ImageView(putImage);
     private ImageView coinImageView = new ImageView(coinImage);
 
-    Text target1 = new Text(1150, 120, "DRAG HERE");
+    Text target1 = new Text(1130, 90, "DRAG HERE");
     int tar1 = 0;
-    Text target2 = new Text(1150, 240, "DRAG HERE");
+    Text target2 = new Text(1130, 210, "DRAG HERE");
     int tar2 = 0;
-    Text target3 = new Text(1150, 360, "DRAG HERE");
+    Text target3 = new Text(1130, 320, "DRAG HERE");
     int tar3 = 0;
-    Text target4 = new Text(1150, 480, "DRAG HERE");
+    Text target4 = new Text(1130, 430, "DRAG HERE");
     int tar4 = 0;
-    Text target5 = new Text(1150, 600, "DRAG HERE");
+    Text target5 = new Text(1130, 530, "DRAG HERE");
     int tar5 = 0;
 
     private Media mouseClicked = new Media(getClass().getClassLoader().getResource("audio/Button-SoundBible.com-1420500901.mp3").toExternalForm());
@@ -84,15 +87,17 @@ public class ZombieModeOfGame {
 
         menuImageView.relocate(1100,650);
         menuButton.relocate(1100, 650);
-        buyImageView.relocate(1100, 50);
-        buyButton.relocate(1100, 50);
-        ok.relocate(10, 690);
-
+        buyImageView.relocate(100, 20);
+        buyButton.relocate(1100, 20);
+        ok.relocate(50, 620);
+        done.relocate(90, 620);
+//320
         zombiePlayRoot.getChildren().add(menuImageView);
         zombiePlayRoot.getChildren().add(menuButton);
         zombiePlayRoot.getChildren().add(buyImageView);
         zombiePlayRoot.getChildren().add(buyButton);
         zombiePlayRoot.getChildren().add(ok);
+        zombiePlayRoot.getChildren().add(done);
 
 
 
@@ -134,6 +139,7 @@ public class ZombieModeOfGame {
                 button.relocate(10, 10 + 80*i);
                 button.setPrefSize(100, 60);
                 arrayOfButtons.add(button);
+                arrayOfImageViews.add(buttonImageView);
 
                 zombiePlayRoot.getChildren().add(buttonImageView);
                 zombiePlayRoot.getChildren().add(button);
@@ -146,27 +152,91 @@ public class ZombieModeOfGame {
 
         }
 
+        ok.setOnMouseClicked(event -> {
+            zombiePlayRoot.getChildren().add(target1);
+            zombiePlayRoot.getChildren().add(target2);
+            zombiePlayRoot.getChildren().add(target3);
+            zombiePlayRoot.getChildren().add(target4);
+            zombiePlayRoot.getChildren().add(target5);
+        });
+
+        done.setOnMouseClicked(event -> {
+            SecureRandom rand = new SecureRandom ( );
+            for (int i = 0; i < 7; i++) {
+                int randInt1 = rand.nextInt (Shop.getPlantList ( ).size ( ));
+                Plant newRandPlant = Shop.makeNewPlantByName (Shop.getPlantList ( ).get (randInt1).getName ( ));
+                Image plantImage = new Image("pics/" + Shop.getPlantList ( ).get (randInt1).getName ( ) + ".jpg");
+                ImageView plantImageView = new ImageView(plantImage);
+                int randInt2 = rand.nextInt(5);
+                int randInt3 = rand.nextInt(3);
+                newRandPlant.setX(randInt2);
+                newRandPlant.setY(randInt3);
+                plantImageView.relocate(320 + randInt3 * 35, 590 - (4 - randInt2) * 120);
+                plantImageView.setFitWidth(80);
+                plantImageView.setFitHeight(40);
+                //TODO
+                //You can use a 2D array for it to detemine with boolean amount if there's a plant in it or not
 
 
-        putting(arrayOfButtons);
+                zombiePlayRoot.getChildren().add(plantImageView);
+            }
+        });
 
 
 
+        arrayOfButtons.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(0), 0);
+            }
+        });
+        arrayOfButtons.get(1).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(1), 1);
+
+            }
+        });
+        arrayOfButtons.get(2).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(2), 2);
+            }
+        });
+        arrayOfButtons.get(3).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(3), 3);
+            }
+        });
+        arrayOfButtons.get(4).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(4), 4);
+            }
+        });
+        arrayOfButtons.get(5).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(5), 5);
+            }
+        });
+        arrayOfButtons.get(6).setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                dragAndDrop(arrayOfButtons.get(6), 6);
+            }
+        });
 
     }
 
     private void dragAndDrop(Button button, int i){
+        Zombie zomb  = new Zombie();
             button.setOnDragDetected(event -> {
                 Dragboard db = button.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
                 content.putString("TEXT");
                 db.setContent(content);
-                zombiePlayRoot.getChildren().add(target1);
-                zombiePlayRoot.getChildren().add(target2);
-                zombiePlayRoot.getChildren().add(target3);
-                zombiePlayRoot.getChildren().add(target4);
-                zombiePlayRoot.getChildren().add(target5);
-
                 event.consume();
             });
             target1.setOnDragOver(event -> {
@@ -184,7 +254,6 @@ public class ZombieModeOfGame {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
-
                 event.consume();
             });
             target3.setOnDragOver(event -> {
@@ -193,7 +262,6 @@ public class ZombieModeOfGame {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
-
                 event.consume();
             });
             target4.setOnDragOver(event -> {
@@ -202,7 +270,6 @@ public class ZombieModeOfGame {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
-
                 event.consume();
             });
             target5.setOnDragOver(event -> {
@@ -211,7 +278,6 @@ public class ZombieModeOfGame {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
-
                 event.consume();
             });
             target1.setOnDragEntered(event -> {
@@ -220,7 +286,6 @@ public class ZombieModeOfGame {
                         event.getDragboard().hasString()) {
                     target1.setFill(Color.GREEN);
                 }
-
                 event.consume();
             });
             target2.setOnDragEntered(event -> {
@@ -229,7 +294,6 @@ public class ZombieModeOfGame {
                         event.getDragboard().hasString()) {
                     target2.setFill(Color.GREEN);
                 }
-
                 event.consume();
             });
             target3.setOnDragEntered(event -> {
@@ -294,19 +358,27 @@ public class ZombieModeOfGame {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    if(tar1 == 2){
-                        target1.setText("");
-                    }else {
+                    if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
                         Image image = new Image("pics/" + button.getText() + ".jpg");
                         ImageView imageView = new ImageView(image);
-                        imageView.relocate(target1.getX() - tar1*5, target1.getY());
+                        imageView.relocate(target1.getX() - tar1*10 - 30, target1.getY() );
+                        imageView.setFitHeight(80);
+                        imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(0);
                         tempUser.getZombieHand().get(i).setY(18);
+                        tempUser.getZombieHand().remove(i);
+                        arrayOfImageViews.get(i).setOpacity(0);
+                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
 
                         tar1++;
+                        if(tar1 == 2){
+                            target1.setText("");
+                        }
+
+                        success = true;
                     }
-                    success = true;
+
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
@@ -319,19 +391,27 @@ public class ZombieModeOfGame {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    if(tar2 == 2){
-                        target2.setText("");
-                    }else {
+                    if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
                         Image image = new Image("pics/" + button.getText() + ".jpg");
                         ImageView imageView = new ImageView(image);
-                        imageView.relocate(target2.getX() - tar2*5, target2.getY());
+                        imageView.relocate(target2.getX() - tar2*10 - 30, target2.getY() );
+                        imageView.setFitHeight(80);
+                        imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(1);
                         tempUser.getZombieHand().get(i).setY(18);
+                        tempUser.getZombieHand().remove(i);
+                        arrayOfImageViews.get(i).setOpacity(0);
+                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
 
                         tar2++;
+                        if(tar2 == 2){
+                            target2.setText("");
+                        }
+
+                        success = true;
                     }
-                    success = true;
+
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
@@ -344,19 +424,27 @@ public class ZombieModeOfGame {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    if(tar3 == 2){
-                        target3.setText("");
-                    }else {
+                    if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
                         Image image = new Image("pics/" + button.getText() + ".jpg");
                         ImageView imageView = new ImageView(image);
-                        imageView.relocate(target3.getX() - tar3*5, target3.getY());
+                        imageView.relocate(target3.getX() - tar3*10 - 30, target3.getY());
+                        imageView.setFitHeight(80);
+                        imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(2);
                         tempUser.getZombieHand().get(i).setY(18);
+                        tempUser.getZombieHand().remove(i);
+                        arrayOfImageViews.get(i).setOpacity(0);
+                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
 
                         tar3++;
+                        if(tar3 == 2){
+                            target3.setText("");
+                        }
+
+                        success = true;
                     }
-                    success = true;
+
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
@@ -369,19 +457,27 @@ public class ZombieModeOfGame {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    if(tar4 == 2){
-                        target4.setText("");
-                    }else {
+                    if(Shop.makeNewZombieByName(button.getText()).getLife() * 10 <= coin){
                         Image image = new Image("pics/" + button.getText() + ".jpg");
                         ImageView imageView = new ImageView(image);
-                        imageView.relocate(target4.getX() - tar4*5, target4.getY());
+                        imageView.relocate(target4.getX() - tar4*10- 30, target4.getY());
+                        imageView.setFitHeight(80);
+                        imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(3);
                         tempUser.getZombieHand().get(i).setY(18);
+                        tempUser.getZombieHand().remove(i);
+                        arrayOfImageViews.get(i).setOpacity(0);
+                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
 
                         tar4++;
+                        if(tar4 == 2){
+                            target4.setText("");
+                        }
+
+                        success = true;
                     }
-                    success = true;
+
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
@@ -394,18 +490,25 @@ public class ZombieModeOfGame {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    if(tar5 == 2){
-                        target5.setText("");
-                    }else{
+
+
                         Image image = new Image("pics/" + button.getText() + ".jpg");
                         ImageView imageView = new ImageView(image);
-                        imageView.relocate(target5.getX() - tar5*5, target5.getY());
+                        imageView.relocate(target5.getX() - tar5*10 - 30, target5.getY());
+                        imageView.setFitHeight(80);
+                        imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(4);
                         tempUser.getZombieHand().get(i).setY(18);
+                        tempUser.getZombieHand().remove(i);
+                        arrayOfImageViews.get(i).setOpacity(0);
+                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
 
-                        tar5++;
-                    }
+                    tar5++;
+                        if(tar5 == 2){
+                            target5.setText("");
+                        }
+
                     success = true;
                 }
                 /* let the source know whether the string was successfully
@@ -417,70 +520,6 @@ public class ZombieModeOfGame {
 
             button.setOnDragDone(Event::consume);
 
-
     }
-    public void putting(ArrayList<Button> buttons){
-
-        while(true){
-            arrayOfButtons.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(0), 0);
-
-                }
-            });
-            arrayOfButtons.get(1).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(1), 1);
-
-                }
-            });
-            arrayOfButtons.get(2).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(2), 2);
-
-                }
-            });
-            arrayOfButtons.get(3).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(3), 3);
-
-                }
-            });
-            arrayOfButtons.get(4).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(4), 4);
-
-                }
-            });
-            arrayOfButtons.get(5).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(5), 5);
-
-                }
-            });
-            arrayOfButtons.get(6).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    dragAndDrop(arrayOfButtons.get(6), 6);
-
-                }
-            });
-
-            ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    return;
-                }
-            });
-
-        }
-    }
-
 
 }
