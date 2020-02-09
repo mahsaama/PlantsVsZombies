@@ -99,7 +99,7 @@ public class ZombieModeOfGame {
         zombiePlayRoot.getChildren().add(ok);
         zombiePlayRoot.getChildren().add(done);
 
-        
+
 
         checkMovements();
     }
