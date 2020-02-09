@@ -28,7 +28,6 @@ public class DayModeOfGame {
     private ArrayList<Button> arrayOfButtons = new ArrayList<>();
     private ArrayList<ImageView> arrayOfImageViews = new ArrayList<>();
     private User tempUser = Menu.getTempUser();
-
     private Game currentGame;
     private Group dayPlayRoot;
     private Scene dayPlayScene;
@@ -88,6 +87,7 @@ public class DayModeOfGame {
         dayPlayRoot.getChildren().add(ok);
         dayPlayRoot.getChildren().add(done);
 
+        checkMovements();
     }
 
 
@@ -108,10 +108,10 @@ public class DayModeOfGame {
 
         });
 
-        for(int i = 0; i < tempUser.getZombieHand().size(); i++){
+        for(int i = 0; i < tempUser.getPlantHand ().size(); i++){
             try {
-                Button button = new Button(tempUser.getZombieHand().get(i).getName());
-                Image buttonImage = new Image("pics/" + tempUser.getZombieHand().get(i).getName() + ".jpg");
+                Button button = new Button(tempUser.getPlantHand ().get(i).getName());
+                Image buttonImage = new Image("pics/cards/" +tempUser.getPlantHand ().get(i).getName() + ".jpg");
                 ImageView buttonImageView = new ImageView(buttonImage);
                 buttonImageView.setFitWidth(100);
                 buttonImageView.setFitHeight(60);
@@ -145,22 +145,22 @@ public class DayModeOfGame {
         done.setOnMouseClicked(event -> {
             SecureRandom rand = new SecureRandom ( );
             for (int i = 0; i < 7; i++) {
-                int randInt1 = rand.nextInt (Shop.getPlantList ( ).size ( ));
-                Plant newRandPlant = Shop.makeNewPlantByName (Shop.getPlantList ( ).get (randInt1).getName ( ));
-                Image plantImage = new Image("pics/" + Shop.getPlantList ( ).get (randInt1).getName ( ) + ".jpg");
-                ImageView plantImageView = new ImageView(plantImage);
+                int randInt1 = rand.nextInt (Shop.getZombieList ( ).size ( ));
+                Zombie newRandZombie = Shop.makeNewZombieByName (Shop.getZombieList ( ).get (randInt1).getName ( ));
+                Image zombieImage = new Image("pics/" + Shop.getZombieList ( ).get (randInt1).getName ( ) + ".jpg");
+                ImageView zombieImageView = new ImageView(zombieImage);
                 int randInt2 = rand.nextInt(5);
                 int randInt3 = rand.nextInt(3);
-                newRandPlant.setX(randInt2);
-                newRandPlant.setY(randInt3);
-                plantImageView.relocate(320 + randInt3 * 35, 590 - (4 - randInt2) * 120);
-                plantImageView.setFitWidth(80);
-                plantImageView.setFitHeight(40);
+                newRandZombie.setX(randInt2);
+                newRandZombie.setY(randInt3);
+                zombieImageView.relocate( 1000  -  randInt3 * 35, 590 - (4 - randInt2) * 120);
+                zombieImageView.setFitWidth(80);
+                zombieImageView.setFitHeight(40);
                 //TODO
                 //You can use a 2D array for it to detemine with boolean amount if there's a plant in it or not
 
 
-                dayPlayRoot.getChildren().add(plantImageView);
+                dayPlayRoot.getChildren().add(zombieImageView);
             }
         });
 
