@@ -133,9 +133,9 @@ public class DayModeOfGame {
                 ImageView zombieImageView = new ImageView(zombieImage);
                 int randInt2 = rand.nextInt(5);
                 int randInt3 = rand.nextInt(3);
-                newRandZombie.setX(randInt2);
+                newRandZombie.setX(1050);
                 newRandZombie.setY(randInt3);
-                zombieImageView.relocate( 1000  -  randInt3 * 35, 590 - (4 - randInt2) * 120);
+                zombieImageView.relocate( 1050  , 590 - (4 - randInt2) * 120);
                 zombieImageView.setFitWidth(80);
                 zombieImageView.setFitHeight(40);
                 //TODO
