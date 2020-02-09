@@ -362,10 +362,7 @@ public class Menu extends Application {
                        // break;
                     }
                 }
-            //} else
-               // System.out.println("invalid command");
-            //order = scanner.nextLine();
-             }
+            }
 
     }
 
@@ -466,5 +463,7 @@ public class Menu extends Application {
     public static ArrayList<User> getUsers() {
         return users;
     }
+
+
 
 }

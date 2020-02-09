@@ -5,9 +5,9 @@
   "speed": 2,
   "guard": true,
   "guardLife": 2,
-  "car": null,
-  "hat": null,
-  "lifeDec": null,
-  "remainTurns": null,
+  "car": false,
+  "hat": false,
+  "lifeDec": 1,
+  "remainTurns": 0,
   "price": 60
 }

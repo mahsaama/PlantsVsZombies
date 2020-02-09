@@ -2,6 +2,8 @@ package Creature;
 
 import Map.PlayGround;
 
+import java.util.ArrayList;
+
 public class Zombie {
     private String name;
     private int x;
@@ -12,11 +14,11 @@ public class Zombie {
     private int currentSpeed = speed;
     private boolean hat;
     private int lifeDec;
-    private int remainTurns;
     private int guardLife;
     private boolean guard;
     private boolean car;
     private int price;
+    private int remainTurns;
     private int stoppedTurns = 0;
     private int DuckOrLadder = 0;
 
@@ -27,10 +29,11 @@ public class Zombie {
     public void setCurrentSpeed(int currentSpeed) {
         this.currentSpeed = currentSpeed;
     }
-    public void guardLifeDec(int amount){
-        if (guardLife - amount > 0){
+
+    public void guardLifeDec(int amount) {
+        if (guardLife - amount > 0) {
             guardLife -= amount;
-        }else{
+        } else {
             guard = false;
         }
     }
@@ -43,13 +46,18 @@ public class Zombie {
         this.hat = hat;
     }
 
-    public void setDuckOrLadder(int situation){ this.DuckOrLadder = situation; }
+    public void setDuckOrLadder(int situation) {
+        this.DuckOrLadder = situation;
+    }
 
     public void setGuard(boolean guard) {
         this.guard = guard;
     }
 
-    public int getDuckOrLadder(){ return DuckOrLadder; }
+
+    public int getDuckOrLadder() {
+        return DuckOrLadder;
+    }
 
     public int getX() {
         return x;
@@ -107,10 +115,6 @@ public class Zombie {
         return lifeDec;
     }
 
-    public int getRemainTurns() {
-        return remainTurns;
-    }
-
     public int getGuardLife() {
         return guardLife;
     }
@@ -123,38 +127,53 @@ public class Zombie {
         return car;
     }
 
-    public String attack(PlayGround playGround) {
+    public ArrayList<String> attack(PlayGround playGround) {
+        ArrayList<String> nameOfPlant = new ArrayList<>();
         Plant plant = playGround.getCells()[x][y].getPlantContent().get(playGround.getCells()[x][y].getPlantContent().size() - 1);
-        if (plant.getName().equals("CherryBomb") || plant.getName().equals("Jalapeno")
-                || name == "PogoZombie") {
-            return "not";
-        } else if (name.equals("Zomboni") || name.equals("CatapultZombie")) {
-            if (car) {
-                String nameOfPlant = plant.name;
-                playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
-                return nameOfPlant;
-            }
-        } else if (name.equals("Giga-gargantuar")) {
-            String nameOfPlant = plant.name;
+        if (name.equals("Giga-gargantuar")) {
+            nameOfPlant.add(plant.name);
             playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
             return nameOfPlant;
         } else if (name.equals("PogoZombie")) {
             y--;
-
-            return "not";
-        } else if (name.equals("BungeeZombie")) {
-            return "not";
+            nameOfPlant.add("not");
+            return nameOfPlant;
         }
-        if (plant.getLife() > 0) {
+        if (car) {
+            for (int i = 18; i <= 0; i--) {
+                playGround.getCells()[x][i].getPlantContent().remove(playGround.getCells()[x][i].getPlantContent().size() - 1);
+                nameOfPlant.add(plant.name);
+            }
+            if (name.equals("Zomboni")) {
+                name = "Zombie";
+                y = 18;
+                life = 2;
+                speed = 2;
+                currentSpeed = speed;
+                car = false;
+                price = 60;
+                return nameOfPlant;
+            }
+            return nameOfPlant;
+        }
+        if (name.equals("BungeeZombie")) {
+            if (remainTurns == 0){
+                playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
+                nameOfPlant.add(plant.name);
+                return nameOfPlant;
+            }else{
+                remainTurns--;
+            }
+        }
+        if (lifeDec > 0){
             plant.setLife();
             if (plant.getLife() == 0) {
-                String nameOfPlant = plant.name;
+                nameOfPlant.add(plant.name);
                 playGround.getCells()[x][y].getPlantContent().remove(playGround.getCells()[x][y].getPlantContent().size() - 1);
                 return nameOfPlant;
             }
         }
-        return "not";
+        nameOfPlant.add("not");
+        return nameOfPlant;
     }
-
-
 }
