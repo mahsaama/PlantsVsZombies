@@ -12,10 +12,13 @@ import User.Player;
 import User.User;
 import javafx.scene.control.Button;
 
+import java.awt.*;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Game {
     private String typeOfGame;
@@ -24,9 +27,13 @@ public class Game {
     private int numberOfWaves = 0;
     private Player winner;
     private Scanner scanner = new Scanner (System.in);
-    private Player currentPlayer;
-    private int turn = 0;
+    Player currentPlayer;
+    int turn = 0;
     public PlayGround playGround = new PlayGround ( );
+
+    public User getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     public PlayGround getPlayGround() {
         return playGround;
@@ -65,7 +72,7 @@ public class Game {
         if (typeOfGame.compareTo ("PvP") == 0) {
             PvPGame ( );
         } else if (typeOfGame.compareTo ("Rail") == 0) {
-            railGame( );
+           // railGame( );
         } else if (typeOfGame.compareToIgnoreCase ("Zombie") == 0) {
             zombieGame ("", situation );
         } else if (typeOfGame.compareToIgnoreCase ("Day") == 0) {
@@ -451,13 +458,14 @@ public class Game {
             return  null;
         }
     //}
-    private void railGame() {
+    public void railGame(String s) {
         SecureRandom rand = new SecureRandom ( );
         ArrayList<Plant> cards = new ArrayList<> ( );
         int plantNextTurn = 0;
         int zombieNextTurn = 0;
-        while (true) {
-            String order = scanner.nextLine ( );
+        String order = s;
+       // while (true) {
+          //  String order = scanner.nextLine ( );
             if (turn == plantNextTurn) {
                 randomCard (cards);
                 int randomNum = rand.nextInt (3) + 2;
@@ -471,7 +479,7 @@ public class Game {
                 int n = scanner.nextInt ( );
                 if (n > currentPlayer.getPlantHand ( ).size ( )) {
                     System.out.println ("Out of bound!");
-                    continue;
+                   // continue;
                 }
                 currentPlayer.setSelectedPlant (cards.get (n - 1));
                 currentPlayer.getPlantHand ( ).remove (cards.get (n - 1));
@@ -504,13 +512,13 @@ public class Game {
                     currentPlayer.setScore (currentPlayer.getNumberOfKilledZombies ( ));
                     System.out.println ("game finished");
                     Menu.mainMenuView ( );
-                    break;
+                   // break;
                 }
                 System.out.println ("Turn ended. New turn Started!");
             } else if (order.compareToIgnoreCase ("show lawn") == 0) {
                 showLawn (playGround);
             }
-        }
+       // }
     }
 
     private void attackCheck() {
@@ -691,8 +699,9 @@ public class Game {
         String[] plantLibrary = {"Cabbage-pult", "Cactus","CherryBomb", "Explode-o-nut", "GatlingPea", "Jalapeno", "Kernel-pult", "LilyPad", "Magnet-Shroom", "Melon-pult", "PeaShooter", "PotatoMine", "Repeater", "Scaredy-shroom", "SnowPea", "Tall-nut", "TangleKelp", "Threepeater", "Wall-nut", "WinterMelon"};
         if (cards.size ( ) < 11) {
             int randomNum = rand.nextInt (20);
+            String name = plantLibrary[randomNum];
             currentPlayer.getPlantHand ( ).add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
-            cards.add (Shop.makeNewPlantByName (plantLibrary[randomNum]));
+            cards.add (Shop.makeNewPlantByName (name));
         }
     }
 
