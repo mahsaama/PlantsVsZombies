@@ -375,7 +375,8 @@ public class LoginMenuView {
                                         str += " ";
                                         str += pass.getText();
                                         Menu.setLoginUser (user);
-//                                        Menu.loginMenu(str);
+                                        Menu.getUsers ().add (user);
+                                        Menu.loginMenu(str);
                                         Menu.setLoginPlayer (new Player (user));
                                     } else {
                                         taken.setText("invalid password!");

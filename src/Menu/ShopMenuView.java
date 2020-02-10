@@ -545,29 +545,37 @@ public class ShopMenuView {
                         taken.relocate(450, 250);
                         shopMenuRoot.getChildren().add(taken);
                         Boolean found = false;
-                        for(Plant plant : Shop.getPlantList()){
-                            if(plant.getName ().compareTo(cardName.getText()) == 0){
+                        for(int i = 0 ; i <  Shop.getPlantList().size (); i++){
+                            if(Shop.getPlantList ().get (i).getName ().compareTo(cardName.getText()) == 0){
                                 found = true;
-                                if(Menu.getLoginUser().getCoins () >= plant.getPrice ()){
-                                    str += " "+cardName.getText();
-                                    taken.setText("you bought this plant successfully");
-                                    Menu.shopMenu(str);
+                                if(Shop.getPlantListNumbers ().get (i) != 0) {
+                                    if (Menu.getLoginUser ( ).getCoins ( ) >= Shop.getPlantList ( ).get (i).getPrice ( )) {
+                                        str += " " + cardName.getText ( );
+                                        taken.setText ("you bought this plant successfully");
+                                        Shop.getPlantListNumbers ().set (i,Shop.getPlantListNumbers ().get (i) - 1);
+                                        Menu.shopMenu (str);
+                                    } else
+                                        taken.setText ("not enough money");
                                 }
                                 else
-                                    taken.setText ("not enough money" );
+                                    taken.setText ("not available");
                             }
                         }
                         if(!found){
-                            for(Zombie zombie : Shop.getZombieList()){
-                                if(zombie.getName ().compareTo (cardName.getText()) == 0){
+                            for(int i = 0 ; i <  Shop.getZombieList ().size (); i++){
+                                if(Shop.getZombieList ().get (i).getName ().compareTo (cardName.getText()) == 0){
                                     found = true;
-                                    if(Menu.getLoginUser().getCoins () >= zombie.getPrice ()){
-                                        str += " "+cardName.getText();
-                                        taken.setText("you bought this zombie successfully");
-                                        Menu.shopMenu(str);
+                                    if(Shop.getZombieListNumbers ().get (i) != 0) {
+                                        if (Menu.getLoginUser ( ).getCoins ( ) >= Shop.getZombieList ( ).get (i).getPrice ( )) {
+                                            str += " " + cardName.getText ( );
+                                            taken.setText ("you bought this zombie successfully");
+                                            Shop.getZombieListNumbers ().set (i,Shop.getZombieListNumbers ().get (i) - 1);
+                                            Menu.shopMenu (str);
+                                        } else
+                                            taken.setText ("not enough money");
                                     }
                                     else
-                                        taken.setText("not enough money" );
+                                        System.out.println ("not available" );
 
                                 }
                             }

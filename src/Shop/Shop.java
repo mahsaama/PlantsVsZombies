@@ -13,6 +13,25 @@ public class Shop {
     private static ArrayList<Zombie> zombieList = new ArrayList<>();
     private static ArrayList<Plant> plantList = new ArrayList<>();
 
+    public static void setPlantListNumbers(ArrayList<Integer> plantListNumbers) {
+        Shop.plantListNumbers = plantListNumbers;
+    }
+
+    public static void setZombieListNumbers(ArrayList<Integer> zombieListNumbers) {
+        Shop.zombieListNumbers = zombieListNumbers;
+    }
+
+    private static ArrayList<Integer> plantListNumbers = new ArrayList<> ();
+
+    public static ArrayList<Integer> getPlantListNumbers() {
+        return plantListNumbers;
+    }
+
+    public static ArrayList<Integer> getZombieListNumbers() {
+        return zombieListNumbers;
+    }
+
+    private static ArrayList<Integer> zombieListNumbers = new ArrayList<> ();
 
     public enum TypeOfFiles {
         ZombieCard,
@@ -40,10 +59,12 @@ public class Shop {
             switch (type) {
                 case "PlantCard":
                     Plant plant = gson.fromJson (reader, Plant.class);
+                    plantListNumbers.add (3);
                     plantList.add (plant);
                     break;
                 case "ZombieCard":
                     Zombie zombie = gson.fromJson (reader, Zombie.class);
+                    zombieListNumbers.add (3);
                     zombieList.add (zombie);
                     break;
             }
