@@ -143,8 +143,28 @@ public class Plant{
         return zombie;
     }
 
-    public Plant(int plantTurn) {
-        this.plantTurn = plantTurn;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBulletType(String bulletType) {
+        this.bulletType = bulletType;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public void setCoolDown(int coolDown) {
+        this.coolDown = coolDown;
+    }
+
+    public void setNumberOfSuns(int numberOfSuns) {
+        this.numberOfSuns = numberOfSuns;
+    }
+
+    public void setHurtOfBullet(int hurtOfBullet) {
+        this.hurtOfBullet = hurtOfBullet;
     }
 
     public void attack(PlayGround playGround, int turn) {

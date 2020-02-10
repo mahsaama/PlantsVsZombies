@@ -54,6 +54,17 @@ public class Zombie {
         this.guard = guard;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setCar(boolean car) {
+        this.car = car;
+    }
 
     public int getDuckOrLadder() {
         return DuckOrLadder;

@@ -2,6 +2,8 @@ package Menu;
 import Creature.Plant;
 import Creature.Zombie;
 import Shop.Shop;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -23,6 +25,8 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ShopMenuView {
     private Group shopMenuRoot;
@@ -38,14 +42,14 @@ public class ShopMenuView {
     private Button buyButton = new Button("Buy");
     private Button moneyButton = new Button("Money");
     private Button exitButton = new Button("Exit");
-    private Button helpButton = new Button("Help");
+    private Button customCardButton = new Button("Custom Card");
 
     private Label showShopLabel = new Label("Show shop");
     private Label collectionLabel = new Label("Collection");
     private Label buyLabel = new Label("Buy");
     private Label moneyLabel = new Label("Money");
     private Label exitLabel = new Label("Exit");
-    private Label helpLabel = new Label("Help");
+    private Label customCardLabel = new Label("Custom Card");
 
     private final int buttonSizeWidth = 120;
     private final int buttonSizeHeight = 120;
@@ -62,8 +66,8 @@ public class ShopMenuView {
     private ImageView moneyButtonImageView1 = new ImageView(buttonImage1);
     private ImageView exitButtonImageView = new ImageView(buttonImage);
     private ImageView exitButtonImageView1 = new ImageView(buttonImage1);
-    private ImageView helpButtonImageView = new ImageView(buttonImage);
-    private ImageView helpButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView customCardButtonImageView = new ImageView(buttonImage);
+    private ImageView customCardButtonImageView1 = new ImageView(buttonImage1);
     private ImageView backgroundImageView = new ImageView(mainMenuBackgroundImage);
 
     private Media mouseClicked = new Media(getClass ( ).getClassLoader ().getResource ("audio/Button-SoundBible.com-1420500901.mp3" ).toExternalForm ());
@@ -137,15 +141,16 @@ public class ShopMenuView {
         shopMenuRoot.getChildren().add(exitButton);
 
         //help
-        setImageView(helpButtonImageView, 5);
-        setImageView(helpButtonImageView1, 5);
-        helpButtonImageView1.setOpacity(0);
-        setButton(helpButton, 5);
-        setLabel(helpLabel, 5);
-        shopMenuRoot.getChildren().add(helpButtonImageView);
-        shopMenuRoot.getChildren().add(helpButtonImageView1);
-        shopMenuRoot.getChildren().add(helpLabel);
-        shopMenuRoot.getChildren().add(helpButton);
+        setImageView(customCardButtonImageView, 5);
+        setImageView(customCardButtonImageView1, 5);
+        customCardButtonImageView1.setOpacity(0);
+        setButton(customCardButton, 5);
+        setLabel(customCardLabel, 5);
+        shopMenuRoot.getChildren().add(customCardButtonImageView);
+        shopMenuRoot.getChildren().add(customCardButtonImageView1);
+        shopMenuRoot.getChildren().add(customCardLabel);
+        shopMenuRoot.getChildren().add(customCardButton);
+
 
         checkMovements();
 
@@ -280,28 +285,28 @@ public class ShopMenuView {
             }
         });
 
-        helpButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        customCardButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
                 enteredPlayer.play();
                 enteredPlayer.seek(Duration.ZERO);
-                if (helpButtonImageView.getOpacity() == 100)
-                    helpButtonImageView.setOpacity(0);
-                if (helpButtonImageView1.getOpacity() == 0)
-                    helpButtonImageView1.setOpacity(100);
+                if (customCardButtonImageView.getOpacity() == 100)
+                    customCardButtonImageView.setOpacity(0);
+                if (customCardButtonImageView1.getOpacity() == 0)
+                    customCardButtonImageView1.setOpacity(100);
             }
         });
 
 
-        helpButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+        customCardButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                if (helpButtonImageView1.getOpacity() == 100)
-                    helpButtonImageView1.setOpacity(0);
-                if (helpButtonImageView.getOpacity() == 0)
-                    helpButtonImageView.setOpacity(100);
+                if (customCardButtonImageView1.getOpacity() == 100)
+                    customCardButtonImageView1.setOpacity(0);
+                if (customCardButtonImageView.getOpacity() == 0)
+                    customCardButtonImageView.setOpacity(100);
             }
         });
 
@@ -356,7 +361,7 @@ public class ShopMenuView {
         });
 
 
-        helpButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+        customCardButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
@@ -374,22 +379,22 @@ public class ShopMenuView {
             buttonImageView.setX( 300+ n*200);
             buttonImageView.setY(50);
         }
-        else if (n>1 && n<4){
+        else if (n<4){
             buttonImageView.setFitWidth(buttonSizeWidth);
             buttonImageView.setFitHeight(buttonSizeHeight);
             buttonImageView.setX(400 + (n-2)*200);
             buttonImageView.setY(200);
         }
-        else if (n>3 && n<6){
+        else if (n<6){
             buttonImageView.setFitWidth(buttonSizeWidth);
             buttonImageView.setFitHeight(buttonSizeHeight);
             buttonImageView.setX(500 + (n-4)*200);
             buttonImageView.setY(350);
         }else{
-            buttonImageView.setFitWidth(100);
-            buttonImageView.setFitHeight(100);
-            buttonImageView.setX(340);
-            buttonImageView.setY(150);
+            buttonImageView.setFitWidth(buttonSizeWidth);
+            buttonImageView.setFitHeight(buttonSizeWidth);
+            buttonImageView.setX(500 + (n-6)*200);
+            buttonImageView.setY(500);
         }
 
     }
@@ -399,7 +404,7 @@ public class ShopMenuView {
         if (n < 2) {
             button.relocate(300 + 200 * n, 50);
         }
-        else if (n>1 && n<4){
+        else if (n<4){
             button.relocate(400 + 200 * (n-2), 200);
         }
         else{
@@ -414,7 +419,7 @@ public class ShopMenuView {
         if (n < 2) {
             label.relocate(330 + 200 * n, 120);
         }
-        else if (n>1 && n<4){
+        else if (n<4){
             label.relocate(430 + 200 * (n-2), 270);
         }
         else{
@@ -441,17 +446,220 @@ public class ShopMenuView {
             }
         };
         back.setOnAction(event);
-        Text taken = new Text("Help:\n" +
-                "1)Press show shop button to see the unboughten cards and their prices\n" +
-                "2)Press collection button to see the boughten cards\n" +
-                "3)Press buy button to buy card\n" +
-                "4)Press money button to show your money\n");
-        taken.setFont(Font.font(30));
-        taken.setFill(Color.WHITE);
-        taken.relocate(200, 100);
-        shopMenuRoot.getChildren().add(taken);
+
+        //Type
+        Button plantButton = new Button ("plant");
+        Button zombieButton = new Button("zombie");
+        shopMenuRoot.getChildren ().addAll (plantButton,zombieButton);
+        plantButton.relocate(500, 200);
+        zombieButton.relocate(500, 300);
+        plantButton.resize (100,60);
+        zombieButton.resize (100,60);
+        //if type = plant
+        plantButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+            @Override
+            public void handle(MouseEvent event) {
+                shopMenuRoot.getChildren ().removeAll (plantButton,zombieButton);
+                clickedPlayer.play ();
+                clickedPlayer.seek(Duration.ZERO);
+
+                //name
+                Label nameLabel = new Label("Insert name");
+                nameLabel.relocate(200, 100);
+                TextField name = new TextField();
+                name.relocate(480, 350);
+                nameLabel.setFont(Font.font(20));
+                nameLabel.setLabelFor(name);
+                nameLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(name, nameLabel);
+                name.setPrefSize(200, 40);
+
+
+                //sun
+                Label sunNumbersLabel = new Label("Insert Sun Numbers");
+                sunNumbersLabel.relocate(200, 100);
+                TextField sunNumbers = new TextField();
+                sunNumbers.relocate(480, 100);
+                sunNumbersLabel.setFont(Font.font(20));
+                sunNumbersLabel.setLabelFor(sunNumbers);
+                sunNumbersLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(sunNumbers, sunNumbersLabel);
+                sunNumbers.setPrefSize(200, 40);
+
+                //bullet type
+                Label bulletTypeLabel = new Label("Insert bullet type");
+                bulletTypeLabel.relocate(200, 150);
+                TextField bulletType = new TextField();
+                bulletType.relocate(480, 150);
+                bulletTypeLabel.setFont(Font.font(20));
+                bulletTypeLabel.setLabelFor(bulletType);
+                bulletTypeLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(bulletType, bulletTypeLabel);
+                bulletType.setPrefSize(200, 40);
+
+                //coolDown
+                Label coolDownLabel = new Label("Insert coolDown");
+                coolDownLabel.relocate(200, 200);
+                TextField coolDown = new TextField();
+                coolDown.relocate(480, 200);
+                coolDownLabel.setFont(Font.font(20));
+                coolDownLabel.setLabelFor(coolDown);
+                coolDownLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(coolDown, coolDownLabel);
+                coolDown.setPrefSize(200, 40);
+
+                //hurtOfBullet
+                Label hurtOfBulletLabel = new Label("Insert hurtOfBullet");
+                hurtOfBulletLabel.relocate(200, 250);
+                TextField hurtOfBullet = new TextField();
+                hurtOfBullet.relocate(480, 250);
+                hurtOfBulletLabel.setFont(Font.font(20));
+                hurtOfBulletLabel.setLabelFor(hurtOfBullet);
+                hurtOfBulletLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(hurtOfBullet, hurtOfBulletLabel);
+                hurtOfBullet.setPrefSize(200, 40);
+
+                //price
+                Label priceLabel = new Label("Insert Price");
+                priceLabel.relocate(200, 300);
+                TextField price = new TextField();
+                price.relocate(480, 300);
+                priceLabel.setFont(Font.font(20));
+                priceLabel.setLabelFor(price);
+                priceLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(price, priceLabel);
+                price.setPrefSize(200, 40);
+
+                Plant plant = new Plant();
+                plant.setName(name.getText ());
+                plant.setNumberOfSuns (Integer.parseInt (sunNumbers.getText ()));
+                plant.setBulletType (bulletType.getText ());
+                plant.setCoolDown (Integer.parseInt (coolDown.getText ()));
+                plant.setHurtOfBullet (Integer.parseInt (hurtOfBullet.getText ()));
+                plant.setPrice (Integer.parseInt (price.getText ()));
+                Shop.getPlantList ().add (plant);
+                Shop.getPlantListNumbers ().add (3);
+                //TODO pic
+                Gson gson = new GsonBuilder ().setPrettyPrinting ().create ();
+                FileWriter fileWriter = null;
+                try {
+                    fileWriter = new FileWriter ("PlantCard/" +plant.getName ()+".json");
+                    fileWriter.write (gson.toJson (plant));
+                    fileWriter.close ();
+                } catch (IOException e) {
+                    e.printStackTrace ( );
+                }
+            }
+        });
+
+
+        zombieButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+            @Override
+            public void handle(MouseEvent event) {
+                shopMenuRoot.getChildren ().removeAll (plantButton,zombieButton);
+                clickedPlayer.play ();
+                clickedPlayer.seek(Duration.ZERO);
+
+                //name
+                Label nameLabel = new Label("Insert name");
+                nameLabel.relocate(200, 100);
+                TextField name = new TextField();
+                name.relocate(480, 350);
+                nameLabel.setFont(Font.font(20));
+                nameLabel.setLabelFor(name);
+                nameLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(name, nameLabel);
+                name.setPrefSize(200, 40);
+
+
+                //life
+                Label lifeLabel = new Label("Insert life");
+                lifeLabel.relocate(200, 100);
+                TextField life = new TextField();
+                life.relocate(480, 100);
+                lifeLabel.setFont(Font.font(20));
+                lifeLabel.setLabelFor(life);
+                lifeLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(life, lifeLabel);
+                life.setPrefSize(200, 40);
+
+                //speed
+                Label speedLabel = new Label("Insert speed");
+                speedLabel.relocate(200, 150);
+                TextField speed = new TextField();
+                speed.relocate(480, 150);
+                speedLabel.setFont(Font.font(20));
+                speedLabel.setLabelFor(speed);
+                speedLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(speed, speedLabel);
+                speed.setPrefSize(200, 40);
+
+                //car
+                Label carLabel = new Label("Insert car");
+                carLabel.relocate(200, 200);
+                TextField car = new TextField();
+                car.relocate(480, 200);
+                carLabel.setFont(Font.font(20));
+                carLabel.setLabelFor(car);
+                carLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(car, carLabel);
+                car.setPrefSize(200, 40);
+
+                //hat
+                Label hatLabel = new Label("Insert hat");
+                hatLabel.relocate(200, 250);
+                TextField hat = new TextField();
+                hat.relocate(480, 250);
+                hatLabel.setFont(Font.font(20));
+                hatLabel.setLabelFor(hat);
+                hatLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(hat, hatLabel);
+                hat.setPrefSize(200, 40);
+
+                //price
+                Label priceLabel = new Label("Insert Price");
+                priceLabel.relocate(200, 300);
+                TextField price = new TextField();
+                price.relocate(480, 300);
+                priceLabel.setFont(Font.font(20));
+                priceLabel.setLabelFor(price);
+                priceLabel.setTextFill(Color.BLACK);
+                shopMenuRoot.getChildren().addAll(price, priceLabel);
+                price.setPrefSize(200, 40);
+
+                Zombie zombie = new Zombie ();
+                zombie.setName(name.getText ());
+                zombie.setLife (Integer.parseInt (life.getText ()));
+                zombie.setSpeed (Integer.parseInt (speed.getText ()));
+                if(speed.getText ().compareToIgnoreCase ("false") == 0){
+                    zombie.setCar (false);
+                }
+                else
+                    zombie.setCar (true);
+                if(hat.getText ().compareToIgnoreCase ("false") == 0){
+                    zombie.setHat (false);
+                }
+                else
+                    zombie.setHat (true);
+                zombie.setPrice (Integer.parseInt (price.getText ()));
+                Shop.getZombieList ().add (zombie);
+                Shop.getZombieListNumbers ().add (3);
+                //TODO pic
+                Gson gson = new GsonBuilder ().setPrettyPrinting ().create ();
+                FileWriter fileWriter = null;
+                try {
+                    fileWriter = new FileWriter ("ZombieCard/" +zombie.getName ()+".json");
+                    fileWriter.write (gson.toJson (zombie));
+                    fileWriter.close ();
+                } catch (IOException e) {
+                    e.printStackTrace ( );
+                }
+            }
+
+        });
         Menu.playMenu(s);
     }
+
 
     public void showShopButtonClicked() throws FileNotFoundException {
         Menu.shopMenu("showshop");
