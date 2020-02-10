@@ -697,6 +697,12 @@ public class ShopMenuView {
                     priceLabel.setTextFill(Color.WHITE);
                     priceLabel.setPrefSize(100, 30);
                     shopMenuRoot.getChildren().add(priceLabel);
+                    Label numberLabel = new Label(Shop.getPlantListNumbers ().get (i) + "");
+                    numberLabel.relocate(100 + (i % 8) * 150, 110 + (i / 8) * 140);
+                    numberLabel.setFont(Font.font(20));
+                    numberLabel.setTextFill(Color.WHITE);
+                    numberLabel.setPrefSize(100, 30);
+                    shopMenuRoot.getChildren().add(numberLabel);
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                     System.out.println(Shop.getPlantList().get(i).getName());
@@ -715,6 +721,12 @@ public class ShopMenuView {
                 priceLabel.setTextFill(Color.WHITE);
                 priceLabel.setPrefSize(100,30);
                 shopMenuRoot.getChildren().add(priceLabel);
+                Label numberLabel = new Label(Shop.getZombieListNumbers ().get(i -Shop.getPlantList().size())+"");
+                numberLabel.relocate(100+ (i%8)*150, 110 +(i/8)*140);
+                numberLabel.setFont(Font.font(20));
+                numberLabel.setTextFill(Color.WHITE);
+                numberLabel.setPrefSize(100,30);
+                shopMenuRoot.getChildren().add(numberLabel);
             }
         }
 
