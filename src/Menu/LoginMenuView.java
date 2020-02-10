@@ -1,5 +1,7 @@
 package Menu;
 import User.User;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -19,7 +21,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.File;
+import java.io.*;
 import java.util.Comparator;
 
 public class LoginMenuView {
@@ -357,31 +359,44 @@ public class LoginMenuView {
                         taken.relocate(100, 350);
                         loginMenuRoot.getChildren().add(taken);
                         if (s.equals("login")) {
-                            if (Menu.checkUsername(username.getText())) {
-                                if (Menu.checkPassword(username.getText(), pass.getText())) {
-                                    taken.setText("login successfully!");
-                                    str += "login ";
+                            try {
+                                if (checkUsername(username.getText())) {
+                                    if (Menu.checkPassword(username.getText(), pass.getText())) {
+                                        taken.setText("login successfully!");
+                                        str += "login ";
+                                        str += username.getText();
+                                        str += " ";
+                                        str += pass.getText();
+                                        Menu.loginMenu(str);
+                                    } else {
+                                        taken.setText("invalid password!");
+                                    }
+                                } else {
+                                    taken.setText("invalid username!");
+                                }
+                            } catch (IOException ex) {
+                                ex.printStackTrace ( );
+                            }
+
+                        } else {
+                            try {
+                                if (checkUsername(username.getText())) {
+                                    taken.setText("invalid username!");
+                                } else {
+                                    taken.setText("account <" + username.getText() + "> was created");
+                                    try {
+                                        accountsList (username.getText ());
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace ( );
+                                    }
+                                    str += "create account ";
                                     str += username.getText();
                                     str += " ";
                                     str += pass.getText();
                                     Menu.loginMenu(str);
-                                } else {
-                                    taken.setText("invalid password!");
                                 }
-                            } else {
-                                taken.setText("invalid username!");
-                            }
-
-                        } else {
-                            if (Menu.checkUsername(username.getText())) {
-                                taken.setText("invalid username!");
-                            } else {
-                                taken.setText("account <" + username.getText() + "> was created");
-                                str += "create account ";
-                                str += username.getText();
-                                str += " ";
-                                str += pass.getText();
-                                Menu.loginMenu(str);
+                            } catch (IOException ex) {
+                                ex.printStackTrace ( );
                             }
                         }
                     }
@@ -461,6 +476,40 @@ public class LoginMenuView {
         taken.relocate(100, 100);
         loginMenuRoot.getChildren().add(taken);
         Menu.loginMenu(s);
+    }
+
+    public static void saveAccountInfo(User user) throws IOException {
+        Gson gson = new GsonBuilder ().setPrettyPrinting ().create ();
+        FileWriter fileWriter = new FileWriter ("AccountInfo/" +user.getUsername ()+".json");
+        fileWriter.write (gson.toJson (user));
+        fileWriter.close ();
+    }
+
+    public static void accountsList(String username) throws IOException {
+        Gson gson = new GsonBuilder ().setPrettyPrinting ().create ();
+        BufferedWriter bufferedWriter = new BufferedWriter (new FileWriter ("AccountInfo/accountList.txt",true));
+        bufferedWriter.append (username);
+        bufferedWriter.newLine ();
+        bufferedWriter.flush ();
+        bufferedWriter.close ();
+    }
+
+    public static boolean checkUsername(String username) throws IOException {
+        BufferedReader reader;
+        reader = new BufferedReader (new FileReader ("AccountInfo/accountList.txt"));
+        String user = reader.readLine ();
+        while(user != null){
+            if(user.compareTo (username) == 0){
+                return true;
+            }
+            user = reader.readLine ();
+        }
+        try {
+            reader.close ();
+        } catch (IOException e) {
+            e.printStackTrace ( );
+        }
+        return false;
     }
 }
 

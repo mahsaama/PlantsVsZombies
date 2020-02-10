@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -62,7 +63,11 @@ public class Menu extends Application {
             if (array[0].compareToIgnoreCase("create") == 0 && array[1].compareToIgnoreCase("account") == 0) {
                 //String username = scanner.nextLine();
                 //String password = scanner.nextLine();
-                createAccount(array[2], array[3]);
+                try {
+                    createAccount(array[2], array[3]);
+                } catch (IOException e) {
+                    e.printStackTrace ( );
+                }
             } else if (array[0].compareToIgnoreCase("login") == 0) {
                 //String username = scanner.nextLine();
                // String password = scanner.nextLine();
@@ -104,10 +109,11 @@ public class Menu extends Application {
         return false;
     }
 
-    private static void createAccount(String username, String password) {
+    private static void createAccount(String username, String password) throws IOException {
         if (!checkUsername(username)) {
             User user = new User(username, password);
             users.add(user);
+            LoginMenuView.saveAccountInfo (user);
             System.out.println("account <" + user.getUsername() + "> was created");
             Shop.setFirstCards(user);
         } else
