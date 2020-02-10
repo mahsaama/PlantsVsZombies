@@ -40,11 +40,13 @@ public class LoginMenuView {
     private Button loginButton = new Button("login");
     private Button showLeaderBoardButton = new Button("show leaderboard");
     private Button helpButton = new Button("help");
+    private Button logoutButton = new Button("log out");
 
     private Label createAccountLabel = new Label("Create Account");
     private Label loginLabel = new Label("login");
     private Label showLeaderBoardLabel = new Label("leaderboard");
     private Label helpLabel = new Label("help");
+    private Label logoutLabel = new Label("log out");
 
     private final int buttonSizeWidth = 200;
     private final int buttonSizeHeight = 200;
@@ -59,6 +61,8 @@ public class LoginMenuView {
     private ImageView showLeaderBoardButtonImageView1 = new ImageView(buttonImage1);
     private ImageView helpButtonImageView = new ImageView(buttonImage);
     private ImageView helpButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView logoutButtonImageView = new ImageView(buttonImage);
+    private ImageView logoutButtonImageView1 = new ImageView(buttonImage1);
     private ImageView backgroundImageView = new ImageView(menuBackgroundImage);
 
     private Media mouseClicked = new Media(getClass ( ).getClassLoader ().getResource ("audio/Button-SoundBible.com-1420500901.mp3" ).toExternalForm ());
@@ -130,6 +134,17 @@ public class LoginMenuView {
         loginMenuRoot.getChildren().add(helpButtonImageView1);
         loginMenuRoot.getChildren().add(helpLabel);
         loginMenuRoot.getChildren().add(helpButton);
+
+        //logout button
+        setImageView(logoutButtonImageView, 4);
+        setImageView(logoutButtonImageView1, 4);
+        logoutButtonImageView1.setOpacity(0);
+        setButton(logoutButton, 4);
+        setLabel(logoutLabel, 4);
+        loginMenuRoot.getChildren().add(logoutButtonImageView);
+        loginMenuRoot.getChildren().add(logoutButtonImageView1);
+        loginMenuRoot.getChildren().add(logoutLabel);
+        loginMenuRoot.getChildren().add(logoutButton);
 
         checkMovements(input);
 
@@ -244,6 +259,31 @@ public class LoginMenuView {
             }
         });
 
+        logoutButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (logoutButtonImageView.getOpacity() == 100)
+                    logoutButtonImageView.setOpacity(0);
+                if (logoutButtonImageView1.getOpacity() == 0)
+                    logoutButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        logoutButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                if (logoutButtonImageView1.getOpacity() == 100)
+                    logoutButtonImageView1.setOpacity(0);
+                if (logoutButtonImageView.getOpacity() == 0)
+                    logoutButtonImageView.setOpacity(100);
+            }
+        });
+
         createAccountButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
@@ -259,6 +299,16 @@ public class LoginMenuView {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
                 createAccountOrLoginClicked("login");
+            }
+        });
+
+
+        logoutButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+            @Override
+            public void handle(MouseEvent event) {
+                clickedPlayer.play ();
+                clickedPlayer.seek(Duration.ZERO);
+                logoutButtonClicked ();
             }
         });
 
@@ -520,6 +570,17 @@ public class LoginMenuView {
             e.printStackTrace ( );
         }
         return false;
+    }
+
+
+    public static void logoutButtonClicked(){
+        try {
+            saveAccountInfo (Menu.getLoginUser ());
+        } catch (IOException e) {
+            e.printStackTrace ( );
+        }
+        Menu.setLoginPlayer (null);
+        Menu.loginMenuView ();
     }
 }
 

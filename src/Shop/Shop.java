@@ -131,10 +131,10 @@ public class Shop {
                     Plant newPlant = makeNewPlantByName (name);
                     user.getCollection ().getPlants ().add (newPlant);
                     user.setCoins (user.getCoins () - newPlant.getPrice ());
-                    System.out.println ("you bought this plant successfully" );
+//                    System.out.println ("you bought this plant successfully" );
                 }
-                else
-                    System.out.println ("not enough money" );
+//                else
+//                    System.out.println ("not enough money" );
                 break;
             }
         }
@@ -146,16 +146,16 @@ public class Shop {
                         Zombie newZombie = makeNewZombieByName (name);
                         user.getCollection ().getZombies ().add (newZombie);
                         user.setCoins (user.getCoins () - newZombie.getPrice ());
-                        System.out.println ("you bought this zombie successfully" );
+//                        System.out.println ("you bought this zombie successfully" );
                     }
-                    else
-                        System.out.println ("not enough money" );
+//                    else
+//                        System.out.println ("not enough money" );
                     break;
                 }
             }
         }
        if(!found){
-           System.out.println ("invalid name" );
+//           System.out.println ("invalid name" );
        }
     }
 
