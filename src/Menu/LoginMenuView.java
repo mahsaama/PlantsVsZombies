@@ -1,5 +1,8 @@
 package Menu;
+import Creature.Plant;
+import Creature.Zombie;
 import User.User;
+import User.Player;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
@@ -361,13 +364,19 @@ public class LoginMenuView {
                         if (s.equals("login")) {
                             try {
                                 if (checkUsername(username.getText())) {
-                                    if (Menu.checkPassword(username.getText(), pass.getText())) {
+                                    Gson gson = new Gson ();
+                                    InputStream input = new FileInputStream ("AccountInfo/"+username.getText ()+".json");
+                                    Reader reader = new InputStreamReader (input);
+                                    User user = gson.fromJson (reader,User.class);
+                                    if (user.getPassword ().compareTo (pass.getText ()) == 0) {
                                         taken.setText("login successfully!");
                                         str += "login ";
                                         str += username.getText();
                                         str += " ";
                                         str += pass.getText();
-                                        Menu.loginMenu(str);
+                                        Menu.setLoginUser (user);
+//                                        Menu.loginMenu(str);
+                                        Menu.setLoginPlayer (new Player (user));
                                     } else {
                                         taken.setText("invalid password!");
                                     }

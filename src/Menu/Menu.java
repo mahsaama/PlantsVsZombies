@@ -28,12 +28,21 @@ public class Menu extends Application {
     }
 
     private static Scanner scanner = new Scanner(System.in);
+
+    public static void setLoginUser(User loginUser) {
+        Menu.loginUser = loginUser;
+    }
+
     private static User loginUser;
     private static User opponent;
     private static User tempUser;
 
     public static Player getLoginPlayer() {
         return loginPlayer;
+    }
+
+    public static void setLoginPlayer(Player loginPlayer) {
+        Menu.loginPlayer = loginPlayer;
     }
 
     private static Player loginPlayer;
