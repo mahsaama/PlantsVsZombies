@@ -1,5 +1,6 @@
 package Menu;
 import Menu.Menu;
+import Server.Server;
 import Shop.Shop;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -18,6 +19,8 @@ import javafx.scene.media.Media;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene( group,1200,700));
         primaryStage.show();
 
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -68,7 +72,8 @@ public class Main extends Application {
 
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
+        //Server server = new Server();
         launch(args);
 
     }

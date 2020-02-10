@@ -2,7 +2,9 @@ package Game;
 
 import Creature.Plant;
 import Creature.Zombie;
+import Map.PlayGround;
 import Menu.Menu;
+import Game.Game;
 import Shop.Shop;
 import User.User;
 import javafx.event.ActionEvent;
@@ -23,10 +25,15 @@ import javafx.util.Duration;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 public class ZombieModeOfGame {
+    int turn = 0;
+    private PlayGround playGround;
     private int coin = 50;
+    private ImageView[][] zombieImageView = new ImageView[5][19];
+    private ImageView[][] plantsImageView = new ImageView[5][19];
     private ArrayList<Button> arrayOfButtons = new ArrayList<>();
     private ArrayList<ImageView> arrayOfImageViews = new ArrayList<>();
     private User tempUser = Menu.getTempUser();
@@ -44,6 +51,7 @@ public class ZombieModeOfGame {
     private Button buyButton = new Button("BUY");
     private Button ok = new Button("PUT");
     private Button done = new Button("DONE");
+    private Button start = new Button("START");
 
     private Text coinAmount = new Text("50");
 
@@ -71,13 +79,14 @@ public class ZombieModeOfGame {
 
     private Media mouseClicked = new Media(getClass().getClassLoader().getResource("audio/Button-SoundBible.com-1420500901.mp3").toExternalForm());
     private Media mouseEntered = new Media(getClass().getClassLoader().getResource("audio/zapsplat_multimedia_click_003_19369.mp3").toExternalForm());
-    MediaPlayer clickedPlayer = new MediaPlayer(mouseClicked);
-    MediaPlayer enteredPlayer = new MediaPlayer(mouseEntered);
+    private MediaPlayer clickedPlayer = new MediaPlayer(mouseClicked);
+    private MediaPlayer enteredPlayer = new MediaPlayer(mouseEntered);
 
     private int height = 700;
     private int width = 1200;
 
     public ZombieModeOfGame(){
+        playGround = new PlayGround();
         zombiePlayRoot = new Group();
         backImageView.setFitHeight(height);
         backImageView.setFitWidth(width);
@@ -91,16 +100,16 @@ public class ZombieModeOfGame {
         buyButton.relocate(100, 20);
         ok.relocate(50, 620);
         done.relocate(90, 620);
-//320
+        start.relocate(90, 650);
+
         zombiePlayRoot.getChildren().add(menuImageView);
         zombiePlayRoot.getChildren().add(menuButton);
         zombiePlayRoot.getChildren().add(buyImageView);
         zombiePlayRoot.getChildren().add(buyButton);
         zombiePlayRoot.getChildren().add(ok);
         zombiePlayRoot.getChildren().add(done);
+        zombiePlayRoot.getChildren().add(start);
         buyButton.setOpacity(0);
-        
-
 
 
         checkMovements();
@@ -108,6 +117,8 @@ public class ZombieModeOfGame {
 
 
     public Scene getZombiePlayScene(){ return zombiePlayScene; }
+
+    public void setCoin(int amount){ this.coin += amount; }
 
 
     public void getTheGame(Game game){ currentGame = game; }
@@ -155,6 +166,8 @@ public class ZombieModeOfGame {
         }
 
         ok.setOnMouseClicked(event -> {
+            clickedPlayer.play();
+            clickedPlayer.seek(Duration.ZERO);
             zombiePlayRoot.getChildren().add(target1);
             zombiePlayRoot.getChildren().add(target2);
             zombiePlayRoot.getChildren().add(target3);
@@ -196,19 +209,28 @@ public class ZombieModeOfGame {
 
                     newRandPlant.setX(randInt2);
                     newRandPlant.setY(randInt3);
+                    playGround.getCells()[randInt2][randInt3].getPlantContent().add(newRandPlant);
+                    plantsImageView[randInt2][randInt3] = plantImageView;
                     plantImageView.relocate(320 + randInt3 * 85, 550 - (4 - randInt2) * 120);
                     plantImageView.setFitWidth(80);
                     plantImageView.setFitHeight(40);
                     places[randInt2][randInt3] = true;
                     break;
                 }
-
-                //TODO
-
-                //You can use a 2D array for it to determine with boolean amount if there's a plant in it or not
-
-
                 zombiePlayRoot.getChildren().add(plantImageView);
+            }
+            done.setDisable(true);
+
+        });
+        start.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                currentGame.zombieGame("start", 0, playGround);
+                try {
+                    start();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -260,7 +282,6 @@ public class ZombieModeOfGame {
     }
 
     private void dragAndDrop(Button button, int i){
-        Zombie zomb  = new Zombie();
             button.setOnDragDetected(event -> {
                 Dragboard db = button.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
@@ -396,6 +417,8 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(0);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[0][18].getZombieContent().add(tempUser.getZombieHand().get(i));
+
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -429,6 +452,8 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(1);
                         tempUser.getZombieHand().get(i).setY(18);
+                        zombieImageView[1][18] = imageView;
+                        playGround.getCells()[1][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -462,6 +487,8 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(2);
                         tempUser.getZombieHand().get(i).setY(18);
+                        zombieImageView[2][18] = imageView;
+                        playGround.getCells()[2][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -495,6 +522,8 @@ public class ZombieModeOfGame {
                         zombiePlayRoot.getChildren().add(imageView);
                         tempUser.getZombieHand().get(i).setX(3);
                         tempUser.getZombieHand().get(i).setY(18);
+                        zombieImageView[3][18] = imageView;
+                        playGround.getCells()[3][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -527,8 +556,10 @@ public class ZombieModeOfGame {
                         imageView.setFitHeight(80);
                         imageView.setFitWidth(120);
                         zombiePlayRoot.getChildren().add(imageView);
+                        zombieImageView[4][18] = imageView;
                         tempUser.getZombieHand().get(i).setX(4);
                         tempUser.getZombieHand().get(i).setY(18);
+                        playGround.getCells()[4 ][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
@@ -550,5 +581,94 @@ public class ZombieModeOfGame {
             button.setOnDragDone(Event::consume);
 
     }
+    private void start() throws InterruptedException {
+        while (checkWinnerForZombie (playGround, coin) == -1) {
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 19; j++) {
+                    for (Plant plant : playGround.getCells ( )[i][j].getPlantContent ( )) {
+                        for (Zombie zombie : playGround.getCells ( )[i][j].getZombieContent ( )){
+                            plant.attack (playGround,turn);
+                            zombie.attack(playGround);
+                        }
+                        plant.attack (playGround,turn);
+                    }
+                    ArrayList<String> killedPlantsInTheTurn = new ArrayList<> ( );
+                    for (int m = 0; m < 6; m++) {
+                        for (int l = 0; l < 19; l++) {
+                            if (playGround.getCells ( )[m][l].getZombieContent ( ) != null) {
+                                for (Zombie zombie : playGround.getCells ( )[m][l].getZombieContent ( )) {
+                                    for (int k = 0; k < zombie.getSpeed ( ); k++) {
+                                        if (playGround.getCells ( )[m][l].getPlantContent ( ).size ( ) != 0) {
+                                            ArrayList<String> names = zombie.attack (playGround);
+                                            if (!names.get(0).equals ("not")) {
+                                                for (int o=0;0<names.size();o++){
+                                                    killedPlantsInTheTurn.add (names.get(o));
+                                                }
+                                            }
+                                        }
+                                        if (zombie != null && (zombie.getY ( ) - 1) > 0) {
+                                            zombie.setY (zombie.getY ( ) - 1);
+                                            reloc(zombieImageView[m][l], 1130 - (turn + 1)* zombie.getLife()*30);
+                                        }
 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (int m = 0; m < killedPlantsInTheTurn.size ( ); m++) {
+                        coin += Shop.makeNewPlantByName (killedPlantsInTheTurn.get (m)).getLife ( ) * 10;
+                    }
+                    killedPlantsInTheTurn.clear ( );
+
+
+                }
+            }
+
+        }
+
+    }
+    public int checkWinnerForZombie(PlayGround playGround, int coin) {
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 19; j++) {
+                if (playGround.getCells ( )[i][j].getZombieContent ( ) != null) {
+                    for (int k = 0; k < 6; k++) {
+                        for (int l = 0; l < 19; l++) {
+                            if (playGround.getCells ( )[k][l].getPlantContent ( ) != null)
+                                return -1;
+                        }
+                    }
+
+                    //it means there's no plants left
+                    System.out.println("Zombies won!");
+                    return 1;
+                }
+            }
+
+        //it means there's no zombie left
+        ArrayList<Zombie> zombies =  Shop.getZombieList();
+        zombies.sort(Comparator.comparing(Zombie :: getLife));
+        if(coin < (zombies.get(0).getLife() * 10) ){
+            System.out.println("Zombies lost");
+            return 1;
+        }
+        //now we should buy new zombies maybe use put item??
+        System.out.println("Buy new Zombies to fight, use put command!");
+        return 0;
+
+    }
+
+    public void reloc(ImageView imageView, int destination) throws InterruptedException {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setX(imageView.getX() - 2);
+                if(imageView.getX() == destination)
+                    return;
+
+            }
+        }).start();
+
+        Thread.sleep(100);
+    }
 }

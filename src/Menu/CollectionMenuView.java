@@ -4,6 +4,7 @@ import Game.DayModeOfGame;
 import Game.Game;
 import Game.ZombieModeOfGame;
 import Game.RailModeOfGame;
+import Map.PlayGround;
 import Shop.Shop;
 import User.Player;
 import javafx.event.ActionEvent;
@@ -502,8 +503,9 @@ public class CollectionMenuView {
 //            }
 //        }
         if(s2.compareToIgnoreCase("zombie") == 0){
+            PlayGround playGround = new PlayGround();
             Game game = new Game();
-            ZombieModeOfGame zombieGame = game.zombieGame("", 1);
+            ZombieModeOfGame zombieGame = game.zombieGame("", 1, playGround);
             zombieGame.getTheGame(game);
             Main.changeScene(zombieGame.getZombiePlayScene());
         }
