@@ -421,6 +421,7 @@ public class LoginMenuView {
                                     Reader reader = new InputStreamReader (input);
                                     User user = gson.fromJson (reader,User.class);
                                     if (user.getPassword ().compareTo (pass.getText ()) == 0) {
+                                        client.login(username.getText());
                                         taken.setText("login successfully!");
                                         str += "login ";
                                         str += username.getText();
@@ -437,7 +438,7 @@ public class LoginMenuView {
                                 } else {
                                     taken.setText("invalid username!");
                                 }
-                            } catch (IOException ex) {
+                            } catch (Exception ex) {
                                 ex.printStackTrace ( );
                             }
 
