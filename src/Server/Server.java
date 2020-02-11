@@ -1,5 +1,9 @@
 package Server;
 
+
+import Shop.Shop;
+import javafx.util.Pair;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,8 +14,8 @@ public class Server {
 
     static Socket socket = null;
     static ServerSocket serverSocket;
-    static List<Connection> connectionList = new ArrayList<Connection>() {
-    };
+    static ArrayList<Connection> connectionList = new ArrayList<>();
+    static ArrayList<Pair<String, Boolean>> gameHistory = new ArrayList<>();
 
 
     private static void start() {
@@ -31,6 +35,7 @@ public class Server {
     }
 
     public static void main(String[] args) {
+        Shop shop = new Shop ();
         start();
     }
 }

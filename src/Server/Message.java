@@ -1,7 +1,9 @@
 package Server;
 
 import com.google.gson.Gson;
+import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Message {
@@ -12,11 +14,15 @@ public class Message {
     public String data;
     public Command command;
     public long time;
-
     public String from;
     public String to;
     public long chatId;
-    public long replyTo=-1;
+    public long replyTo = -1;
+    public String winner;
+    public String loser;
+    public ArrayList<Pair<String, Boolean>> scoreBoard;
+
+
     static Random r = new Random();
 
     Message() {
@@ -31,6 +37,51 @@ public class Message {
         return this;
     }
 
+    static Message accept(String from, String to) {
+        Message message = new Message();
+        message.from = from;
+        message.to = to;
+        message.command = Command.ACCEPT_GAME_REQUEST;
+        return message;
+    }
+
+    static Message enterGame(String from, String to) {
+        Message message = new Message();
+        message.from = from;
+        message.to = to;
+        message.command = Command.ENTER_GAME;
+        return message;
+    }
+
+    static Message endGame(String winner, String loser) {
+        Message message = new Message();
+        message.winner = winner;
+        message.loser = loser;
+        message.command = Command.ENG_GAME;
+        return message;
+    }
+
+    static Message gameRequest(String from, String to) {
+        Message message = new Message();
+        message.from = from;
+        message.to = to;
+        message.command = Command.GAME_REQUEST;
+        return message;
+    }
+
+    static Message scoreBoardClient(){
+        Message message = new Message();
+        message.command = Command.SCORE_BOARD;
+        return message;
+    }
+
+    static Message scoreBoard() {
+        Message message = new Message();
+        message.command = Command.SCORE_BOARD;
+        message.scoreBoard = Server.gameHistory;
+        return message;
+    }
+
     static Message chat(String from, String to, String data) {
         Message message = new Message();
         message.from = from;
@@ -38,6 +89,12 @@ public class Message {
         message.data = data;
         message.chatId = r.nextLong();
         message.command = Command.CHAT;
+        return message;
+    }
+
+    static Message chatPic(String from, String to, String data) {
+        Message message = chat(from, to, data);
+        message.command = Command.PIC;
         return message;
     }
 
@@ -87,4 +144,6 @@ public class Message {
         message.data = username;
         return message;
     }
+
+
 }

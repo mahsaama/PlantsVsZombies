@@ -43,6 +43,21 @@ public class ClientReader {
                         case CHAT:
                             clientHandler.chat(message);
                             break;
+                        case PIC:
+                            clientHandler.chatPic(message);
+                            break;
+                        case GAME_REQUEST:
+                            clientHandler.gameRequest(message);
+                            break;
+                        case ENTER_GAME:
+                            clientHandler.enterGame(message);
+                            break;
+                        case SCORE_BOARD:
+                            clientHandler.scoreBoard(message);
+                            break;
+                        case ENG_GAME:
+                            clientHandler.endGame(message);
+                            break;
                     }
 
 
@@ -53,4 +68,3 @@ public class ClientReader {
         }).start();
     }
 }
-

@@ -44,27 +44,22 @@ public class ZombieModeOfGame {
     private Group zombiePlayRoot;
     private Scene zombiePlayScene;
 
-    private Image back2Image = new Image("pics/bg4.jpg");
-
-
     private Image backImage = new Image("pics/frontyard.png");
     private ImageView backImageView = new ImageView(backImage);
-    private Button menuButton = new Button("MENU");
     private Button buyButton = new Button("BUY");
     private Button ok = new Button("PUT");
     private Button done = new Button("DONE");
     private Button start = new Button("START");
     private Button move = new Button("MOVE");
+    private Button Exit = new Button("EXIT");
 
     private Text coinAmount = new Text("50");
 
 
-    private Image menuImage = new Image("pics/menu.png");
     private Image buyImage = new Image("pics/ch.png");
     private Image putImage = new Image("pics/put.jpg");
     private Image coinImage  = new Image("pics/coin.jpg");
 
-    private ImageView menuImageView = new ImageView(menuImage);
     private ImageView buyImageView = new ImageView(buyImage);
     private ImageView putImageView = new ImageView(putImage);
     private ImageView coinImageView = new ImageView(coinImage);
@@ -89,6 +84,7 @@ public class ZombieModeOfGame {
     private int width = 1200;
 
     public ZombieModeOfGame(){
+        GaussianBlur blur = new GaussianBlur();
         playGround = new PlayGround();
         zombiePlayRoot = new Group();
         backImageView.setFitHeight(height);
@@ -97,23 +93,20 @@ public class ZombieModeOfGame {
         zombiePlayRoot.getChildren().add(backImageView);
 
 
-        menuImageView.relocate(1100,650);
-        menuButton.relocate(1100, 650);
         buyImageView.relocate(100, 20);
         buyButton.relocate(100, 20);
         coinImageView.relocate(210, 20);
         coinImageView.setFitHeight(50);
         coinImageView.setFitWidth(50);
-        coinAmount.relocate(210,20);
+        coinAmount.relocate(230,40);
         coinAmount.setFont(Font.font("Verdana", FontWeight.BOLD, 5));
         ok.relocate(50, 620);
         done.relocate(90, 620);
         start.relocate(90, 650);
         move.relocate(50, 650);
+        Exit.relocate(1130, 650);
 
 
-        zombiePlayRoot.getChildren().add(menuImageView);
-        zombiePlayRoot.getChildren().add(menuButton);
         zombiePlayRoot.getChildren().add(buyImageView);
         zombiePlayRoot.getChildren().add(buyButton);
         zombiePlayRoot.getChildren().add(coinImageView);
@@ -122,6 +115,7 @@ public class ZombieModeOfGame {
         zombiePlayRoot.getChildren().add(done);
         zombiePlayRoot.getChildren().add(start);
         zombiePlayRoot.getChildren().add(move);
+        zombiePlayRoot.getChildren().add(Exit);
         buyButton.setOpacity(0);
 
 
@@ -137,19 +131,10 @@ public class ZombieModeOfGame {
     public void getTheGame(Game game){ currentGame = game; }
 
     private void checkMovements(){
-        menuButton.setOnMouseEntered(event -> {
-            enteredPlayer.play();
-            enteredPlayer.seek(Duration.ZERO);
-        });
 
         buyButton.setOnMouseEntered(event -> {
             enteredPlayer.play();
             enteredPlayer.seek(Duration.ZERO);
-        });
-        menuButton.setOnMouseClicked(event -> {
-            clickedPlayer.play();
-            clickedPlayer.seek(Duration.ZERO);
-
         });
 
         for(int i = 0; i < tempUser.getZombieHand().size(); i++){
@@ -324,6 +309,18 @@ public class ZombieModeOfGame {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        Exit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                Text text = new Text( tempUser.getUsername() + " lost!");
+                text.setFont(Font.font("Verdana", FontWeight.BOLD, 60));
+                text.relocate(400, 300);
+                zombiePlayRoot.getChildren().add(text);
+                Menu.mainMenuView();
             }
         });
         move.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -537,7 +534,6 @@ public class ZombieModeOfGame {
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
-                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
                         coinAmount.setText("" + coin + "");
 
                         tar1++;
@@ -573,7 +569,6 @@ public class ZombieModeOfGame {
                         playGround.getCells()[1][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
-                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
                         coinAmount.setText("" + coin + "");
 
@@ -647,7 +642,6 @@ public class ZombieModeOfGame {
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
-                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
                         coinAmount.setText("" + coin + "");
 
                         tar4++;
@@ -684,7 +678,6 @@ public class ZombieModeOfGame {
                         playGround.getCells()[4 ][18].getZombieContent().add(tempUser.getZombieHand().get(i));
                         tempUser.getZombieHand().remove(i);
                         arrayOfImageViews.get(i).setOpacity(0);
-                        coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
                         coin -= Shop.makeNewZombieByName(button.getText()).getLife() * 10;
                         coinAmount.setText("" + coin + "");
 

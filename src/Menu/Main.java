@@ -64,7 +64,6 @@ public class Main extends Application {
 //                    e.printStackTrace();
 //                }
 //                System.out.println("Client connected.");
-                Shop shop = new Shop ();
                 Menu.loginMenuView();
             }
         });

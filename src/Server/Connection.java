@@ -1,5 +1,4 @@
 package Server;
-
 import com.google.gson.Gson;
 
 import java.net.Socket;
@@ -12,6 +11,7 @@ public class Connection {
     Formatter formatter;
     long lastSeen = 0;
     public static Gson gson = new Gson();
+
 
     public void send(Message message) {
         String json = gson.toJson(message) + "#";

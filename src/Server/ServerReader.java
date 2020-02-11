@@ -35,16 +35,22 @@ public class ServerReader {
 
 
                     switch (message.command) {
+                        case SCORE_BOARD:
+                            Message scb = Message.scoreBoard();
+                            connection.send(scb);
+                            break;
+                        case PIC:
+                            ServerHandler.sendMessageToClient(message);
+                            break;
+                        case ACCEPT_GAME_REQUEST:
+                            ServerHandler.startGame(message);
+                            break;
                         case CHAT:
-                            for (Connection conn : Server.connectionList) {
-                                if (conn.username.equals(message.to)) {
-                                    try {
-                                        conn.send(Message.chat(message.from, message.to, message.data, message.replyTo));
-                                    } catch (Exception e) {
-                                        System.err.println(e.getMessage());
-                                    }
-                                }
-                            }
+                            ServerHandler.sendMessageToClient(message);
+                            break;
+                        case GAME_REQUEST:
+                            ServerHandler.sendMessageToClient(message);
+                            break;
                         case LOGIN:
                             boolean valid = true;
                             Connection founded = null;
