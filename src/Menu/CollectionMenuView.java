@@ -514,7 +514,7 @@ public class CollectionMenuView {
             game.setFirstPlayer (Menu.getLoginPlayer ());
             DayModeOfGame dayGame = game.dayGame (1);
             dayGame.getTheGame(game);
-//            Main.changeScene(dayGame.getDayPlayScene ());
+            Main.changeScene(dayGame.getDayPlayScene ());
 
         }
         //TODO
