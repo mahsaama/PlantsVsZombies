@@ -1,6 +1,5 @@
 package Menu;
 
-import Game.MessagingView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -398,8 +397,8 @@ public class MainMenuView {
             }
     }
     public void showChatClicked(){
-        MessagingView messagingView = new MessagingView();
-        Main.changeScene(messagingView.getMessageScene());
+        ChatMenuView chatMenuView = new ChatMenuView(Main.getClient());
+        Main.changeScene(chatMenuView.getChatMenuScene());
     }
     public void showHelpClicked(String s){
         mainMenuRoot.getChildren ().clear();
