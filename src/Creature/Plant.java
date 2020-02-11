@@ -169,6 +169,9 @@ public class Plant{
 
     public void attack(PlayGround playGround, int turn) {
         zombie = findZombie(playGround, x);
+        if(zombie == null){
+            return;
+        }
         if (offTurns == 0) {
             if (bulletType != null) {
                 if ((turn-plantTurn) % turnOfFront == 0) {
@@ -426,10 +429,8 @@ public class Plant{
 
     public static Zombie findZombie(PlayGround playGround, int row) {
         for (int i = y; i < 19; i++) {
-            for (Zombie item : playGround.getCells()[row][i].getZombieContent()) {
-                if (item != null) {
-                    return item;
-                }
+            for (int j = 0; j < playGround.getCells()[row][i].getZombieContent().size(); j++) {
+                return playGround.getCells()[row][i].getZombieContent().get(0);
             }
         }
         return null;

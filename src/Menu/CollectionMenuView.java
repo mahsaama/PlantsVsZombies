@@ -544,7 +544,7 @@ public class CollectionMenuView {
         if (s1.compareTo("plant") == 0) {
             for (int i = 0; i < Menu.getTempUser().getCollection().getPlants().size(); i++) {
                 Button button = new Button(Menu.getTempUser().getCollection().getPlants().get(i).getName());
-                Image buttonImage = new Image("pics/" + Menu.getTempUser().getCollection().getPlants().get(i).getName() + ".jpg");
+                Image buttonImage = new Image("pics/cards/" + Menu.getTempUser().getCollection().getPlants().get(i).getName() + ".jpg");
                 ImageView buttonImageView = new ImageView(buttonImage);
                 buttonImageView.setFitWidth(200);
                 buttonImageView.setFitHeight(100);
