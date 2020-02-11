@@ -14,5 +14,6 @@ public enum Command {
     ENTER_GAME,
     ENG_GAME,
     SCORE_BOARD,
-    ERROR
+    ERROR,
+    OTHER
 }

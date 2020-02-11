@@ -1,5 +1,6 @@
 package Server;
 
+
 import javafx.util.Pair;
 
 public class ServerGame {
@@ -19,7 +20,8 @@ public class ServerGame {
                 Server.gameHistory.add(new Pair<String, Boolean>(p1.username, true));
                 Server.gameHistory.add(new Pair<String, Boolean>(p2.username, false));
 
-
+                p1.inGame = false;
+                p2.inGame = false;
             } catch (Exception e) {
 
             }

@@ -585,7 +585,6 @@ public class LoginMenuView {
         } catch (IOException e) {
             e.printStackTrace ( );
         }
-        Main.client.getPing().interrupt();
         Menu.setLoginPlayer (null);
         Menu.loginMenuView ();
     }

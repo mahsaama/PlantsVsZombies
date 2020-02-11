@@ -1,5 +1,6 @@
 package Server;
 
+
 import com.google.gson.Gson;
 import com.sun.glass.ui.Pixels;
 import javafx.print.Printer;
@@ -10,6 +11,7 @@ import java.net.Socket;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
+
 
 
 public class ServerReader {
@@ -37,19 +39,38 @@ public class ServerReader {
                     switch (message.command) {
                         case SCORE_BOARD:
                             Message scb = Message.scoreBoard();
-                            connection.send(scb);
+                            connection.send(scb.setMessageId(message.message_id));
                             break;
                         case PIC:
                             ServerHandler.sendMessageToClient(message);
+                            connection.send(message);
                             break;
                         case ACCEPT_GAME_REQUEST:
-                            ServerHandler.startGame(message);
+                            int result = ServerHandler.startGame(message);
+                            String error = null;
+                            if (result == 2) {
+                                error = "player is in game";
+                            }
+                            if (result == 3) {
+                                error = "played disconnected";
+                            }
+                            if (error != null) {
+                                connection.send(Message.error(error).setMessageId(message.message_id));
+                            } else {
+                                connection.send(new Message().setMessageId(message.message_id));
+                            }
                             break;
                         case CHAT:
                             ServerHandler.sendMessageToClient(message);
+                            connection.send(message);
                             break;
                         case GAME_REQUEST:
-                            ServerHandler.sendMessageToClient(message);
+                            if (!ServerHandler.sendMessageToClient(message)) {
+                                connection.send(Message.error("no such username or username is disconnected").setMessageId(message.message_id));
+                            } else {
+                                connection.send(new Message().setMessageId(message.message_id));
+                            }
+//                            connection.send(message);
                             break;
                         case LOGIN:
                             boolean valid = true;
@@ -85,7 +106,7 @@ public class ServerReader {
                                         ids += conn.username + '\n' + "ON" + '\n';
                                 }
                             }
-                            connection.send(Message.showUsers(ids));
+                            connection.send(Message.showUsers(ids).setMessageId(message.message_id));
                             break;
                         case PING:
                             connection.lastSeen = message.time;

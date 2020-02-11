@@ -2,24 +2,30 @@ package Server;
 
 
 public class ServerHandler {
-    public static void sendMessageToClient(Message message) {
+
+    public static boolean sendMessageToClient(Message message) {
         for (Connection conn : Server.connectionList) {
             if (conn.username.equals(message.to)) {
-                try {
-                    conn.send(message);
+                if ((System.currentTimeMillis() - conn.lastSeen) < 2000) {
+                    try {
+                        conn.send(message);
+                        return true;
 //                    if (message.command == Command.CHAT) {
 //                        conn.send(Message.chat(message.from, message.to, message.data, message.replyTo));
 //                    } else {
 //                        conn.send(Message.chatPic(message.from, message.to, message.data));
 //                    }
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                    }
                 }
             }
         }
+        return false;
     }
 
-    public static void startGame(Message message) {
+
+    public static int startGame(Message message) {
         /// start a game between message.from & message.to
         String p1 = message.from;
         String p2 = message.to;
@@ -32,9 +38,20 @@ public class ServerHandler {
                 p2con = connection;
 
         }
+
+        if (p1con == null || p2con == null) {
+            return 1;
+        }
+        if (p1con.inGame || p2con.inGame) {
+            return 2;
+        }
+        if (((System.currentTimeMillis() - p1con.lastSeen) > 2000) || ((System.currentTimeMillis() - p2con.lastSeen) > 2000)) {
+            return 3;
+        }
+        p1con.inGame = true;
+        p2con.inGame = true;
         ServerGame game = new ServerGame(p1con, p2con);
-
-
+        return 0;
     }
 
 }

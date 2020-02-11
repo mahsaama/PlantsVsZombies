@@ -23,6 +23,7 @@ public class Message {
     public ArrayList<Pair<String, Boolean>> scoreBoard;
 
 
+
     static Random r = new Random();
 
     Message() {
@@ -30,6 +31,7 @@ public class Message {
             this.message_id = counter;
             counter += 1;
         }
+        this.command = Command.OTHER;
     }
 
     public Message setMessageId(int id) {
@@ -61,11 +63,18 @@ public class Message {
         return message;
     }
 
-    static Message gameRequest(String from, String to) {
+    public static Message gameRequest(String from, String to) {
         Message message = new Message();
         message.from = from;
         message.to = to;
         message.command = Command.GAME_REQUEST;
+        return message;
+    }
+
+    public static Message error(String error){
+        Message message = new Message();
+        message.command = Command.ERROR;
+        message.data = error;
         return message;
     }
 

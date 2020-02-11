@@ -58,6 +58,12 @@ public class ClientReader {
                         case ENG_GAME:
                             clientHandler.endGame(message);
                             break;
+                        case ERROR:
+                            clientHandler.addResult(message);
+                            break;
+                        default:
+                            clientHandler.addResult(message);
+                            break;
                     }
 
 

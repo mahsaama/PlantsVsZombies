@@ -18,7 +18,7 @@ public class Client {
     Formatter formatter;
     String username;
     private ClientHandler clientHandler;
-    Thread ping;
+    public boolean loggedIn = false;
     public static Gson gson = new Gson();
 
     public ClientHandler getClientHandler(){ return clientHandler;}
@@ -38,6 +38,8 @@ public class Client {
             } else {
                 Thread.sleep(1);
             }
+//            System.err.println("stuck in while");
+
         }
     }
 
@@ -62,6 +64,7 @@ public class Client {
             System.out.println(message.data);
             return false;
         }
+        loggedIn = true;
         return true;
     }
 
@@ -72,25 +75,25 @@ public class Client {
     }
 
     public void pinging() {
-        ping = new Thread(() -> {
-            while (!ping.isInterrupted()) {
+        new Thread(() -> {
+            while (true) {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
-
-                this.send(Message.ping(System.currentTimeMillis()));
+                if(loggedIn)
+                    this.send(Message.ping(System.currentTimeMillis()));
             }
 
-        });
-        ping.start();
+        }).start();
     }
 
-    public Message gameRequest(String to) throws Exception {
+    public Message gameRequest(String to) throws Exception{
         Message message = Message.gameRequest(this.username, to);
         return sendAndGetResult(message);
     }
+
     public Message accept(String to) throws Exception{
         Message message = Message.accept(this.username, to);
         return sendAndGetResult(message);
@@ -126,7 +129,7 @@ public class Client {
     }
 
     public String getUsername(){return username;}
-    public Thread getPing(){ return ping;}
+
 
 
 }
