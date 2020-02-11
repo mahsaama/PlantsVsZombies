@@ -1,4 +1,6 @@
 package Menu;
+
+import Server.Client;
 import Menu.Menu;
 import Server.Server;
 import Shop.Shop;
@@ -15,6 +17,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
+import sun.misc.Cleaner;
 
 import javax.swing.*;
 import java.io.File;
@@ -26,11 +29,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Main extends Application {
-
+    static Client client = new Client();
     public static Stage stage;
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         stage = primaryStage;
         Image iconImage = new Image("pics/a.jpg");
 
@@ -51,20 +53,6 @@ public class Main extends Application {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-//                ServerSocket serverSocket = null;
-//                try {
-//                    serverSocket = new ServerSocket(1);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                System.out.println("Server is waiting...");
-//                try {
-//                    Socket client = serverSocket.accept();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                System.out.println("Client connected.");
-                Shop shop = new Shop ();
                 Menu.loginMenuView();
             }
         });
@@ -72,11 +60,13 @@ public class Main extends Application {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        //Server server = new Server();
+    public static void main(String[] args) throws Exception {
+        Server server = new Server();
+        client.connect();
         launch(args);
 
     }
+
     public static void changeScene(Scene scene) {
         Platform.runLater(new Runnable() {
             @Override
@@ -88,5 +78,6 @@ public class Main extends Application {
         /*
         stage.setScene(scene);*/
     }
+    public static Client getClient(){ return client;}
 
 }

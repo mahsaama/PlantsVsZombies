@@ -1,6 +1,7 @@
 package Menu;
 import Creature.Plant;
 import Creature.Zombie;
+import Server.Client;
 import User.User;
 import User.Player;
 import com.google.gson.Gson;
@@ -289,7 +290,8 @@ public class LoginMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                createAccountOrLoginClicked("create account");
+
+                createAccountOrLoginClicked("create account", Main.getClient());
             }
         });
 
@@ -298,7 +300,7 @@ public class LoginMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                createAccountOrLoginClicked("login");
+                createAccountOrLoginClicked("login", Main.getClient());
             }
         });
 
@@ -370,7 +372,7 @@ public class LoginMenuView {
         }
     }
 
-    public void createAccountOrLoginClicked(String s) {
+    public void createAccountOrLoginClicked(String s, Client client) {
         loginMenuRoot.getChildren().clear();
         loginMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);

@@ -592,7 +592,9 @@ public class Game {
                             }
                         }
                     }
-                } else if (order.compareToIgnoreCase ("start") == 0) {}
+                } else if (order.compareToIgnoreCase ("start") == 0) {
+                    System.out.println("started the game");
+                }
                 else if(order.compareToIgnoreCase("end turn") == 0){
                     turn++;
                     System.out.println("your turn");
