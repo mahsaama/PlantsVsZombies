@@ -73,7 +73,7 @@ public class Client {
 
     public void pinging() {
         ping = new Thread(() -> {
-            while (true) {
+            while (!ping.isInterrupted()) {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception e) {
@@ -87,14 +87,13 @@ public class Client {
         ping.start();
     }
 
-    public void gameRequest(String to) {
+    public Message gameRequest(String to) throws Exception {
         Message message = Message.gameRequest(this.username, to);
-        send(message);
+        return sendAndGetResult(message);
     }
-
-    public void accept(String to) {
+    public Message accept(String to) throws Exception{
         Message message = Message.accept(this.username, to);
-        send(message);
+        return sendAndGetResult(message);
     }
 
     public void sendChat(String to, String chat) {
@@ -125,5 +124,9 @@ public class Client {
         Message message = Message.scoreBoardClient();
         send(message);
     }
+
+    public String getUsername(){return username;}
+    public Thread getPing(){ return ping;}
+
 
 }

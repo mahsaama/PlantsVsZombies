@@ -423,6 +423,8 @@ public class LoginMenuView {
                                     if (user.getPassword ().compareTo (pass.getText ()) == 0) {
                                         client.login(username.getText());
                                         taken.setText("login successfully!");
+                                        Main.client.login(username.getText());
+                                        Main.client.pinging();
                                         str += "login ";
                                         str += username.getText();
                                         str += " ";
@@ -583,6 +585,7 @@ public class LoginMenuView {
         } catch (IOException e) {
             e.printStackTrace ( );
         }
+        Main.client.getPing().interrupt();
         Menu.setLoginPlayer (null);
         Menu.loginMenuView ();
     }

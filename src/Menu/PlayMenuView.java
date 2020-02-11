@@ -32,12 +32,14 @@ public class PlayMenuView {
     private Button railButton = new Button("Rail");
     private Button zombieButton = new Button("Zombie");
     private Button pvpButton = new Button("PvP");
+    private Button requestButton = new Button("Request Game");
     private Button exitButton = new Button("Exit");
 
     private Label dayLabel = new Label("Day");
     private Label waterLabel = new Label("Water");
     private Label railLabel = new Label("Rail");
     private Label zombieLabel = new Label("Zombie");
+    private Label requestLabel = new Label("Request Game");
     private Label pvpLabel = new Label("PvP");
     private Label exitLabel = new Label("Exit");
 
@@ -57,6 +59,8 @@ public class PlayMenuView {
     private ImageView zombieButtonImageView1 = new ImageView(buttonImage1);
     private ImageView pvpButtonImageView = new ImageView(buttonImage);
     private ImageView pvpButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView requestImageView = new ImageView(buttonImage);
+    private ImageView requestImageView1 = new ImageView(buttonImage1);
     private ImageView exitButtonImageView = new ImageView(buttonImage);
     private ImageView exitButtonImageView1 = new ImageView(buttonImage1);
     private ImageView backgroundImageView = new ImageView(mainMenuBackgroundImage);
@@ -130,6 +134,17 @@ public class PlayMenuView {
         playMenuRoot.getChildren().add((pvpButtonImageView1));
         playMenuRoot.getChildren().add(pvpLabel);
         playMenuRoot.getChildren().add(pvpButton);
+
+        //request Game
+        setImageView(requestImageView, 6);
+        setImageView(requestImageView1, 6);
+        requestImageView1.setOpacity(0);
+        setButton(requestButton , 6);
+        setLabel(requestLabel, 6);
+        playMenuRoot.getChildren().add((requestImageView));
+        playMenuRoot.getChildren().add((requestImageView1));
+        playMenuRoot.getChildren().add(requestLabel);
+        playMenuRoot.getChildren().add(requestButton);
 
         //exit
         setImageView(exitButtonImageView, 5);
@@ -274,6 +289,28 @@ public class PlayMenuView {
             }
         });
 
+        requestButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if(requestImageView.getOpacity() == 100)
+                    requestImageView.setOpacity(0);
+                if(requestImageView1.getOpacity() == 0)
+                    requestImageView1.setOpacity(100);
+            }
+        });
+
+        requestButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(requestImageView1.getOpacity() == 100)
+                    requestImageView1.setOpacity(0);
+                if(requestImageView.getOpacity() == 0)
+                    requestImageView.setOpacity(100);
+            }
+        });
+
         exitButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -341,6 +378,15 @@ public class PlayMenuView {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
                 pvpButtonClicked();
+            }
+        });
+
+        requestButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                clickedPlayer.play();
+                clickedPlayer.seek(Duration.ZERO);
+                requestButtonClicked();
             }
         });
 
@@ -465,5 +511,10 @@ public class PlayMenuView {
         wave.setOnAction(event1);
         username.setOnAction(event1);
         ok.setOnAction(event1);
+    }
+    public void requestButtonClicked(){
+        GameRequest gameRequest = new GameRequest(Main.client);
+        playMenuScene.setRoot(gameRequest.getRoot());
+
     }
 }

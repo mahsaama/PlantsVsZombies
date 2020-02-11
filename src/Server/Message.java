@@ -69,7 +69,7 @@ public class Message {
         return message;
     }
 
-    static Message scoreBoardClient(){
+    public static Message scoreBoardClient(){
         Message message = new Message();
         message.command = Command.SCORE_BOARD;
         return message;
@@ -104,7 +104,7 @@ public class Message {
         return message;
     }
 
-    static Message showUsers() {
+    public static Message showUsers() {
         Message message = new Message();
         message.command = Command.SHOW_USERS;
         return message;

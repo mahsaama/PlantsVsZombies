@@ -13,5 +13,6 @@ public enum Command {
     ACCEPT_GAME_REQUEST,
     ENTER_GAME,
     ENG_GAME,
-    SCORE_BOARD
+    SCORE_BOARD,
+    ERROR
 }

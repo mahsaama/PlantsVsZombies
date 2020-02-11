@@ -8,10 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.HashMap;
+import java.util.*;
 
 public class ClientHandler {
 
@@ -19,6 +16,7 @@ public class ClientHandler {
     Client client;
     ChatMenuView chatMenuView;
     public ArrayList<Message> chatHistory = new ArrayList<>();
+    public HashSet<String> gameRequest = new HashSet<>();
     public void setChatroom(ChatMenuView chatroom) {
         this.chatMenuView = chatroom;
     }
@@ -69,7 +67,7 @@ public class ClientHandler {
     }
 
     public void gameRequest(Message message) {
-//        this.client.accept(message.from);
+        gameRequest.add(message.from);
     }
 
     public void enterGame(Message message) {
