@@ -87,6 +87,4 @@ public class Message {
         message.data = username;
         return message;
     }
-
-
 }

@@ -33,12 +33,14 @@ public class MainMenuView {
     private Button shopButton = new Button("Shop");
     private Button exitButton = new Button("Exit");
     private Button helpButton = new Button("Help");
+    private Button chatButton = new Button("chat");
 
     private Label playLabel = new Label("Play");
     private Label profileLabel = new Label("Profile");
     private Label shopLabel = new Label("Shop");
     private Label exitLabel = new Label("Exit");
     private Label helpLabel = new Label("Help");
+    private Label chatLabel = new Label("Chat");
 
     private final int buttonSizeWidth = 200;
     private final int buttonSizeHeight = 200;
@@ -55,6 +57,8 @@ public class MainMenuView {
     private ImageView exitButtonImageView1 = new ImageView(buttonImage1);
     private ImageView helpButtonImageView = new ImageView(buttonImage);
     private ImageView helpButtonImageView1 = new ImageView(buttonImage1);
+    private ImageView chatButtonImageView = new ImageView(buttonImage);
+    private ImageView chatButtonImageView1 = new ImageView(buttonImage1);
     private ImageView backgroundImageView = new ImageView(mainMenuBackgroundImage);
 
     private Media mouseClicked = new Media(getClass ( ).getClassLoader ().getResource ("audio/Button-SoundBible.com-1420500901.mp3" ).toExternalForm ());
@@ -126,6 +130,17 @@ public class MainMenuView {
         mainMenuRoot.getChildren().add(helpButtonImageView1);
         mainMenuRoot.getChildren().add(helpLabel);
         mainMenuRoot.getChildren().add(helpButton);
+
+        //chat
+        setImageView(chatButtonImageView, 5);
+        setImageView(chatButtonImageView1, 5);
+        chatButtonImageView1.setOpacity(0);
+        setButton(chatButton, 5);
+        setLabel(chatLabel, 5);
+        mainMenuRoot.getChildren().add(chatButtonImageView);
+        mainMenuRoot.getChildren().add(chatButtonImageView1);
+        mainMenuRoot.getChildren().add(chatLabel);
+        mainMenuRoot.getChildren().add(chatButton);
 
         checkMovements();
 
@@ -264,7 +279,30 @@ public class MainMenuView {
             }
         });
 
+        chatButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
 
+                enteredPlayer.play();
+                enteredPlayer.seek(Duration.ZERO);
+                if (chatButtonImageView.getOpacity() == 100)
+                    chatButtonImageView.setOpacity(0);
+                if (chatButtonImageView1.getOpacity() == 0)
+                    chatButtonImageView1.setOpacity(100);
+            }
+        });
+
+
+        chatButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                if (chatButtonImageView1.getOpacity() == 100)
+                    chatButtonImageView1.setOpacity(0);
+                if (chatButtonImageView.getOpacity() == 0)
+                    chatButtonImageView.setOpacity(100);
+            }
+        });
         playButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
             @Override
             public void handle(MouseEvent event) {
@@ -308,6 +346,15 @@ public class MainMenuView {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
                 showHelpClicked("help");
+            }
+        });
+
+        chatButton.setOnMouseClicked (new EventHandler<MouseEvent> ( ) {
+            @Override
+            public void handle(MouseEvent event) {
+                clickedPlayer.play ();
+                clickedPlayer.seek(Duration.ZERO);
+                showHelpClicked("chat");
             }
         });
 
