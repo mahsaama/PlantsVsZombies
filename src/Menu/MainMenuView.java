@@ -434,6 +434,8 @@ public class MainMenuView {
                     @Override
                     public void handle(MouseEvent event) {
                         ChatMenuView chatMenuView = new ChatMenuView(Main.stage, Main.client, username.getText());
+                        Main.client.getClientHandler().setChatroom(chatMenuView);
+                        mainMenuScene.setRoot(chatMenuView.getRoot());
                     }
                 });
             }
