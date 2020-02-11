@@ -145,25 +145,8 @@ public class Client {
                 client1.scoreBoard();
                 client2.sendChat("1", "hi loser!");
             }
-//            client.connect();
-//            System.out.println(client.login, users[c]);
-//            if(c == 0){
-//                client.gameRequest(users[1]);
-//            }else{
-//                client.accept(users[0]);
-//            }
-//            client.showUsers();
-//            client.sendChat("test4", "hey zendegi");
-//            client.sendPic("test", "F:\\phone\\pics\\1.jpg");
-//            Thread.sleep(10000);
-//            client.gameRequest("test2");
         } catch (Exception e) {
 
         }
-
-//        Scanner scanner = new Scanner(System.in);
-//        while (true) {
-//
-//        }
     }
 }
