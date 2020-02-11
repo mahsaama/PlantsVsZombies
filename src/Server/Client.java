@@ -17,11 +17,11 @@ public class Client {
     Socket socket;
     Formatter formatter;
     String username;
-    ClientHandler clientHandler;
+    private ClientHandler clientHandler;
     Thread ping;
     public static Gson gson = new Gson();
 
-
+    public ClientHandler getClientHandler(){ return clientHandler;}
     public void send(Message message) {
         String json = gson.toJson(message) + "#";
         formatter.format(json);
@@ -116,7 +116,7 @@ public class Client {
 
     }
 
-    public void reply(String to, String chat, long replyTo) {
+    public void reply(String to, String chat, String replyTo) {
         Message message = Message.chat(this.username, to, chat, replyTo);
         send(message);
     }
