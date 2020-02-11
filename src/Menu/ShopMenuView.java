@@ -23,7 +23,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -366,7 +365,7 @@ public class ShopMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                showHelpClicked("help");
+                customCardClicked ("help");
             }
         });
 
@@ -426,8 +425,7 @@ public class ShopMenuView {
             label.relocate(530 + 200 * (n-4), 420);
         }
     }
-    public void showHelpClicked(String s){
-        Menu.shopMenu("help");
+    public void customCardClicked(String s){
         shopMenuRoot.getChildren ().clear();
         shopMenuRoot.getChildren().add(backgroundImageView);
         backgroundImageView.setEffect(blur);
@@ -465,7 +463,7 @@ public class ShopMenuView {
 
                 //name
                 Label nameLabel = new Label("Insert name");
-                nameLabel.relocate(200, 100);
+                nameLabel.relocate(200, 350);
                 TextField name = new TextField();
                 name.relocate(480, 350);
                 nameLabel.setFont(Font.font(20));
@@ -530,25 +528,75 @@ public class ShopMenuView {
                 shopMenuRoot.getChildren().addAll(price, priceLabel);
                 price.setPrefSize(200, 40);
 
-                Plant plant = new Plant();
-                plant.setName(name.getText ());
-                plant.setNumberOfSuns (Integer.parseInt (sunNumbers.getText ()));
-                plant.setBulletType (bulletType.getText ());
-                plant.setCoolDown (Integer.parseInt (coolDown.getText ()));
-                plant.setHurtOfBullet (Integer.parseInt (hurtOfBullet.getText ()));
-                plant.setPrice (Integer.parseInt (price.getText ()));
-                Shop.getPlantList ().add (plant);
-                Shop.getPlantListNumbers ().add (3);
-                //TODO pic
-                Gson gson = new GsonBuilder ().setPrettyPrinting ().create ();
-                FileWriter fileWriter = null;
-                try {
-                    fileWriter = new FileWriter ("PlantCard/" +plant.getName ()+".json");
-                    fileWriter.write (gson.toJson (plant));
-                    fileWriter.close ();
-                } catch (IOException e) {
-                    e.printStackTrace ( );
-                }
+                Button done = new Button ("done");
+                done.relocate (520,400);
+                shopMenuRoot.getChildren ().addAll (done);
+                EventHandler<ActionEvent> event3 = new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        done.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            @Override
+                            public void handle(MouseEvent event) {
+                                shopMenuRoot.getChildren ().clear ();
+                                Plant plant = new Plant();
+                                plant.setName(name.getText ());
+                                plant.setNumberOfSuns (Integer.parseInt (sunNumbers.getText ()));
+                                plant.setBulletType (bulletType.getText ());
+                                plant.setCoolDown (Integer.parseInt (coolDown.getText ()));
+                                plant.setHurtOfBullet (Integer.parseInt (hurtOfBullet.getText ()));
+                                plant.setPrice (Integer.parseInt (price.getText ()));
+                                Shop.getPlantList ().add (plant);
+                                Shop.getPlantListNumbers ().add (3);
+                                shopMenuRoot.getChildren().add(backgroundImageView);
+                                backgroundImageView.setEffect(blur);
+                                Button back = new Button("Back");
+                                back.setPrefSize(80, 50);
+                                back.relocate(100, 600);
+                                shopMenuRoot.getChildren().add(back);
+                                EventHandler<ActionEvent> event2 = new EventHandler<ActionEvent>() {
+                                    public void handle(ActionEvent e) {
+                                        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                            @Override
+                                            public void handle(MouseEvent event) {
+                                                Menu.shopMenuView();
+                                            }
+                                        });
+                                    }
+                                };
+                                back.setOnAction(event2);
+                                Button plantPicOne = new Button ("this");
+                                plantPicOne.relocate (350,550);
+                                Button plantPicTwo =  new Button("this");
+                                plantPicTwo.relocate (550,550);
+                                Image plantImageOne = new Image("pics/cards/plantCustomCard1.jpg");
+                                ImageView plantImageOneView = new ImageView(plantImageOne);
+                                plantImageOneView.setFitWidth(100);
+                                plantImageOneView.setFitHeight(100);
+                                plantImageOneView.setX(300);
+                                plantImageOneView.setY(400);
+                                Image plantImageTwo = new Image("pics/cards/plantCustomCard2.jpg");
+                                ImageView plantImageTwoView = new ImageView(plantImageTwo);
+                                plantImageTwoView.setFitWidth(100);
+                                plantImageTwoView.setFitHeight(100);
+                                plantImageTwoView.setX(500);
+                                plantImageTwoView.setY(400);
+                                shopMenuRoot.getChildren().addAll(plantPicOne,plantPicTwo,plantImageOneView,plantImageTwoView);
+                                //TODO pic
+                                Gson gson = new GsonBuilder ().setPrettyPrinting ().create ();
+                                FileWriter fileWriter = null;
+                                try {
+                                    fileWriter = new FileWriter ("PlantCard/" +plant.getName ()+".json");
+                                    fileWriter.write (gson.toJson (plant));
+                                    fileWriter.close ();
+                                } catch (IOException e) {
+                                    e.printStackTrace ( );
+                                }
+                            }
+                        });
+                    }
+                };
+                done.setOnAction(event3);
+
+
             }
         });
 
