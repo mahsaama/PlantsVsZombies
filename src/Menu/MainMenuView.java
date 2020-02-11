@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -397,8 +398,47 @@ public class MainMenuView {
             }
     }
     public void showChatClicked(){
-        ChatMenuView chatMenuView = new ChatMenuView(Main.getClient());
-        Main.changeScene(chatMenuView.getChatMenuScene());
+        mainMenuRoot.getChildren ().clear();
+        mainMenuRoot.getChildren().add(backgroundImageView);
+        backgroundImageView.setEffect(blur);
+        Button back = new Button("Back");
+        back.setPrefSize(80, 50);
+        back.relocate(100, 600);
+        mainMenuRoot.getChildren().add(back);
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Menu.mainMenuView();
+                    }
+                });
+            }
+        };
+        back.setOnAction(event);
+        Label usernameLabel = new Label("Username:");
+        usernameLabel.relocate(100, 50);
+        TextField username = new TextField();
+        username.relocate(100, 75);
+        mainMenuRoot.getChildren().add(username);
+        mainMenuRoot.getChildren().add(usernameLabel);
+        Button ok = new Button("OK");
+        ok.setPrefSize(80, 50);
+        ok.relocate(200, 250);
+        mainMenuRoot.getChildren().add(ok);
+
+        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ok.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        ChatMenuView chatMenuView = new ChatMenuView(Main.stage, Main.client, username.getText());
+                    }
+                });
+            }
+        };
+        ok.setOnAction(event1);
     }
     public void showHelpClicked(String s){
         mainMenuRoot.getChildren ().clear();
