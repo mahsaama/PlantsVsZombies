@@ -1,15 +1,27 @@
 package Server;
 
+import com.google.gson.Gson;
+
 import java.net.Socket;
+import java.util.Formatter;
 
 public class Connection {
-    String id;
+    String username = "";
     Socket socket;
     ServerReader serverReader;
+    Formatter formatter;
+    long lastSeen = 0;
+    public static Gson gson = new Gson();
 
-    Connection(String id, Socket socket, ServerReader serverReader) {
-        this.id = id;
+    public void send(Message message) {
+        String json = gson.toJson(message) + "#";
+        formatter.format(json);
+        formatter.flush();
+    }
+
+    Connection(Socket socket, ServerReader serverReader) throws Exception {
         this.socket = socket;
         this.serverReader = serverReader;
+        this.formatter = new Formatter(socket.getOutputStream());
     }
 }

@@ -1,38 +1,48 @@
 package Server;
 
 import com.google.gson.Gson;
+import javafx.print.Printer;
+import javafx.scene.control.Label;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
+
 
 public class ClientReader {
     private Socket socket;
     private Scanner scanner;
+    private ClientHandler clientHandler;
 
-    public ClientReader(Socket socket) {
+    public ClientReader(Socket socket, ClientHandler clientHandler) throws Exception {
+        this.clientHandler = clientHandler;
         this.socket = socket;
-        try {
-            scanner = new Scanner(socket.getInputStream());
-            scanner.useDelimiter("#");
-        } catch (Exception e) {
+        scanner = new Scanner(socket.getInputStream());
+        scanner.useDelimiter("#");
 
-        }
         new Thread(() -> {
             try {
                 while (true) {
                     String json = scanner.next();
-//                    System.out.println(json);
+                    System.err.println(json);
                     Gson gson = new Gson();
-
                     Message message = gson.fromJson(json, Message.class);
-
-
                     switch (message.command) {
-                        case LIST:
-                            System.out.println(message.data);
+                        case INVALID_USERNAME:
+                            clientHandler.addResult(message);
+                            break;
+                        case SUCCESSFUL_LOGIN:
+                            clientHandler.addResult(message);
+                            break;
+                        case SHOW_USERS:
+                            clientHandler.showUsers(message);
                             break;
                         case CHAT:
-                            System.out.println(message.data);
+                            clientHandler.chat(message);
+                            break;
                     }
 
 

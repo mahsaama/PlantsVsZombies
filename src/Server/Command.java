@@ -3,7 +3,9 @@ package Server;
 
 public enum Command {
     LOGIN,
-    CHAT,
+    INVALID_USERNAME,
+    SUCCESSFUL_LOGIN,
+    SHOW_USERS,
     PING,
-    LIST
+    CHAT
 }
