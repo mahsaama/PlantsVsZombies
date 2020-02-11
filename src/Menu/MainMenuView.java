@@ -1,5 +1,6 @@
 package Menu;
 
+import Game.MessagingView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -354,7 +355,7 @@ public class MainMenuView {
             public void handle(MouseEvent event) {
                 clickedPlayer.play ();
                 clickedPlayer.seek(Duration.ZERO);
-                showHelpClicked("chat");
+                showChatClicked();
             }
         });
 
@@ -395,6 +396,10 @@ public class MainMenuView {
             else{
                 label.relocate(650 + (n-3)*200 ,610 );
             }
+    }
+    public void showChatClicked(){
+        MessagingView messagingView = new MessagingView();
+        Main.changeScene(messagingView.getMessageScene());
     }
     public void showHelpClicked(String s){
         mainMenuRoot.getChildren ().clear();
