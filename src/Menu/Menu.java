@@ -65,6 +65,10 @@ public class Menu extends Application {
         input = "";
     }
 
+    public static void setTempUser(User tempUser) {
+        Menu.tempUser = tempUser;
+    }
+
     public static void loginMenu(String input) {
         String order = input;
         String[] array = input.split(" ");
@@ -104,17 +108,21 @@ public class Menu extends Application {
     }
 
     private static boolean login(String username, String password) {
-        if (checkUsername(username)) {
-            if (checkPassword(username, password)) {
-                System.out.println("login successfully");
-                loginUser = getUserByName(username);
-                loginPlayer  = new Player (loginUser);
-                mainMenuView();
-                return true;
+        try {
+            if (LoginMenuView.checkUsername(username)) {
+                if (checkPassword(username, password)) {
+                    System.out.println("login successfully");
+    //                loginUser = getUserByName(username);
+    //                loginPlayer  = new Player (loginUser);
+                    mainMenuView();
+                    return true;
+                } else
+                    System.out.println("invalid password");
             } else
-                System.out.println("invalid password");
-        } else
-            System.out.println("invalid username");
+                System.out.println("invalid username");
+        } catch (IOException e) {
+            e.printStackTrace ( );
+        }
         return false;
     }
 
@@ -122,9 +130,10 @@ public class Menu extends Application {
         if (!checkUsername(username)) {
             User user = new User(username, password);
             users.add(user);
+            Shop.setFirstCards(user);
             LoginMenuView.saveAccountInfo (user);
             System.out.println("account <" + user.getUsername() + "> was created");
-            Shop.setFirstCards(user);
+
         } else
             System.out.println("invalid username");
 

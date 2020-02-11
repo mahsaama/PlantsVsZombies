@@ -425,9 +425,10 @@ public class LoginMenuView {
                                         str += " ";
                                         str += pass.getText();
                                         Menu.setLoginUser (user);
-                                        Menu.getUsers ().add (user);
-                                        Menu.loginMenu(str);
                                         Menu.setLoginPlayer (new Player (user));
+                                        Menu.setTempUser (user);
+                                        System.out.println (Menu.getTempUser ().getUsername () );
+                                        Menu.mainMenuView ();
                                     } else {
                                         taken.setText("invalid password!");
                                     }
@@ -453,7 +454,7 @@ public class LoginMenuView {
                                     str += username.getText();
                                     str += " ";
                                     str += pass.getText();
-                                    Menu.loginMenu(str);
+                                    Menu.loginMenu (str);
                                 }
                             } catch (IOException ex) {
                                 ex.printStackTrace ( );
