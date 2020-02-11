@@ -17,7 +17,7 @@ public class Message {
     public String from;
     public String to;
     public long chatId;
-    public long replyTo = -1;
+    public String replyTo;
     public String winner;
     public String loser;
     public ArrayList<Pair<String, Boolean>> scoreBoard;
@@ -98,7 +98,7 @@ public class Message {
         return message;
     }
 
-    static Message chat(String from, String to, String data, long replyTo) {
+    static Message chat(String from, String to, String data, String replyTo) {
         Message message = chat(from, to, data);
         message.replyTo = replyTo;
         return message;

@@ -17,10 +17,11 @@ public class Client {
     Socket socket;
     Formatter formatter;
     String username;
-    ClientHandler clientHandler;
+    private ClientHandler clientHandler;
+    Thread ping;
     public static Gson gson = new Gson();
 
-
+    public ClientHandler getClientHandler(){ return clientHandler;}
     public void send(Message message) {
         String json = gson.toJson(message) + "#";
         formatter.format(json);
@@ -71,7 +72,7 @@ public class Client {
     }
 
     public void pinging() {
-        new Thread(() -> {
+        ping = new Thread(() -> {
             while (true) {
                 try {
                     Thread.sleep(1000);
@@ -82,7 +83,8 @@ public class Client {
                 this.send(Message.ping(System.currentTimeMillis()));
             }
 
-        }).start();
+        });
+        ping.start();
     }
 
     public void gameRequest(String to) {
@@ -114,7 +116,7 @@ public class Client {
 
     }
 
-    public void reply(String to, String chat, long replyTo) {
+    public void reply(String to, String chat, String replyTo) {
         Message message = Message.chat(this.username, to, chat, replyTo);
         send(message);
     }
@@ -124,29 +126,4 @@ public class Client {
         send(message);
     }
 
-
-    public static void main(String[] args) {
-
-
-
-        try {
-            Client client1 = new Client();
-            Client client2 = new Client();
-            client1.connect();
-            client2.connect();
-            client1.login("1");
-            client2.login("2");
-
-            client1.showUsers();
-            client2.gameRequest("1");
-            client1.accept("2");
-            while (true){
-                Thread.sleep(1000);
-                client1.scoreBoard();
-                client2.sendChat("1", "hi loser!");
-            }
-        } catch (Exception e) {
-
-        }
-    }
 }
